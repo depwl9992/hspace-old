@@ -1,0 +1,655 @@
+& @SPACE
+
+  Usage: @space/<switch> [<parameters>]
+
+  The almighty @space command controls just about every
+  administrative aspect of the system.  There is no other command
+  in the software that allows so much.  The command has the
+  following switches:
+
+  ACTIVATE     ADDCONSOLE     ADDLANDINGLOC    ADDOBJECT
+  ADDSROOM     ADDSYS         ADDSYSCLASS      ADDWEAPON 
+  DELCLASS     DELCONSOLE     DELSROOM         DELUNIVERSE      
+  DELSYS       DELSYSCLASS    DUMPCLASS        DUMPWEAPON	
+  HALT         LIST           SETMISSILE       MOTHBALL
+  NEWCLASS     NEWUNIVERSE    REPAIR           SET
+  SETCLASS     SYSINFOCLASS   SYSINFO          SYSSET
+  SYSSETCLASS  START          CLONE	           ADDTERRITORY
+  NEWWEAPON    SETWEAPON      DELWEAPON        ADDHATCH
+  DELHATCH     ADDMESSAGE     DELMESSAGE       DELLANDINGLOC
+  OPTIONS      CONFIG         DELTERRITORY	   SAVE
+
+  For help on each command switch, refer to the help files
+  with the following syntax 'help @space-<switch>'.   
+
+& @SPACE-ADDHATCH
+
+  Usage: @space/addhatch <ship obj>=<exit>
+  
+  Specify <exit> as a new hatch for <ship obj>.
+
+  See Also: @SPACE-DELHATCH
+
+& @SPACE-DELHATCH
+
+  Usage: @space/delatch <ship obj>=<exit>
+
+  Removes <exit> as a boarding hatch for <ship obj>.
+
+  See Also: @SPACE-ADDHATCH
+
+& @SPACE-DELWEAPON
+
+  Usage: @space/delweapon <console>=<weapon #>
+
+  Deletes the weapon in the slot indicated by <weapon #> 
+  from the console indicated by <console>.
+
+  Ex:
+
+  > @space/delweapon gunnery turret=1
+
+& @SPACE-CLONE
+
+  Usage: @space/clone <ship>
+
+  Clones the ship represented by the object <ship>, including
+  rooms, exits, attributes on rooms and exits, and consoles.
+  The command returns the dbref of the new ship object and
+  places the new ship in the universe and location of the 
+  cloned ship.
+
+& @SPACE-SYSSETCLASS
+
+  Usage: @space/syssetclass <class ID>:<system>/<attr>=<value>
+
+  The @space/syssetclass works identically to the @space/sysset
+  command, except that it functions with ship classes instead of
+  individual ship.  Each HSpace engineering system has a set of
+  attributes that can be set and retrieved.  Ship classes are
+  responsible for providing default information to ships of their
+  class, and this includes default engineering system information.
+
+  Ex. @space/syssetclass 0:engines/acceleration=50
+
+  See also: @SPACE-SYSSET, HS-SYSTEMS
+
+& @SPACE-SYSSET
+
+  Usage: @space/sysset <object>:<system>/<attr>=<value>
+
+  The sysset command is similar to the @space/set command,
+  except that it works at the system level for the ship.  Systems
+  are smaller pieces located on an HSpace object (typically a 
+  ship) and not part of the standard attributes of an HSpace object.
+  Thus, it is necessary to specify the <object>, which is an
+  HSpace object, the <system>, which is the name of a system on 
+  that object (e.g. engines), the <attr>, which is a valid
+  attribute name for that system, and the <value> for that attribute.
+
+  Any attributes set at the individual ship system level override
+  those of the ship's class systems.  For example, the acceleration
+  rate of the engines of Class 0 may be 50.  By setting the acceleration
+  rate of the engines on Ship B, which is of Class 0, to 100, that ship
+  will no longer refer to Class 0's engine acceleration rate for
+  accelerating.  This is called "overriding" the class information.
+
+  Ex.  @space/sysset navigation console:engines/acceleration=100
+
+  See also: @SPACE-SYSSETCLASS, HS-SYSTEMS
+
+& @SPACE-SYSINFO
+
+  Usage: @space/sysinfo <object>=<system name>
+
+  Prints the current settings for the specified <system name>
+  on the given HSpace object -- usually a ship.  Each engineering
+  system has its own attributes that can be set and retrieved.
+  All systems are also derived from a base, generic engineering
+  system type.  Thus, base engineering system information is
+  printed along with specific information for that type of
+  engineering system.
+
+  See also: HS-SYSTEMS
+
+& @SPACE-SYSINFOCLASS
+
+  Usage: @space/sysinfoclass <class ID>=<system name>
+
+  Prints the current settings for the specified <system name>
+  on the class with the specified ship <class ID>.  Each 
+  ship class contains a list of default systems for ships of
+  that class.  Further, these systems must provide default system
+  values for the systems on those ships.  The @space/sysinfoclass
+  command allows system information for the classes to be retrieved.
+  
+  The <system name> should be one of the valid engineering systems
+  in HSpace.
+
+  See also: HS-SYSTEMS, @SPACE-ADDSYSCLASS, @SPACE-SYSSETCLASS
+
+& @SPACE-SETCLASS
+
+  Usage: @space/setclass <class ID>/<attr>=<value>
+
+  Like @space/set, the @space/setclass sets the <value> of
+  the specified <attr> but for the given <class ID> instead of
+  a given HSpace object.  This is useful only for ship classes,
+  which provide the foundation attributes for all ships in the
+  game.  Rather than setting attributes on each individual ship,
+  setting the attribute on the class allows all ships of that
+  class to use the value.  The only exception is when the class
+  attributes are "overridden" by using @space/set with the same
+  attribute name on the ship object.  The value is then set on
+  the specific ship instead of for the class.  Any changes to 
+  the same attribute on the class will no longer affect the ship.
+
+  See also: @SPACE-SET, @SPACE-SYSSETCLASS
+
+& @SPACE-SET
+
+  Usage: @space/set <object>/<attr>=<value>
+
+  Allows the specified <attr> on the given <object> to be set
+  to <value>.  All HSpace objects have attributes that can be
+  set and retrieved.  The @space/set command is a powerful tool
+  for changing the behavior and appearance of any HSpace object.
+  For a list of attributes for the various types of HSpace objects,
+  refer to HS-OBJECT-ATTRS.
+
+  For ships, attributes in the class of that ship can often be
+  "overridden" at the ship level to provide more individuality
+  for the ship.  For example, the ability to drop to a planet or
+  not is an attribute settable at the class level and also at the
+  ship level.  If the attribute is set on the ship, it overrides
+  any setting on the ship's class, allowing that ship to perform
+  unlike most ships of its class.  This remains in effect until
+  the attribute is reset on the specific ship by specifying no
+  <value> parameter for the given attribute.
+
+  Ex.  @space/set Navigation Console/name=USS Excalibur
+
+  See also: @SPACE-SETCLASS, @SPACE-SYSSET
+
+& @SPACE-REPAIR
+
+  Usage: @space/repair <object>
+
+  Completely repairs all parts of the specified <object>,
+  which is any HSpace object (typically a ship) that may be
+  damaged.  Any engineering systems belonging to that object
+  are also repaired.
+
+& @SPACE-SETMISSILE
+
+  Usage: @space/setmissile <object>/<weapon ID>=<value>
+
+  Manipulates the munitions storage on the specified <object>,
+  which is usually a ship, to set the current storage value for
+  the given <weapon ID> (a missile type) to the specified 
+  <value>.  The <weapon ID> is a the ID of the weapon in the
+  weapons database, which can be printed with the @space/list 
+  command.
+
+  If the type of weapon is not already found in the object's
+  munitions storage (missile bay), then the type is added to 
+  the storage and the max value set.
+
+  If the value of the storage is greater than the current
+  maximum storage value, the maximum value is raised to the
+  value given.  If the value is 0 or less, that type is 
+  removed from the missile bay.
+
+  See also: @SPACE-LIST, @SPACE-ADDWEAPON
+
+& @SPACE-HALT
+ 
+  Usage: @space/halt
+
+  Halts the HSpace cycle, which moves ships and performs general
+  cyclic things.  This does not prevent players from using HSpace
+  comands, it only prevents HSpace from cycling.
+
+  See also: @SPACE-START
+
+& @SPACE-START
+
+  Usage: @space/start
+
+  Starts the main HSpace cycle, which is responsible for all 
+  cyclic activity in HSpace (e.g. moving ships, moving missiles,
+  sweeping for sensor contacts, etc.).  Without this cycle, nothing
+  in HSpace moves or gets updated.
+
+  See also: @SPACE-HALT
+
+& @SPACE-DUMPCLASS
+
+  Usage: @space/dumpclass <class ID>
+
+  Prints the information for the specified <class ID>, including
+  what the current attribute settings are for that class and 
+  what engineering systems the class possesses.
+
+  See also: @SPACE-ADDSYSCLASS, @SPACE-SETCLASS,
+            @SPACE-SYSSETCLASS
+
+& @SPACE-DUMPWEAPON
+
+  Usage: @space/dumpweapon <weapon ID>
+
+  Prints the information for the specified <weapon ID>, including
+  what the current attribute settings are for that class and 
+  what engineering systems the class possesses.
+
+  See also: @SPACE-NEWWEAPON, @SPACE-SETWEAPON
+
+
+& @SPACE-DELSROOM
+
+  Usage: @space/delsroom <object>=<room #>
+
+  Deletes the given <room #> from the list of srooms for the
+  specified <object>, typically a ship object.
+
+  See also: @SPACE-ADDSROOM
+
+& @SPACE-DELCLASS
+  
+  Usage: @space/delclass <class ID>
+
+  Deletes the specified class of type <class ID> from the game.
+  This can only be performed after all ships of the given class
+  are changed to a new class or deleted from the game.
+
+  See also: @SPACE-NEWCLASS
+
+& @SPACE-ADDWEAPON
+
+  Usage: @space/addweapon <console>=<weapon ID>
+
+  Adds a weapon of type <weapon ID> to the specified HSpace
+  console.  Only consoles can possess weapons, and all consoles
+  are "things" in the game.  A console can possess any type of
+  HSpace weapon.
+
+& @SPACE-ADDSROOM
+
+  Usage: @space/addsroom <object>=<room>
+
+  Adds a "sroom" to the given HSpace <object>, which is typically
+  a ship.  Srooms stand for "ship rooms" are are nothing more than
+  the rooms the make up a vessel.  By registering your ship rooms
+  with the given ship <object>, HSpace will be able to determine
+  which game rooms belong to your ship.  Thus, when the ship is
+  destroyed, players in the rooms can be killed.  Messages are 
+  also sent to all rooms on the ships sometimes, so any non-
+  registered rooms won't receive these messages.
+
+  See also: @SPACE-DELSROOM
+
+& @SPACE-ADDCONSOLE
+
+  Usage: @space/addconsole <ship obj>=<console>
+
+  Adds a new HSpace console, specified by the name or
+  dbref of <console>, to the specifed <ship obj>, which represents
+  an HSpace ship in the game.
+
+  Consoles can use any of the HSpace commands (includng @space if
+  the console is set with the WIZARD flag) to perform a variety
+  of functions.
+
+  See also: HS-CONSOLES, @SPACE-DELCONSOLE
+
+& @SPACE-DELCONSOLE
+ 
+  Usage: @space/delconsole <console>
+ 
+  Deletes the specified console from the ship/space system.  Does not
+  actually destroy the MUSH object representing the space system.
+ 
+
+& @SPACE-ADDLANDINGLOC
+
+  Usage: @space/addlandingloc <object>=<room>
+
+  Adds a new landing location (a bay or drop pad), represented
+  by <room> to the given HSpace <object>, which may be a ship or
+  a planet.
+
+  Like all HSpace objects, landing locations have their own
+  attributes that can be set and retrieved.  Ships and planets
+  can support up to 15 landing locations at one time.
+
+  See also: HS-LANDINGLOC-ATTRS
+
+& @SPACE-DELLANDINGLOC
+
+  Usage: @space/dellandingloc <object>=<room>
+
+  Removes a landing location (a room) that was previously added
+  to the specified <object>.
+
+&@SPACE-NEWCLASS
+
+  Usage: @space/newclass <name>
+
+  The @space/newclass command allows a new ship class to be
+  added to the game.  The <name> parameter specifies the name
+  for the new class.
+
+  Once a new class is created, its attributes must be set, and
+  engineering systems must be added to it.
+
+  For example:
+
+    1) @space/newclass Test Class 1  (creates class 0)
+    2) @space/setclass 0/maxhull = 300
+    3) @space/addsysclass 0=Internal Computer
+    4) @space/sysinfoclass 0=Internal Computer
+    5) @space/syssetclass 0:intern/tolerance=1
+
+  See also: @SPACE-SETCLASS, @SPACE-SYSSETCLASS, 
+            @SPACE-ADDSYSCLASS, @SPACE-DELCLASS
+
+&@SPACE-NEWUNIVERSE
+
+  Usage: @space/newuniverse <room #>
+
+  Creates a new universe, represented by the room with the
+  specified <room #>.  Each universe in HSpace must have
+  a room in the game that corresponds to it.  Do NOT delete
+  this room once the universe is created.
+
+  Universes allow HSpace objects to exist because every
+  HSpace object must belong to a universe.
+
+  See also: @SPACE-DELUNIVERSE, HS-UNIVERSES
+
+&@SPACE-DELUNIVERSE
+ 
+  Usage: @space/deluniverse <#>
+
+  Deletes the universe specified by the supplied <#>.
+  Universes must be completely empty before they are
+  deleted.
+
+  See also: @SPACE-LIST, @SPACE-NEWUNIVERSE, HS-UNIVERSES
+
+&@SPACE-LIST
+
+  Usage: @space/list <database>
+
+  Allows items in the specified <database> to be listed.
+  The <database> argument may be one of the following:
+
+  Objects:  @space/list objects/<uid>=<type>
+ 
+    Where <uid> is a universe ID and <type> is a type
+    of HSpace object. 
+
+  Weapons:  @space/list weapons
+  Classes:  @space/list classes
+  Destroyed: @space/list destroyed
+  Universes: @space/list universes
+
+  See also: HS-TYPES
+
+&@SPACE-ADDSYSCLASS
+ 
+  Usage: @space/addsysclass <class>=<system>
+
+  Adds the specified <system> to the specified <class> ID.
+  The <system> parameter must be the name of a valid ship
+  system.
+
+  Ex: @space/addsysclass 0=int
+
+  Notice that the name "Internal Computer" can be abbreviated
+  as simply "int."  HSpace uses the first system name matched
+  by the specified <system> parameter.  Thus, int, in, inter,
+  internal computer all work for the Internal Computer name.
+
+  After a system is added to a class, ships of that class will
+  not reflect the changes after setting the system up and adding
+  system to all ships of this class they will have right settings.
+  This is because since v4.02 systems are saved for each ship spe-
+  cificly to provide the ability to edit each ship seperately.
+
+&@SPACE-ADDSYS
+ 
+  Usage: @space/addsys <object>=<system>
+
+  Adds the specified <system> to the specified ship.
+  The <system> parameter must be the name of a valid ship
+  system.
+
+  Ex: @space/addsys #50=int
+
+  Notice that the name "Internal Computer" can be abbreviated
+  as simply "int."  HSpace uses the first system name matched
+  by the specified <system> parameter.  Thus, int, in, inter,
+  internal computer all work for the Internal Computer name.
+
+&@SPACE-DELSYS
+
+  Usage: @space/delsys <object>=<system>
+
+  Removes <system> from the specified ship.
+  The <system> parameter must be the name of a valid ship
+  system.
+
+&@SPACE-DELSYSCLASS
+
+  Usage: @space/delsysclass <class #>=<system>
+
+  Removes <system> from the specified <class> ID.
+  The <system> parameter must be the name of a valid ship
+  system.
+
+  The changes will only apply to NEW ships with this class
+  old ships will have to have the system @space/delsyssed
+  from them or attributes set on their own systems since
+  attributes derrived from class are deleted.
+
+&@SPACE-SYSSETCLASS
+
+  Usage: @space/syssetclass <class>:<system>/<attr>=<value>
+
+  Sets the value of a given attribute for the specified system
+  on the specified ship class ID.  After an engineering system
+  is added to a ship class, its variables must be set.  For
+  example:
+
+    @space/syssetclass 0:reactor/max output=100
+
+  The above command sets the maximum reactor output to 100 MW
+  for ship class 0.
+
+  See also: @SPACE-SYSSET
+
+&@SPACE-SYSSET
+
+  Usage: @space/sysset <obj>:<system>/<attr>=<value>
+
+  Sets the attribute value of a given system on the specified
+  HSpace object (typically a ship).  This can be used to either
+  change the current value (e.g. damage) of a variable on 
+  the system or to override the value specified in the base
+  ship class.
+
+    Ex.  @space/sysset Test Ship:reactor/damage=0
+
+  See also: @SPACE-SYSSETCLASS
+
+&@SPACE-ADDOBJECT
+
+  Usage: @space/addobject <thing>=<type>
+
+  Adds a new HSpace object to HSpace of the given <type>.  The
+  <thing> parameter must be a MUSH object that was created with
+  the @create command.  Do not destroy this MUSH object while
+  the HSpace object still exists.  You should destroy the
+  HSpace object first with @space/mothball and then @nuke the
+  MUSH object.
+
+  Ex.  @space/addobject Wormhole Alpha=4 
+  
+  Do not use this command for ships.
+
+  See also: HS-TYPES, @SPACE-ACTIVATE, @SPACE-MOTHBALL
+
+&@SPACE-MOTHBALL
+
+  Usage: @space/mothball <thing>
+
+  Destroys the HSpace object associated with the MUSH object
+  <thing>.  The MUSH object is not destroyed, only the
+  HSpace object it represents.  Once an HSpace object is
+  mothballed, it is gone forever.
+
+  Ex.  @space/mothball Test Ship
+
+&@SPACE-ACTIVATE
+
+  Usage: @space/activate <thing>=<class>
+
+  Activates <thing> as a ship with the given <class> 
+  identifier.
+
+  Ex.  @space/activate Test Ship=0
+
+  The specified class must have already been created.  The
+  <thing> is a MUSH object that will represent the ship. 
+  In HSpace 3.x this was referred to as the ship object, and
+  the navigation console was the heart of the ship.  In 
+  HSpace 4.0 and later the shipobj is the heart of the ship,
+  and the navigation console is like any other console on
+  the ship.
+
+  The <thing> will be placed in rooms as the ship moves from
+  active space to docking and landing locations.  When docked
+  or landed, <thing> will be placed in that room where the
+  ship has landed.  Players can use the board command with the
+  object to board the ship.
+
+  Once the object is activated as a ship, consoles can be 
+  added to it and attributes can be set for it.  !! DO NOT !!
+  use the <thing> as a console.  Because it is automatically
+  moved around the game by HSpace, it will normally not be available
+  for use as a console.
+
+  See also: HS-SHIP-ATTRS, @SPACE-MOTHBALL
+
+&@SPACE-ADDTERRITORY
+
+  Usage: @space/addterritory <object>=<type>
+
+  Adds a new territory to space, represented by the MUSH object
+  <object>.  Type <type> must be a valid territory type, which is
+  0 for radial and 1 for cubic.
+
+  See Also: HS_TERRITORIES, TERRITORY-ATTRS, TERRITORY-SETUP
+ 
+& @SPACE-DELTERRITORY
+ 
+  Usage: @space/delterritory <territory>
+  
+  Deletes the specified territory from the space system.  The MUSH
+  object is not removed but only the reference to the territory 
+  within the space system.
+
+&@SPACE-NEWWEAPON
+
+  Usage: @space/newweapon <type>=<name>
+
+  Adds a new weapon to the list of available ship weapons.  The
+  <type> must be a valid weapon type, and the <name> is the initial
+  name of the weapon.  You can use @space/setweapon to set the
+  attributes on the new weapon after creation.
+
+  Valid weapon types:
+  	0 = Laser
+	1 = Missile
+
+  See Also: HS-WEAPONS, HS-WEAPON-ATTRS
+
+&@SPACE-SETWEAPON
+
+  Usage: @space/setweapon <id>/<attr>=<value>
+
+  Sets an attribute value for the specified weapon <id>, which may 
+  be listed with the @space/list command.  The <attr> must be a
+  valid attribute for that type of weapon, and <value> is the new
+  value for that attribute.
+
+  See Also: HS-WEAPON-ATTRS, HS_WEAPON_ATTR()
+
+&HS-MESS-TYPES
+ 
+  These are the types of messages consoles in HSpace
+  can receive:
+
+  # Name
+  0 General
+  1 Sensors
+  2 Engineering
+  3 Combat
+  4 Communications
+
+&@SPACE-ADDMESSAGE
+
+  Usage: @space/addmessage <console>=<message type>
+
+  This sets <console> to receive messages of type <type>, <type>
+  being the number of the desires HSpace Message Type. All
+  consoles can always hear general messages thus this is not
+  a valid message type. Also consoles with nothing set can
+  receive all messages, thus acting like all consoles did
+  before HSpace v4.12.
+
+  See also: HS-MESS-TYPES @SPACE-DELMESSAGE
+
+&@SPACE-DELMESSAGE
+
+  Usage: @space/delmessage <console>=<message type>
+
+  This sets <console> to no longer receive messages of type 
+  <type>, <type> being the number of the desires HSpace Message 
+  Type. All consoles can always hear general messages thus this 
+  is not a valid message type. Also consoles with nothing set can
+  receive all messages, thus acting like all consoles did
+  before HSpace v4.12.
+
+  See also: HS-MESS-TYPES @SPACE-ADDMESSAGE
+
+& @SPACE-OPTIONS
+ 
+  Usage: @space/options
+ 
+  Lists currently configured options as set in the hspace.cnf file.
+ 
+& @SPACE-CONFIG
+ 
+  Usage: @space/config <option>=<value>
+ 
+  Used to set run-time configuration files where option is one of the
+  normal options allowed in the hspace.cnf file and will be set to 
+  the value supplied.  This value is only useful during the current
+  operation and will be lost if the game is restarted.  Permanent 
+  modifications should be set within the configuration file.  
+  
+& @SPACE-SAVE
+ 
+  Usage: @space/save
+
+  Performs a database dump of just the space databases including the
+  weapon, class, universe, territory, and object databases.  This command
+  does cause the main game database to dump.
+ 
+
+ 
+  
+
+

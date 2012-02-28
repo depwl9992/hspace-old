@@ -1,0 +1,360 @@
+& @eng 
+ 
+ ENGINEERING COMMANDS:
+
+ @eng takes the following switches:
+
+ SELFDESTRUCT	SETSYSPOWER		SHIPSTATS
+ SYSTEMREPORT	SYSTEMPRIORITY  CREWREP
+ ASSIGNCREW
+  
+ Use 'help @eng-<switch>' for information on a specific switch.
+
+& @eng-selfdestruct 
+ Usage: @eng/selfdestruct <seconds>=<boarding code>
+
+ Initiates the vessel's self destruct sequence if given the proper boarding
+ code.   After <seconds> have elapsed, the ship will be destroyed and all
+ people on board the vessel will be killed.   A warning message will be 
+ issued to all occupants when the following time remains:
+
+ - 1 hour 
+ - 20 minutes 
+ - 5 minutes
+ - 1 minutes
+ - 30 seconds
+ - 20 seconds
+ - 10 seconds, and each second below
+ 
+ The ASELFDESTRUCT attribute is invoked when the ship is destroyed.
+
+& @eng-setsyspower %0=%1<%>
+  Usage: @eng/setsyspower <system name>=<megawatts>
+
+  This sets the megawatts of power allocated to <system name> on the
+  ship. If insufficient power is available, the command will fail. 
+  System names may be abbreviated.
+
+& @eng-shipstats
+  Usage: @eng/shipstats
+
+  This gives the engineering status display for the vessel.  Similar
+  to the navigation report.
+
+& @eng-systemreport
+  Usage: @eng/systemreport
+
+  Displays a list of systems currently present on the ship including 
+  information about their status, damage, and current power allocation.
+
+& @eng-systempriority
+  Usage: @eng/systempriority <system name>=<-1 | 1>
+  
+  Changes the system priority for the specified system.  The <system
+  name> must be present on the ship.  The priority can be changed 
+  upward by using a <1> as the second argument or downward via -1.
+  System priority is used when the ship loses power.   When that
+  occurs, the ship's computer will begin deallocating power from systems
+  at the top of the priority list.   Systems that should not lose power
+  immediately should be at the bottom of the priority list.
+
+& @eng-crewrep
+  Usage: @eng/crewrep
+
+  Displays a report of current damange control crew status. 
+
+  See also: '@eng-assigncrew'.
+
+& @eng-assigncrew 
+  Usage: @eng/assigncrew  <#>=<system name>
+
+  This command assigns <#> of damage control crewman to work on 
+  <system name>.  As with all engineering commands, <system name>
+  may be abbreviated.
+
+& @nav
+  Usage: @nav/<switch> [<arguments>]
+
+  @nav takes the following switches:
+
+  AFTERBURN    BOARDLINK    BOARDUNLINK    CLOAK        GATE
+  HSTAT        JUMP         LAND           MAPRANGE     SCAN
+  SETHEADING   SENSORREPORT SETROLL        SETVELOCITY  STATUS
+  SVIEW        TAXI         TRACTORDOCK    TRACTORLOCK  TRACTORMODE
+  TRACTORUNLOCK UNDOCK       VIEW
+
+  See 'help @nav-<switch>' for information on each command.
+
+& @nav-afterburn
+  Usage: @nav/afterburn <0/1>
+
+  This command is used to engage the afterburners with an argument
+  of 1 or disengage them with a 0.   Afterburn mode basically dumps
+  additional fuel into the engines to create additional thrust.
+  While it significantly increases speed, fuel efficieny can drop.
+
+& @nav-boardlink
+  Usage: @nav/boardlink <contact>/<local port>=<remote port>
+
+  @nav/boardlink attempts to establish a boarding link with the
+  ship represented by its <contact #>.  The link, if successful,
+  will be established between the <local port> on the enacting
+  ship and the <remote port> on the other vessel.
+
+& @nav-boardunlink
+  Usage: @nav/boardunlink <local port>
+
+  This command breaks the current boarding link on <local port>
+
+& @nav-cloak
+  Usage: @nav/cloak <0 | 1>
+
+  @nav/cloak engages the vessel's cloaking device when the argument 
+  is a 1 and disengages with a 0.
+
+& @nav-gate 
+  Usage: @nav/gate <contact #>
+
+  @nav/gate will attempt to gate through <contact #>.
+
+& @nav-hstat
+  Usage: @nav/hstat
+
+  Displays a hatch status report.
+
+& @nav-jump 
+  Usage: @nav/jump <0 | 1>
+
+  Engages or disengages the jump drives.   This command will fail
+  if jump drives are not present.
+
+& @nav-land
+  Usage: @nav/land <contact #>/<location #>
+
+  This command will begin landing the vessel on the planet represented
+  by <contact #> at the location designated by <location #>.
+
+& @nav-maprange
+  Usage: @nav/maprange <range>
+
+  @nav/maprange changes the scale and limits of the navigation map.  The
+  <range> indicates how far from the ship objects are included in the 
+  map.   A small range will 'spread out' close contacts on the map. A 
+  large range will group contacts in close proximity to one another.
+
+& @nav-scan
+  Usage: @nav/scan <contact #>
+
+  Provides a report detailing information about <contact #>  The 
+  contact number is taken from the @nav/sensorreport for the 
+  vessel doing the scanning.
+
+& @nav-setheading
+  Usage: @nav/setheading <xy angle>=<z angle>
+
+  Changes the vessel's current course to <xy angle> and <z angle>. 
+  The XY value must be from 0-359 degrees and the Z angle can range
+  from -90 to 90 degrees.   
+
+& @nav-sensorreport
+  Usage: @nav/sensorreport <type>
+
+  This displays a sensor report for the current vessel.   <type> is
+  one of the current HS-TYPES.   A type of non-zero will only display
+  HSpace obects of that type in the report.   A type of zero reports
+  all current sensor contacts.
+
+  See also: HS-TYPES
+
+& @nav-setroll
+  Usage: @nav/setroll <0-359>
+
+  Sets the roll of the ship from 0-359 degrees.   
+
+& @nav-setvelocity
+  Usage: @nav/setvelocity <velocity>
+
+  Sets the velocity of the ship to <velocity>.  Velocity should be
+  between 0 (stopped) and the maximum velocity of the ship.
+
+& @nav-status.
+  Usage: @nav/status
+
+  Displays a navigation status report for the ship.
+
+& @nav-sview
+  Usage: @nav/sview <contact #>
+
+  Displays the description of the HSpace object represented by
+  <contact #>.
+
+& @nav-taxi
+  Usage: @nav/taxi <direction>
+
+  Taxis the ship through an exit as specified by <direction>.  Can
+  only be used when the vessel is landed or docked.
+
+& @nav-tractordock
+  Usage: @nav/tractordock <bay #>=<contact #>
+
+  Docks <contact #> into <bay #> using a tractor beam.
+
+& @nav-tractorlock
+  Usage: @nav/tractorlock <contact #>
+
+  Locks the tractor beam onto <contact #>.
+ 
+& @nav/tractorunlock
+ 
+  Usage: @nav/tractorunlock
+ 
+  Unlocks the tractorbeam if currently locked on a target.
+ 
+& @nav-tractormode
+  Usage: @nav/tractormode <mode>
+
+  Specifies the mode to which the tractor be be set.   Modes must be
+  specified by number as follows:
+
+  0: Tractor
+  1: Repulse
+  2: Hold
+ 
+  See also: HS-TRACTOR
+
+& @nav-undock
+  Usage: @nav/undock 
+
+  Undocks the vessel from its current location, which must be either a
+  docking bay or a landing pad.
+
+& @nav-view
+  Usage: @nav/view 
+
+  Provides a description of the surrounding area where the vessel is
+  currently docked or landed.   This is useful with the taxi command.
+
+& @console
+  Usage: @console/<switch>
+
+  @console is used for commands not directly associated with either 
+  engineering (@eng) or navigation (@nav) consoles.   Many of these
+  commands are useful for gunnery type consoles.  @console takes
+  the following switches:
+
+  AUTOLOAD      AUTOROTATE    CONFIGURE     FIRE      GREP
+  HEAD          LOAD          LOCK          POWER     QREP
+  TARGET        UNLOAD        UNLOCK
+
+  See 'help @console-<switch>' for details.
+
+& @console-autoload
+  Usage: @console/autoload <0/1>
+
+  Sets the console's autoloading status to either on (1) or off (0).  
+  If set to on, the console will automatically attempt to load any 
+  loadable weapons after they are fired.   If no munitions for that
+  weapon remain, the autoload will fail.
+
+& @console-autorotate
+  Usage: @console/autorotate <0/1>
+
+  Sets the console's autorotating status to on (1) or off (0).   
+  Autorotating is a convenient way to avoid manually changing the
+  heading of the console each time you want to attack a target on sensors.
+  If autoloading is turned on, the console automatically determines the 
+  heading needed to attack the target and attempts to turn to that
+  heading.
+
+& @console-configure
+  Usage: @console/configure <weapon #>=<munition #>   
+
+  Attempts to configure <weapon #> on the gunnery report to use
+  <munition #>.   <munition #> is the type of munition in the ship's 
+  storage.   Typically, the weaponh must be empty before it can be
+  configured.   Once configuration is complete, the weapon will load
+  and fire the munition type specified.
+
+& @console-fire
+  Usage:  @console/fire <weapon #> [=<0|1>]
+
+  Attempts to fire <weapon #> as given on the gunnery report.   This
+  assumes that weapons are present.   Some weapons may require a target
+  lock, others may not.
+ 
+  If a second argument is given, the weapon will use that information 
+  to determine if it hits or misses.  Specifying a 0 as the second argument
+  will cause an automatic miss.  A 1 will cause laser shots to hit if all
+  other checks (distance, in-cone, etc.) are passed.  Missile weapons utilize
+  movement to determine if they hit so a 1 will not affect that performace.
+  Specifying a miss will, however, not allow the missile to hit.
+
+& @console-grep
+  Usage: @console/grep
+
+  For consoles controlling weapons, this command gives a gunnery 
+  report, indicating which weapons are present, their status, weapon 
+  attributes, ahnd other information.   Information about the 
+  ship's munition storage is also displayed.
+
+& @console-head 
+  Usage: @console/head <XY Angle>=<Z Angle>
+
+  Identicial to @nav/setheading except it modifies the heading for the
+  console rather than the ship.   
+
+  See also: @nav-setheading, HEAD
+
+& @console-load 
+  Usage: @console/load <weapon #>
+
+  Attempts to load <weapon #> as determined from the gunnery report.
+  This is dependent on sufficient munitions being present and the
+  weapon being capable of being loaded.
+
+& @console-lock
+  Usage: @console/lock <contact #>
+
+  Locks the console's weapons, if available, on the the target object
+  as represented by <contact #>  The contact must be within range of the 
+  console's weapons, which is determined by the weapon on the console 
+  with the maximum range.
+
+& @console-power
+  Usage: @console/power <0|1>
+
+  Turns the console on (1) or off (0).  This is required prior to 
+  using any navigation or console command.   Engineering consoles do
+  not require console power. 
+
+& @console-qrep
+  Usage: @console/qrep
+
+  Displays a gunnery heads-up for the current target lock.   Information
+  displayed includes location of the target relative the current console
+  heading.  It also includes the console's current heading and target
+  status.
+
+& @console-target 
+  Usage: @console/target <system name>
+
+  Attempts to target the given <system name> on the target object.  Any
+  weapons on the console that support system targetting will attempt to
+  do damage to that system on the enemy object.  Not all weapons support
+  system targeting.   To break a system target lock, use "none" for the
+  <system name>.
+
+& @console-unload 
+  Usage: @console/unload <weapon #>
+
+  Attempts to unload the currently loaded <weapon #>.   This only applies
+  to loadable weapons.  Once unloaded, the munition from the weapon is
+  placed back into the ship's storage for later use.
+
+& @console-unlock
+  Usage: @console/unlock
+
+  If the console is currently locked onto a target object, the lock is
+  disengaged.  This need not be used before issuing another @console/lock
+  command.   If the console had a previous lock, the lock is changed to 
+  the new target.

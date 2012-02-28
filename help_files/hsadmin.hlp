@@ -1,0 +1,1037 @@
+& HSADMIN
+
+  These HSpace administrative documents are techinical documents.  While
+  they may include some discussion of approaches and various tips for
+  running HSpace, they are intended more as a reference guide for command
+  usage and step by step management of the various HSpace components.
+
+  This guide is divided into the following sections:
+
+  HS-QUICKSTART   HS-FUNCTIONS    HS-OBJECTS      HS-CLASSES
+  HS-SYSTEMS      HS-UNIVERSES    HS-TYPES        HS-CONSOLES 
+  HS-WEAPONS      HS-SHIELDS      HS-TERRITORIES  HS-HATCHES
+  HS-ATTRIBUTES
+
+  CLASS PICTURES
+  
+  Type 'help <section>' for information on each section.
+
+& HS-ATTRIBUTES
+
+  There are a variety of miscellaneous attributes that can be set on
+  various HSpace objects to provide customization.  The following is
+  an attempt to list all attributes not covered in other sections of this
+  guide:
+
+  Ship Object Attributes:
+
+  HSMSG_LANDING_APPEARS: Msg when ship first appears in sky above 
+	 a landing location. (planet) 
+  HSMSG_LANDING_LANDS: Msg used when ship touches down on the 
+	the landing location. (planet) 
+  HSMSG_DOCKING_DOCKS: Msg used when ship docks on another ship. 
+  HSMSG_UNDOCK_START: Msg used when ship prepares to undock from 
+	another ship. 
+  HSMSG_UNDOCK_FINAL: Msg used when the ship departs from the 
+	other ship. 
+  HSMSG_TAKEOFF_START: Msg used when a ship activates lift rockets 
+	or equivalent. (planet) 
+  HSMSG_TAKEOFF_LIFTOFF: Msg used when ship first lifts off surface 
+	of the planet. 
+  HSMSG_TAKEOFF_FINAL: Msg used when ship disappears from view 
+	as it rises from the surface of the planet.
+  BAY: Dbref of the room on the ship where a player boards.
+
+  Console Attributes:
+
+  ROOM_BROADCAST: Specifies that all messages delivered to a console
+	should be broadcast to the room instead of the console user.
+
+& HS-TERRITORIES
+
+  What is a territory?  A territory is some piece of space,
+  defined by specified boundaries.
+
+  HSpace models space territories through one of two ways.  These
+  are radial and cubic territories.  A radial territory defines a
+  center of the territory and a radius to which the boundaries
+  extend from that center.  A cubic territory defines a minimum and
+  maximum set of 3D coordinates (6 coordinates in all) that define
+  a cube in space.
+
+  When a ship travels, HSpace looks through the territories in the
+  game to determine which territory the ship is in.  If the ship
+  enters or leaves a territory, a message is displayed to the console
+  users on the ship.  Further, HSpace triggers an attribute on the
+  game object representing the territory, which can be useful for
+  softcoding border alerts, welcome messages, etc.
+
+  The ENTER and LEAVE (@enter, @leave) messages are displayed to
+  console users on the ship when entering or leaving a territory,
+  and the AENTER and ALEAVE attributes are likewise triggered.
+
+  See Also: TERRITORY-SETUP, TERRITORY-ATTRS
+ 
+& TERRITORY-SETUP
+
+  Setting up a territory is much like setting up any other object
+  in HSpace.  You first need to create a game object to represent
+  your territory.  Perform the following steps for a radial 
+  territory:
+
+  1) @create My Territory
+  2) @space/addterritory My Territory=0 (0 radial .. 1 for cubic).
+  3) @space/set My Territory/uid=0 (Specify UID # for your universe)
+  4) @space/set My Territory/cx=0
+  5) @space/set My Territory/cy=0
+  6) @space/set My Territory/cz=0
+  7) @space/set My Territory/radius=1000
+
+  There you go!  You now have a radial territory with its center
+  at 0,0,0 and a radius of 1000 units.  To set the entering and
+  leaving messages, just set the ENTER and LEAVE attributes on the
+  object to some messages.  If you want, you can set the AENTER
+  and ALEAVE attributes with some code that gets run when a ship
+  enters or leaves.
+  
+  See Also: HS-TERRITORIES, TERRITORY-ATTRS
+
+& TERRITORY-ATTRS
+
+  The following territories have the following attributes that
+  can be set or retrieved.
+
+  Radial::
+  - CX: The central X coordinate.
+  - CY: The central Y coordinate.
+  - CZ: The central Z coordinate.
+  - RADIUS: The radius of the territory boundaries.
+  - UID: The universe ID of the territory.
+
+  CUBIC:
+  - MINX: Minimum X coordinate of the boundaries.
+  - MINY: Minimum Y coordinate of the boundaries.
+  - MINZ: Minimum Z coordinate of the boundaries.
+  - MAXX: Maximum X coordinate of the boundaries.
+  - MAXY: Maximum Y coordinate of the boundaries.
+  - MAXZ: Maximum Z coordinate of the boundaries.
+  - UID : The universe ID of the territory. 
+
+  See Also: @SPACE-SET, HS_GET_ATTR(), HS_SET_ATTR()
+
+& HS-WEAPONS
+
+  Weapons in HSpace provide the essential means for intervessel
+  combat, and thus may vary in nature.  While most weapons will
+  be provided by the HSpace software, it is entirely possible
+  to create your own, softcoded weapons using the provided HSpace
+  interface functions.  Querying and damaging systems can easily
+  be performed, making softcoded weapons possible.  This help
+  file will clearly only discuss weapons provided with the HSpace
+  software.
+
+  All weapons are stored in the weapondb located in your game/space/
+  directory.  The following types of weapons are currently
+  supported:
+
+  Lasers   :  Energy based weapons in the form of a gun.  These
+              weapons fire blasts of energy at the target and
+              may or may not be strong enough to break through
+              the target's shields.
+
+  Missiles :  Also known as torpedos, these are large projectile
+              weapons that must be loaded onto a hardpoint and
+              fired at the target.  Missiles are limited in 
+              supply.  They also possess a limited "turning rate,"
+              which means they must steer toward a target.  This
+              also makes it possible to evade less maneuverably
+              missiles.
+
+  See Also: HS-WEAPON-ATTRS, HS-LASER-ATTRS, HS-MISSILE-ATTRS
+            @space-newweapon, @space-setweapon, @space-addweapon
+
+& HS-QUICKSTART
+
+  Looking for a quick start for your day?  Here are some quickstart
+  answers to HSpace admin questions to get you moving along quickly.
+
+  Q: I've got HSpace installed, and I've rebooted my game.  Here
+     I am, what do I do?
+
+  A: Type @space.  You'll see all of the current HSpace information
+     presented to you.  You'll have no classes, no universes, no
+     ships, no planets, and some default weapons that HSpace
+     offers.  Your first step is to create a universe, so checkout
+     the 'help hs-universes' help file.
+
+  Q: What are the HSpace commands I'll want to know first?
+
+  A: There's one command you'll use, and she's called @space.
+     Refer to 'help @space' for the usage of this command and
+     all of the wonderful options it provides.
+
+  Q: Where can I set all of the configuration options I want for
+     HSpace?
+
+  A: HSpace comes with an hspace.cnf file that you can use to
+     configure HSpace.
+
+  Q: How do consoles interact with HSpace?
+
+  A: Checkout the 'help hs-consoles' help file, but here's your
+     answer.  Consoles use the @nav, @eng, and @console commands
+     to tell HSpace what they (or their users) want to do.
+
+  Q: Is HSpace hard to administrate?  Am I going to spend my life
+     trying to figure out how to do everything and get it all
+     setup?
+
+  A: We hope not!  Just keep a tight grip on that @space command
+     and follow the many examples in the help files, and you will
+     fairly easily setup your ships, planets, and other HSpace goodies.
+
+& HS-CONSOLES
+
+  Consoles in HSpace allow players to interact with objects in HSpace.
+  For example, a player on a ship may want to navigate that ship, so
+  a navigation console could be created with a set of commands to allow
+  the player to navigate the vessel.
+ 
+  In HSpace version 3.x and earlier, the navigation console was the
+  "heart" of any vessel.  In HSpace 4.0 this concept ceases to exist.
+  It is the "ship object" which is the heart of the ship.  All consoles
+  on a ship then belong to that ship object (a MUSH object). 
+
+  Any HSpace console can use any of the @nav, @eng, and @console commands,
+  thus allowing you to derive many types of consoles from navigation
+  to engineering and so on.
+
+  Consoles possess an added ability to make administration and
+  development of MUSH tools easier.  Most @space commands will work
+  on consoles as if those consoles were the ship.  For example,
+  using the @space/set command requires that the ship object be
+  specified, but any console on the ship can serve in its place.
+
+  See also: HS-CONSOLE-ATTRS, HS-CONSOLE-OFFSETS
+
+& HS-CONSOLE-ATTRS
+
+  Consoles provide the following attributes for setting and retrieving:
+
+  Settable Attributes:
+  XYHEADING : The current XY angle heading of the console.
+  ZHEADING  : The current Z angle heading of the console.
+  XYOFFSET  : The XY offset angle from the front of the ship.
+  ZOFFSET   : The Z offset angle from the front of the ship.
+  CAN ROTATE: A value of 1 if the console can change headings.
+              Otherwise, a value of 0.
+  FIRING ARC: Degrees of the firing arc of the console. (Default = 30)
+
+  Gettable Attributes:
+  CXYHEADING : The XY angle heading of the console.
+  CZHEADING  : The Z angle heading of the console.
+  XYOFFSET   : The XY offset angle from the front of the ship.
+  ZOFFSET    : The Z offset angle from the front of the ship.
+  CAN ROTATE : A value of  if the console can change headings.
+               Otherwise, a value of 0.
+  FIRING ARC : Degrees of the firing arc of the console.
+  LOCK       : The current sensor contact ID of the console
+               target lock.
+  WEAPONS    : A list of weapon types currently on the console.
+  USER       : DBRef of thing/player currently manning the console.
+  ISPOWERED  : 1 if the console is powered and 0 if not.
+
+  See also: HS-CONSOLE-OFFSETS
+
+& HS-CONSOLE-OFFSETS
+
+  HSpace consoles can serve many functions for the vessel they are
+  attached to.  They may serve as navigation consoles, engineering
+  consoles, communications consoles, or gunnery consoles.  For the
+  latter type, the gunnery console, it is desirable to have the
+  console turn as if it were a turret on a ship.  To this end HSpace
+  allows consoles to have XY and Z heading attributes that indicate
+  where they are currently facing (if we can imagine a huge gun
+  projecting out from the turret).  If the CAN ROTATE attribute of
+  a console is set to 1, the console can change its heading with
+  the @console/head command.  If set to 0, the console can not
+  change its heading, which may be appropriate if the guns are in
+  a fixed position or the console has no weaponry.  For example,
+  engineering consoles don't need to change headings -- there is no
+  purpose served by this feature.
+
+  Continued in HS-CONSOLE-OFFSETS2
+ 
+& HS-CONSOLE-OFFSETS2
+
+  The idea of a console offset is not quickly evident, but it will be
+  evident after a short explanation.  Every console that serves as a 
+  gunnery turret somewhere on the ship has a limited ability to turn
+  to various angles.  Even a turret located on the bottom of the ship
+  can only attack targets relatively below the ship.  Why?  Because
+  the bottom of the ship that the turret is attached to prevents
+  that turret from rotating upward, into the ship, and firing at
+  targets above the ship.  Thus, each turret has an effective 
+  "hemisphere" of rotate angles.  That is to say that it can rotate
+  to angles on its side of the ship, which is 90 degrees left, 90
+  degrees right, 90 degrees up, and 90 degrees down.  It cannot turn
+  120 degrees right because it would be pointing into the ship it
+  is attached to.
+  
+  Continued in HS-CONSOLE-OFFSETS3
+ 
+& HS-CONSOLE-OFFSETS3
+
+  But how do consoles know where they are located on a vessel?  We
+  must tell the console where it is located with the two offset
+  attributes.  The first, the XYOFFSET, indicates which side of the
+  vessel the console is on based on an offset value from the front of
+  the ship on the XY plane.  That is to say that when you are standing
+  in the middle of the ship, where is the console located to your
+  left and right?  A value of 0 indicates that the console is in
+  front of you (on the XY plane), while a value of 90 indicates
+  the console is directly to you right.  A value of -90 indicates the
+  console is directly to your left, and a value of 180 (or -180) 
+  indicates the console is located behind you.  Similarly, the ZOFFSET
+  attribute indicates where the console is located in the up and down
+  directions.  A value of 0 indicates the console is directly in
+  front of you, while values of 90 and -90 indicate the console is
+  either directly above you or directly below you.  Again, these are
+  OFFSET values from the front of the ship, such that XYOFFSET/ZOFFSET
+  values of 0 put the console at the front of the ship.  Whatever
+  offset values the console possesses indicates its natural heading.
+  Thus, offset values of 90/0 indicate that the console naturally
+  points 90 degrees clockwise from the current ship heading and 
+  in the same Z heading of the ship.  By specifying combinations of
+  the XY and Z offset values, you can position your console anywhere
+  on the sides of the vessel.
+
+  See also: HS-CONSOLE-ATTRS
+
+& HS-UNIVERSES
+
+  The universe is the spice.  The spice is the universe .. or
+  something like that.
+
+  A universe is just that .. a universe.  HSpace objects exist within
+  universes, so they have to exist before any objects can exist.  Whether
+  a ship is flying through space or sitting on the surface of a planet,
+  it belongs to a universe.
+
+  Each universe in HSpace relates to exactly one room in the game,
+  created for the sole purpose of having a universe in the game.  For
+  each universe that exists, there must exist a room for that universe.
+  This is needed for when ships are actively flying through space.  It
+  is also useful for looking at the room and the contents of that room
+  to see what objects are actively in the universe.
+
+  You may have many universes, or you may have one.  Often it is 
+  helpful to have at least two universes, one for real ships flying
+  through space, and one for simulator combat that shouldn't interfere
+  with the real universe(s).
+
+  See also: @SPACE-NEWUNIVERSE, @SPACE-DELUNIVERSE
+    
+
+& HS-SYSTEMS
+
+  Engineering systems in HSpace are very conveniently modeled
+  to provide the highest level of flexibility.  Objects, such as ships,
+  can often be very different from one another, and thus there is no
+  way to predict which engineering systems will be present on a given
+  space object.  For all of our examples, we will refer to ships, since
+  they are most likely to possess systems.
+
+  What is an engineering system?  An engineering system is really any
+  "system" on the ship that helps it function.  This may be a computer,
+  a sensor array, a fuel management system, shields, etc.  The list is
+  nearly endless, though fortunately it's not!  Systems can be given
+  power, or they may provide power, such as with a ship's reactor.
+  Systems may be stressed, and how easily they stress depends on how
+  tolerant they are.  Each engineering system at least possesses the
+  following attributes:
+
+  OPTIMAL POWER, TOLERANCE, STRESS, DAMAGE, CURRENT POWER, 
+  NAME, VISIBLE
+
+  Continued in HS-SYSTEMS2
+
+& HS-SYSTEMS2
+
+  "Visible" systems are those systems that you can interact with -- you 
+  can transfer power to and from it.  Not all systems are visible, such
+  as with an internal fuel management system.  It manages itself and 
+  doesn't let you touch it.
+
+  A ship may possess from none to many engineering systems, depending
+  on how functional that ship is.  For example, it may have jump drives,
+  allowing it to travel at faster than light (FTL) speeds.  It may, or
+  may not, have engines, allowing it to move at sublight speeds.  Many
+  systems are included in HSpace that can be added to some HSpace objects,
+  such as ships.
+
+  See also: @SPACE-ADDSYSCLASS, @SPACE-SYSSETCLASS, @SPACE-SYSSET,
+	    HS-SYSTEM-TYPES, HS-SYSTEM-ATTRS
+
+& HS-SYSTEM-TYPES
+
+  HSpace currently supports the following types of engineering
+  systems.  Most are recommended for the common space vessel.
+
+  Life Support  : Supplies life support to people on the ship.
+  Engines       : Moves the ship (possibly afterburn)
+  Jump Drive    : Allows the ship to travel in hyperspace
+  Warp Drive    : A StarTrek style warp drive system
+  Fuel System   : Provides fuel storage and allocation for the ship.
+  Reactor       : Provides power for the ship's engineering systems.
+  Fore Shield   : Protects the front of the ship.
+  Aft shield    : Protects the aft of the ship.
+  Starboard Shield: Protects the starboard side of the ship.
+  Port Shield   : Protects the port side of the ship.
+  Maneuv. Thrusters: Allows the ship to turn/maneuver.
+  Sensor Array  : Provides the ability to sensor sweep.
+  Internal Computer: Provides power to consoles and ship logic.
+  Cloaking Device: Provides the ability to hide ship from sensors.
+  Tachyon Sensors: Provides the ability to counter the effect of cloak.
+  Damage Control: Provides the ability to repair systems in flight.
+  Comm. Jammer  : Provides the ability to block comms within its range.
+  Tractor Beam  : Provides the ability to tractor/repulse/hold other ships.
+  Fictional Sys : Allows an admin to add a system and give it any name
+                  he/she likes and set optimal power, usefull for soft-
+                  coding extra effects, no hardcode effects.
+
+  It is important to note that the absence of port and starboard shields
+  leaves the fore and aft shields to protect the entire ship.  Thus,
+  the starboard and port shields are not required to fully protect the
+  ship, though they may be desired for added flexibility.
+
+  System names can be abbreviated for any @space commands.
+
+  See Also: HS-SYSTEM-ATTRS   
+
+& HS-SYSTEM-ATTRS
+
+  While each of the engineering systems available is derived
+  from the generic engineering system object, each system may
+  have additional attributes that can be set beyond the standard
+  tolerance, stress, damage, etc.  All systems have the following
+  attributes:
+
+  OPTIMAL POWER, TOLERANCE, STRESS, DAMAGE, CURRENT POWER, 
+  NAME, VISIBLE
+
+  Additionally the following systems provide additional
+  attributes as indicated:
+
+  * Sensor Array: SENSOR RATING
+
+  * Reactor: MAX OUTPUT, DESIRED OUTPUT, CURRENT OUTPUT
+
+  * Maneuvering Thrusters: TURNING RATE
+
+  * All Shields: REGEN RATE, SHIELD TYPE, MAX STRENGTH, STRENGTH
+    Refer to HS-SHIELDS for more information.
+
+  * Engines: MAX VELOCITY, ACCELERATION, DESIRED SPEED,
+             CURRENT SPEED, CAN AFTERBURN, AFTERBURNING, EFFICIENCY
+
+  * Jump Drive: ENGAGED, MIN SPEED, EFFICIENCY
+
+  * Warp Drive: ENGAGED, MAX WARP, ACCELERATION, FUEL CONSUMPTION,
+                CURRENT SPEED.  See HS-WARP-DRIVE for details
+
+  * Fuel System: BURNABLE FUEL, REACTABLE FUEL, MAX REACTABLE FUEL,
+                 MAX BURNABLE FUEL
+
+  * Cloaking Device: EFFICIENCY, ENGAGED
+
+  * Tachyon Sensors: EFFICIENCY
+  
+  * Comm. Array: MAX RANGE
+
+  * Damage Control: NUMCREWS
+
+  * Comm. Jammer: RANGE
+
+  * Tractor Beam: STRENGTH, MODE (See HS-TRACTOR)
+
+  * Fictional System: All standard attributes.
+
+& HS-SHIELDS
+
+  HSpace supports two types of shields on vessels: Deflector(0) 
+  and Absorption(1).  Ships that have shields must possess pairs
+  of shields.  That is, they must either have no (0) shields or 
+  2 or 4 shields. HSpace does not currently support odd numbers 
+  of shields nor greater than 4 shields.
+
+  Absorption shields were used in versions of HSpace less than
+  4.0, and they work much like the skin on your body.  The only
+  difference is that you can't take your skin off, but let us
+  pretend you can.  When power is initially supplied to the 
+  absorption shield, the shield generator slowly begins to form
+  a protective layer, the absorption shield.  While the regeneration
+  process may be slow, the shield can be lowered and raised
+  subsequently without losing the charge of the shield.  That is
+  to say that the skin can be taken off and put back on without
+  losing the strength of the skin.  When an absorption shield is
+  hit by an object or blast, it weakens.  The shield regenerators
+  will slowly begin to regenerate the shield.  The shield loses
+  effectiveness when its strength reduces to 0, at which point
+  any objects or blasts pierce the shield to the underlying hull.
+
+  Continued in HS-SHIELDS2
+
+& HS-SHIELDS2
+
+  Deflector shields work by producing a semi-permeable shielding
+  layer around the ship.  They can be raised and lowered quickly
+  and never need to recharge.  They work by deflecting all incoming
+  objects and blasts up to a given strength, which is their 
+  deflection strength.  For example, a small deflector shield may
+  be able to deflect the normal space debris that the ship
+  encounters, but it may not be able to fully deflect a laser 
+  blast from another ship.  The deflector shield will deflect all
+  damage up to its strength value.  Additional damage pierces 
+  the shield to the underlying hull.  If the shield regenerators
+  are damaged, the strength of the deflector shield is weakened.
+
+& HS-OBJECTS
+
+  Everything in HSpace is modeled as an object, thus making it an
+  object-oriented system.  Everything from a ship, to a planet, to the
+  smallest particle of bug goo hitting the foreward shield of your
+  vessel is modeled as an object in space.  Each object has its own
+  behavior and attributes, though many objects may be very similar
+  to other objects (e.g. stars and planets).
+
+  Each object in space must belong to a universe, and it has one
+  of two states: active or inactive.  Active objects are those that
+  can be seen (generally speaking) in space.  They are not docked
+  in another ship.  They are not landed on the surface of a planet.
+  They are, essentially, actively in the space that makes up the
+  universe the object belongs to.
+
+  Continued in HS-OBJECTS2
+
+& HS-OBJECTS2
+
+  Each object in the HSpace must also have an object in the game.
+  For example, a planet called Planet X must have an actual "thing"
+  in the game called Planet X.  The object creation command will
+  require that you specify the object # to identify that HSpace
+  object.
+
+  Some objects, like ships, can possess engineering systems and
+  engage in combat, while other objects, such as worm holes, serve
+  entirely different purposes.  For this reason, each object must
+  be "setup" differently than other objects.  When you create a new
+  object, you will most likely have to initialize that object's
+  attributes, just like assembling a new car.  You must paint the
+  car, install the radio, etc.  Just as you may set an attribute
+  on an object, you can also retrieve attributes from objects.
+  Each object provides a variety of attributes that can, then,
+  be set and retrieved, though these to sets of attributes may
+  not be identical.
+
+  See also: @SPACE-ADDOBJECT, @SPACE-ACTIVATE, HS-TYPES
+
+& HS-TYPES
+
+  Many types of HSpace objects can exist in the game.  The
+  following types are currently supported by HSpace code:
+
+  Type		Description
+   0		No Type (any object)
+   1		Ship
+   2		Missile
+   3		Planet
+   4		Wormhole
+   5		Blackhole
+   6		Nebula
+   7		Asteroid Belt
+   -        LandingLoc
+
+  For any commands that require an object type, the above types
+  can be used.  The "No Type," or type 0, can often be specified
+  to represent all objects.
+
+  Each object has its own attributes that can be set and 
+  retrieved.  Because all HSpace objects are derived from a single,
+  NOTYPE base object, they all share some similar attributes that
+  can be set and retrieved.  Some objects, such as celestial objects,
+  will share similar celestial attributes that can be set and
+  retrieved.
+
+  See also: HS-OBJECT-ATTRS
+
+& HS-LANDINGLOC-ATTRS
+
+  Landing locations are a generic type of HSpace object that allows
+  ships to dock in the bays of other ships or to land on planets.
+  Landing locations, like all HSpace objects, have attributes that can
+  be set and retrieved.  These are as follows:
+
+  Settable AND Gettable attributes:
+  CODE         : Code required to land in the location.
+  ACTIVE       : 1 if location is open for landing, 0 otherwise.
+  CAPACITY     : Object size capacity of the location.
+  MAX CAPACITY : Maximum object size capacity of the location.
+  VISIBLE      : 1 if the location is visible on scan, 0 otherwise.
+
+  The "object size capacity" refers to the volume of the landing
+  location and its ability to hold HSpace objects (i.e. ships).  For
+  each unit of "size capacity," the location can hold 1 unit of an
+  HSpace object size.  Thus, a landing location with a current capacity
+  of 2 could hold two, size 1 objects or one, size 2 object.  As 
+  objects (ships) enter and leave the landing location, the current 
+  capacity decreases and increases to reflect the space taken up in
+  the location by the object.
+
+& HS-SHIP-ATTRS
+
+  Ship objects in HSpace provide the following attributes that are
+  settable and retrievable.
+
+  Settable attributes:
+  IDENT         : Identification string for the ship.
+  DESTROYED     : 1 if the ship is destroyed, 0 otherwise.
+  BOARDING CODE : Boarding code for the ship.
+  CAN DROP      : 1 if the ship can land, 0 otherwise.  This
+                  attribute overrides the setting in the ship's class.
+  DROPLOC       : Dbref of the landing pad where the ship is located.
+  DOCKLOC       : Dbref of the docking bay where the ship is located.
+  HULL          : Current hull points for the ship.
+  SPACEDOCK     : All vessels regardless of size may dock here.
+
+  Gettable attributes (All of the above, plus):
+  XYHEADING : The current XY angle heading of the ship.
+  ZHEADING  : The current Z angle heading of the ship.
+  DXYHEADING: The desired XY angle heading of the ship.
+  DZHEADING : The desired Z angle heading of the ship.
+  CONSOLES  : A list of console dbrefs on the ship.
+  SROOMS    : A list of registered rooms on the ship.
+  LANDINGLOCS: A list of landing locations on the ship.
+
+& HS-PLANET-ATTRS
+
+  The following attributes are settable and retrievable for planet
+  objects.
+
+  SIZE: An integer from 0 to n that represents the size of the 
+  		planet. The size value does not actually represent a physical
+		dimension within HSpace.   Larger numbers indicate larger
+		objects.
+ 
+ 
+  Gettable attributes:
+ 
+  LANDINGLOCS: A list of landing locations (rooms) on that planet.
+
+& HS-WORMHOLE-ATTRS
+  HS-WORMHOLE-ATTRS 
+ 
+  Wormholes are 2 black holes with immense gravity at each other
+  folding the fabric of time and space, creating a passage from
+  one point in space to the other. They have a stability in
+  percentage, which represents the chance of successfully
+  gating the wormhole, failure results in DESTRUCTION.
+
+  BASESTABILITY: The percentage around which the stability of
+                 the wormhole fluctuates.
+  STABILITY  : The current stability of the wormhole
+  FLUCTUATION: The margin within which the stability fluctuates.
+  DESTX      : The X coordinate of the destination of the wormhole.
+  DESTY      : The Y coordinate of the destination of the wormhole.
+  DESTZ      : The Z coordinate of the destination of the wormhole.
+  DESTUID    : The UID of the destination of the wormhole.
+  DESTERROR  : Maximum +/- offset of the destination coordinates 
+               calculated randomly from tghe current stability. 
+  NODAMAGE   : Boolean flag set to 1 or 0.  Default 0.  If set to 1,
+               the ship will always successfully gate.
+ 
+  See also: HS-WORMHOLE-ATTRS2, @nav-gate
+ 
+& HS-WORMHOLE-ATTRS2
+  HS-WORMHOLE-ATTRS2
+ 
+  Calculations are performed as follows.  When NODAMAGE is set to 
+  0, an internal random value is generated between 0 and 100 when
+  a ship gates.  If the value is less than or equal to the current
+  stability, the ship successfully gates through.  If it is greater,
+  the ship is destroyed, killing all of the crew in the process. If
+  NODAMAGE is set to 1, the ship will always succesfully gate.
+ 
+  As the ship gates, it is transferred to the DESTUID at the DESTX,
+  DESTY, and DESTZ coordinates.  If DESTERROR is greater than 0,
+  an offset is calculated randomly for each coordinate between 0 and 
+  (100-current stability)*DESTERROR.  Thus, wormholes with large 
+  DESTERROR values and low stabilities will cause greater errors in 
+  the resulting destination coordinates.
+
+  Current stability is calculated randomly between BASESTABILITY +/- 
+  the FLUCTUATION once per cycle.
+
+  See also: HS-WORMHOLE-ATTRS3, @nav-gate
+
+& HS-WORMHOLE-ATTRS3
+  HS-WORMHOLE-ATTRS3
+ 
+  Wormhole messages can be tailored for each wormhole object by setting
+  the following attributes on the MUSH object representing the the 
+  wormhole.  
+ 
+  HSWH_ENTER_CONSOLES: Message sent to players manning ship consoles
+    as the ship enters the wormhole.
+  HSWH_ENTER_SROOMS: Message sent to players in the ship rooms when
+    the ship enters a wormhole.
+  HSWH_EXIT_CONSOLES: Message sent to consoles upon exiting a wormhole.
+  HSWH_EXIT_SROOMS: Message sent to ship rooms upon exit.
+  HSWH_COLLAPSE_CONSOLE: Message sent to ship consoles when the wormhole
+    collapses and destroys the ship.
+  HSWH_KILL_CREW:  Message sent to when players aboard the ship are 
+    killed due to the collapse.
+
+& HS-BLACKHOLE-ATTRS
+
+  This object only has the basic attributes, it pulls in any
+  ship within its size * 100, the damage varier from 0 at the
+  edge of the gravity field to 1000 * the size in the center.
+
+& HS-NEBULA-ATTRS
+
+  A nebula is a large cloud of interstellar dust and gas created from
+  the remnants of an exploded star or a due to the formation of a 
+  galaxy.   The dust and gas can reduce the effectiveness of ship shields
+  while within 100*size of the nebula.
+
+  The following attributes are settable and retrievable for nebula
+  objects.
+
+  DENSITY: Density of the nebula.
+  SHIELDAFF: Shield functionality in the nebula from 0-100%.
+
+& HS-ASTEROID-ATTRS
+
+  Asteroids are often found in fields or belts of objects.   Ships 
+  passing through an asteroid field risk collision and damage.  A
+  high field density increases the likelihood of collision. Larger
+  ships travelling at high speeds also increases the risk.
+
+  The following attributes are settable and retrievable for asteroid 
+  objects.
+
+  DENSITY: Density of the asteroid belt. (Integer)
+
+& HS-OBJECT-ATTRS
+
+  Probably one of the most enjoyable features of HSpace is that every
+  object can be manipulated and modified through its attributes.  From
+  changing the name of the object to changing the size, most aspects
+  of an object are available to change.  Each type of HSpace object,
+  be it a ship, a nebula, or a missile, possesses attributes that you
+  can change and retrieve.  Because objects are often derived from "base
+  objects," many objects will share similar attributes with other objects.
+  All objects share at least the base, NOTYPE object attributes.  These
+  are as follows:
+
+  NAME : Name of the object as viewed in space.
+  SIZE : Size of the object from 1 .. n.
+  X    : X coordinate of the object in space.
+  Y    : Y coordinate of the object in space.
+  Z    : Z coordinate of the object in space.
+  UID  : Universe ID of the universe the object belongs to.
+
+  TYPENAME: The typename of this particular object.  Defaults are based
+   		on the particular object type.  Typename is displayed on ship 
+		sensor reports. Defaults are Ship, Base (ship with no engine
+		system), Planet, Black Hole, Wormhole, Missile, Nebula,
+		Asteroids, or Unknown for NOTYPE objects.
+
+  Beyond these attributes, the various types of objects may provide
+  a plethora of additional attributes for you to modify and 
+  manipulate.  Some objects may provide many attributes, while others
+  may provide few.
+
+  For a list of attributes that are settable and retrievable for
+  each object, refer to each object's attributes section:
+ 
+            HS-<OBJECT>-ATTRS
+
+  See also: HS-OBJECTS, HS-TYPES
+
+& HS-CLASSES
+
+  What is a class?  A "class" is an abbreviated reference to a ship
+  class, so the next question is what is a ship class?
+
+  We can think of a ship class by taking a simple look at modern day
+  naval vessels.  We have a variety of naval vessels present today,
+  many of which are commonly known, such as the destroyer and
+  battleship.  Typically, each naval vessel belongs to a certain 
+  class of ship.  For example, we may find some ship traveling
+  the oceans called the USS Onlooker.  It is a large ship, classified
+  as a battleship.  However, battleships can vary in how they're
+  designed and what detailed purposes they serve.  Thus, each 
+  type of battleship belongs to a "class" of battleship.  The USS
+  Onlooker might be of the Jersey Class Battleship, which means
+  that it possesses certain attributes common to all battleships
+  of the Jersey class.
+
+  Why the use of classes?  It is typically uncommon to produce a
+  single vessel with a given set of attributes and characteristics.
+  Often we find at least several vessels that share similarities,
+  and manufacturers can refer to designs for a class of vessel
+  rather than a specific, single vessel.  A manufacturer may produce
+  20, Tiger class sailboats rather than just a single sailboat
+  called the Tiger.  The manufacturer, then, profits from the ability
+  to produce multiple ships of that design with relative ease.
+
+  In HSpace it is no different.  Designing and constructing the
+  initial ship class may be slightly tedious, but the work is
+  much less for producing vessels of that class.  Once the base class
+  is in place, vessels of that class can be created quickly.  After
+  each vessel is created, administrators have the option to slight
+  alter, or "componentize," pieces of each vessel to make them 
+  unique.
+
+  In addition to a variety of attributes that can be set on a given
+  ship class, engineering systems must also be added to the class.
+  This is because each type of vessel may contain its own set of
+  engineering systems that differ from other ship classes.  For
+  example, ships of Ship Class A may possess jump drives, while
+  ships of Ship Class B do not.  For this reason, it is necessary
+  to add engineering systems to the ship class that all ships of
+  that class should possess.  When ships of that class are created,
+  they will possess the engineering systems given to that class.
+
+  To create a new ship class, refer to the '@SPACE-NEWCLASS'
+  help file.
+
+  Refer to 'HS-CLASS-ATTRIBUTES' for information on setting
+  specific attributes for classes once created.
+
+& HS-CLASS-ATTRIBUTES
+
+  The following attributes may current be set for any ship class:
+
+  MAXHULL : Maximum number of hull points.
+  NAME    : Name of the class (e.g. Onlooker Class Battleship)
+  SIZE    : Size of the vessel from 1 .. n. 
+  CREWS   : Number of repair crews stationed on the ship.
+  CARGO   : Size of the cargo bay on the ship.
+  CAN DROP: Whether the ship can drop to a planet or not.
+  MINMANNED: Amount of manned consoles needed to undock.
+  SPACEDOCK: Allows all size ships to dock at this vessel.
+
+  Classes may also possess engineering systems.  Refer to the
+  @SPACE-ADDSYSCLASS help file for information about this
+  feature.
+
+& HS-FUNCTIONS
+  
+  Functions in HSpace allow administrators and players alike to
+  develop "softcode" for working with HSpace.  The following
+  functions are currently provided:
+ 
+  HS_GET_ATTR     HS_SET_ATTR      HS_SPACEMSG      XYANG 
+  HS_SREP         HS_ENG_SYS       ZANG		        HS_ADD_WEAPON
+  HS_WEAPON_ATTR  HS_SYS_ATTR      HS_SYSSET        HS_GET_MISSILE
+  HS_COMM_MSG     HS_ADDSYS        HS_DELSYS        HS_CLONE
+  HS_DECAY_MSG    HS_NEARBY	       HS_LIST          HS_EXPLODE
+  HS_DEL_WEAPON   HS_SET_MISSILE   HS_COMMAND
+ 
+  For more information on a specific function, refer to each
+  function's help file.  For example 'help HS_SPACEMSG()'.
+
+& CLASS PICTURES
+
+  The Vstats command that comes with HSpace 4.0 provides the ability
+  for you to show a picture of the ship class to the player.  This is
+  easily accomplished by creating a pics directory in your space
+  directory (configurable in hspace.cnf) that will include your class
+  pictures.  For each ship class (0 .. n), you simply create a file
+  called class_#.pic, containing the ASCII art you wish to have
+  displayed.  Additionally, you can have the hull and shield strength
+  percentages displayed by using the %h (hull), %f (foreshield),
+  %p (port shield), %a (aft shield), %i (ident number), %n (name),
+  %x (XY heading), %z (Z heading), %v (velocity) and %s (starboard 
+  shield) substitutions.  For each of these substitions, a 4 character
+  percentage (e.g 100%) will be put in its place.  Thus, keep this
+  4 character requirement in mind when drawing your art.  What you
+  see may not be what you get when it is displayed.
+
+  You do not need to reboot your game for changes to the artwork
+  to be displayed.  It is taken directly from the file when the
+  vstats command is issued. 
+
+& HS-HATCHES
+
+  Hatches were implemented in version 4.11 to replace the old
+  boarding links, hatches(represented by exits) can be added 
+  to ships with the @space/addhatch command, there are several
+  gettable attributes on them. Two ships can links together
+  through the hatches while floating in space, they must be within
+  5 hm of eachother.
+
+  See: HS-HATCH-ATTRS
+
+& HS-HATCH-ATTRS
+
+  There are 2 different gettable attributes on hatches.
+
+  TARGETOBJ  : The ship object of the ship the hatch is linked to.
+  TARGETHATCH: The hatch # of the hatch on the other side.
+  CLAMPED    : If 1 this hatch can't be connected or disconnected.
+
+  See: HS-HATCHES
+
+& HS-TRACTOR
+
+  Tractor beams are systems which have 3 functions, Tractor ships
+  towards you, Repulse ships away from you, and Hold ships at
+  the same relative position to you. A tractor beam system has a
+  a certain strength, this together with the target's mass decides
+  the range the beam can lock at and the speed it can tag it along
+  or tractor/repulse it towards itsself, once at 0.00000 hm it
+  stops tractoring.. ofcourse. Ships can also be tractor docked
+  by carriers or other ships with landing bays, provided they
+  have enough space ofcourse. This can be done from within 2 hm.
+
+  See: @nav-tractorlock, @nav-tractorunlock, @nav-tractormode
+
+& TOLERANCE
+ 
+  Tolerance is a measure that reduces the effect of stress, which is derived 
+  from the power levels of a given engineering system. To explain it better, 
+  look at the example below.
+ 
+  Assume a ship has a sensor system with an optimal power of 5 and starts 
+  with 0 stress. The system's power is raised to 8 thereby overloading the 
+  system. During the next cycle of the space system, the stress level is 
+  calculated as follows:
+ 
+  fval = ((Current Power - optimal power) / optimal power)*100;
+  fval = ((8-5)/5)*100;
+  fval = 0.6*100
+  fval = 60
+
+  In this case it is overloaded, so the stress is increased. The value of 
+  0.012 is a hard-coded value in HSpace that is used in the calculation.
+ 
+  stress increase = fval * (0.012/Tolerance)
+  Assuming Tolerance is 1, the stress increases by 60*0.012=.72
+
+  If the Tolerance were set to 2, it would halve the stress level increase.
+
+  See also: TOLERANCE2
+ 
+& TOLERANCE2
+ 
+  HSpace then does a stress damage calculation for each system every 15 
+  seconds. First a random number is rolled between 0-100 for the damage 
+  check. Secondly a random number is generated between 0 and the current 
+  stress level. If the first number is less than the second number, the 
+  system is damaged.
+ 
+  Now if the system were underpowered, the stress level would be decreased, 
+  rather increased. Assume the system is powered to 3 with a optimal power 
+  of 5.
+ 
+  fval = -40
+
+  Here, the tolerance is a multiplier rather than a divisor.
+
+  stress decrease = fval * 0.012 * Tolerance
+
+  Assuming a 1 again, stress decrease is -0.48. A tolerance of 2 would make 
+  it -0.96.
+ 
+  In the third case where a system is optimally powered, stress is reduced 
+  by a nominal amount calculated by -1*0.012*Tolerance.
+ 
+  In essence, a high tolerance reduces the amount of stress applied to a 
+  system in an overpowered system and increase the ability of that system 
+  to recover from stress in an underpowered/optimally powered situation. 
+ 
+& HS-FICTIONAL
+ 
+  Fictional systems are used to show a system that has no special 
+  hardcoded effects.  In addition to the normal system attributes,
+  fictional systems provide the following attributes:
+
+  CHARGE:  Percent charge of the system.
+  CHARGE RATE:  Rate of charge increase per second (default 0)
+
+  Fictional systems will only charge when powered and when the
+  charge rate has been set to greater than 0.
+
+& EFFICIENCY
+
+  Efficiency rules vary depending on system type:
+
+	Reactors:  Efficiency is set between 1 and 100.  This percentage is
+	           used in combination with the FUEL_RATIO configuration 
+						 option to determine how much fuel is consumed by the
+						 reactor per hour.
+
+						 Fuel consumption is FUEL_RATIO / (EFFICIENCY/100.0) 
+
+						 Thus, a reactor set to 50% efficiency, will consume 
+						 twice as much fuel as one that is 100% efficient.
+
+  Engines:  Efficiency is the distance that can be traveled per unit
+	          of fuel consumed multiplied by 1000.   A ship with an 
+						engine efficiency of 1 will cover 1000 units of distance
+						per unit of fuel consumed.   An efficiency of 10 would allow
+						the ship to cover 10,000 units of distance per unit of
+						fuel consumed.  If efficiency is set to 0, no fuel is
+						consumed.
+						
+
+	Tachyon:  Set between 0 and 100, this value indicates the ability of
+	          the tachyon sensors to detect cloaked objects.  A value of
+						100 indicates the tachyon sensors are the most effective 
+						while lower numbers reduce the chance that cloaked ships
+						will be detected.
+	
+	Cloaking: Set between 0 and 100, this value indicates the effectiveness
+	          of the cloaking system where 100 is 100% invisible, unless
+						damaged.
+& HS-WARP-DRIVE
+  
+  Warp Drives are one of many engineering systems that can be added to a 
+  ship class or individual ships.  The warp system provides a StarTrek
+  like warp system that moves a ship at faster than light speeds.  Warp
+  drives can be operated independently from the main ship engines, unlike
+  jump drives.
+
+  Warp drives are controlled by two configuration file options and three
+  system level parameters.   The configuration file options are:
+
+  WARP_EXPONENT - Exponent used in the warp speed calculation
+  WARP_CONSTANT - Constant value used in the warp speed calculation
+
+  Where
+
+  Warp Speed = WarpLevel^WARP_EXPONENT * WARP_CONSTANT
+
+  WarpLevel is set by the @nav/warp <level> command.  See '@nav-warp' for
+  more information.  Warp speeds allow vessels to travel great distances
+  in a short span of time.
+
+  The system parameters are:
+
+  MAX WARP:  The maximum warp level that can be specified for the system.
+  ACCELERATION:  Incremental warp level increase per space cycle (second).
+  FUEL CONSUMPTION: Units of fuel consumed per warp rating per hour.
+
+  Defaults:  Max Warp = 9.9999, Acceleration = 0.1, Fuel Consumption 1.0
+
+  Additionally, the ENGAGED and CURRENT SPEED values are readable attributes 
+  on the Warp System.
+
+  ENGAGED:  Either 1 (warp drive engaged) or 0 (disengaged)
+  CURRENT SPEED:  Current Speed in <units>/hour.
+  
+  

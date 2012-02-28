@@ -1,0 +1,675 @@
+& MAN
+
+  Usage: man <console>
+ 
+  Allows a player to take control of a ship console.   When the player
+	uses the man command, the MAN, OMAN, and AMAN attributes, if set, are
+	triggered on the console.
+
+& UNMAN
+ 
+  Usage: unman <console>
+
+	Allows a player to release control of a ship console.  When a player
+	uses the unman command, the UNMAN, OUNMAN, and AUNMAN attributes, if 
+	set, are triggered on the target console.
+
+& ETA
+
+  Usage: eta
+
+  Returns the eta of the planet that lies on your current heading, or the
+  One closest to it.  You must be moving at a speed greater than 0 for this
+  Command to work.
+
+& TRUSTED
+
+  Usage: trusted/add <person> OR trusted/remove <person>
+
+  Adds or Removes <person> from the trusted persons list for your ship.
+
+& INTER
+  
+  Usage: inter <contact>
+
+  Plots an intercept course for <contact>.
+
+& PLOT
+
+  Usage: plot <x> <y> <z>
+
+  Shows details of the course required to move from current position to
+  Coordinates <x> <y> <z> along with the distance, and fuel required.
+
+
+& CONVFUEL
+
+  Usage: convfuel <qty> to <type>
+
+  Converts <qty> of Cadmium in your ships hold into <type> of fuel, where
+  type is 'burnable' or 'reactable'.
+
+& CLOSE BAY
+
+  Usage: close bay <bay #>
+
+  Closes the doors of bay <#>.
+
+& OPEN BAY
+
+  Usage: open bay <bay #>
+
+  Opens the doors of bay <#>.
+
+& SET CODE
+
+  Usage: set code <bay #>=<code>
+
+  Sets the code for bay <#> to <code>.
+
+& BAYSTAT
+
+  Usage: baystat OR baystat <bay #>
+
+  Displays a summary of the ships bays OR the status of bay <#>.
+
+& LINK
+
+  Usage: link <contact>=<local port>/<remote port>
+
+  Links your ship to another.
+
+& UNLINK
+
+  Usage: unlink <local port>
+
+  Unlinks specified local port.
+
+& HSTAT
+
+  Usage: hstat
+
+  Displays the status of docking links on the ship.
+
+& SREP
+
+  Usage: srep
+
+  Prints a sensor report for the vessel's sensor array, if
+  present.  Administrators may or may not have customized this
+  command to print only certain contact types.
+
+& BLINKS
+
+  Usage: blinks
+
+  Displays a list of boarding links currently active between
+  the current ship and other ships in the area.
+
+& SVIEW
+
+  Usage: sview <contact #>
+
+  Displays the description of the target.
+
+& GATE
+
+  Usage: gate <contact #>
+
+  Gates with a contact(ie a Wormhole).
+
+& CREWREP
+
+  Usage: crewrep
+
+  Displays damage control crew status.
+
+& ASSIGN
+
+  Usage: assign <#> to <system>
+
+  Assigns crew <#> to repair <system>.
+
+& CLOAK
+
+  Usage: Cloak
+
+  Cloaks the vessel decreasing its sensor signature.
+
+& DECLOAK
+
+  Usage: Decloak
+ 
+  Decloaks the vessel eliminating all effects of the
+  cloaking device.
+
+& DEADMAN
+
+  Usage: deadman
+
+  Purpose, to make you dead!  Just kidding.
+
+  The deadman command allows you to safely leave your ship in
+  space when needed (certainly useful for capital ships that
+  cannot land).  The deadman command takes 2 minutes to go 
+  into affect, preventing someone from using it instantly to
+  avoid getting shot at.  Once the deadman mode is activated
+  for the ship, the ship cannot be locked on by another ship
+  who has not already locked weapons (ships with locks maintain
+  them and can continue attacking).  The ship cannot be used
+  again by the crew without deactivating the deadman mode.
+  Thus, setting deadman mode requires that you discontinue
+  using the ship once the mode is active.
+  
+& ICOM
+
+  Usage: icom <message>
+
+  Allows consoles on multi-console ships to communicate
+  with each other.
+
+& SPOSE
+
+  Usage: spose <action>
+
+  Emits a pose for your ship into the nearby space so that
+  other vessels who have you identified on sensors see the
+  message.
+
+  Ex: spose flies near you, blazing its laser cannons.
+
+& CSTAT
+
+  Usage: cstat
+
+  Shows the current communications array status, including
+  transmission and receiving frequencies.
+
+& CHOWN
+
+  Usage: chown <player name>
+
+  Allows the owner of a ship to change the ownership to 
+  another player in the game.
+
+& SPECS
+
+  Usage: specs [<system>]
+
+  Provides vessel statistics in general or, if <system> is
+  specified, for a specific system on the vessel.
+
+& SHIPNAME
+
+  Usage: shipname <name>
+
+  Sets the name of the vessel from that navigation console.
+  The name is limited to a length of 32 characters.
+
+& BOARDING CODE
+
+  Usage: boarding code
+         boarding code <code>
+
+  Sets the boarding code for the vessel, which means that
+  a player wishing to board the vessel from the outside will
+  need to specify a code.  By supplying no <code>, the
+  boarding code for the vessel will be deleted, and anyone
+  may board.
+
+  See Also: BOARD, SECURITY
+
+& SECURITY
+
+  Usage: security <on/off>
+
+  Turns the ship security on or off, effectively activated
+  or deactivating the required boarding code.  If no boarding
+  code is set on the ship, this command has no effect.  If
+  a boarding code is set, and security is turned off, the 
+  boarding code is not required for players wanted to board.
+  Once security is turned on, the boarding code is reactivated
+  and required.
+
+  See Also: BOARD, BOARDING CODE
+
+& BOARD
+
+  Usage: board <ship>[=<code>]
+
+  Allows you to board the given ship with a specified name.
+  The ship will obviously be docked in a docking bay or landed
+  on a planet landing pad.
+
+  An optional code may be required to board the vessel.
+
+  See Also: DISEMBARK, BOARDING CODE, SECURITY
+
+& DISEMBARK
+
+  Usage: disembark
+
+  When located in a room on a ship marked as a disembarking
+  room, the disembark command will take you from the ship to
+  the docking bay or planet room where the ship is docked.
+  This command will not work if the ship is actively in space.
+
+  See Also: BOARD
+
+& ENGINES
+
+  Usage: engines
+
+  Sets engine power to 100% of capable power level.
+
+& LIFE
+ 
+  Usage: life
+
+  Sets life support power to 100% of capable.
+
+& THRUST
+
+  Usage: thrust
+
+  Sets maneuvering thruster power to 100% of capable.
+
+& COMPUTER
+
+  Usage: computer
+
+  Sets computer power to 100% of capable.
+
+& PORT
+& FORE
+& AFT
+& STARBOARD
+
+  Usage: <shield>
+
+  Sets the specified shield power to 100% of capable power.
+
+& POWER
+
+  Usage: power
+
+  Sets the desired reactor output to 100% of capable power.
+
+& SENSOR
+
+  Usage: sensor
+
+  Sets the sensor array power to 100% of capable.
+
+& LAND
+
+  Usage: land <contact>/<location>=[<code>]
+
+  The land command attempts to land the vessel at the given
+  contact number, which could be a planet or another vessel.
+  The <location> refers to which of the landing pads or
+  docking bays is desired, beginning with 1.  To land at the
+  given location, a code may need to be given.  If a code is
+  not required for the location, this parameter is ignored.
+
+  The LAND and DOCK commands are identical and work for both
+  planets and vessels.
+
+& DOCK
+
+  See LAND.
+
+& UNDOCK
+
+  Usage: undock
+
+  Undocks a landed or docked vessel from its location, which
+  must be either a docking bay or landing pad on a planet.
+
+& STAT
+
+  Usage: stat
+
+  Gives the navigation status display for the vessel, including
+  current course and velocity.  If present, shield information
+  is included.
+
+  A map of the surrounding space is available for navigation,
+  and the "map range" can be set to change the scale and limits
+  of the area within the map.
+
+& VSTATS
+ 
+  Usage: vstats
+
+  Displays a picture of the ship class for the ship, upon which
+  shield and hull information may be included.
+
+& VIEW
+ 
+  Usage: view
+
+  Provides a description of the surrounding area where the vessel
+  is currently docked or landed.  This is useful in combination
+  with the taxi command.
+
+& TAXI
+
+  Usage: taxi <direction>
+
+  Taxis a docked or landing ship in the <direction> desired, whch is
+  the name of an exit in the room where the ship is located.
+
+& SCAN
+
+  Usage: scan <contact ID>
+
+  Scans a target object in space to provide information about that 
+  contact.  The <contact ID> comes from the sensor report for the
+  vessel doing the scanning.
+
+& LAND
+
+  Usage: land <contact>/<location>=<code>
+
+  Attempts to land the vessel on the given space object with the
+  <contact> ID on sensors.  The <location> parameter specifies
+  which of the landing locations should be targeted and ranges
+  from 1 to N.  A code may or may not be required for landing.
+  If not required, this parameter is ignored.
+
+& DOCK
+
+  Usage: dock <contact>/<location>=<code>
+
+  Attempts to dock the vessel in the given space object with the
+  <contact> ID on sensors.  The <location> parameter specifies
+  which of the landing bays should be targeted and ranges
+  from 1 to N.  A code may or may not be required for docking.
+  If not required, this parameter is ignored.
+
+& MAPRANGE
+
+  Usage: maprange <range>
+
+  The maprange command allows the scale and limits of navigation
+  map to be changed.  The <range> indicates how far from the ship
+  objects are included in the map.  For example, a range of 100
+  means that any objects on sensors within 100 units of the ship 
+  will be displayed in the map.  To view close range objects, it
+  may be necessary to reduce the <range> so that those objects
+  appear more "spread out" on the map.  As the <range> increases,
+  objects near to each other will get grouped into the same location
+  on the map.
+
+& ABORT
+
+  Usage: abort
+
+  Takes the ship out of hyperspace if the ship is currently "jumping."
+
+& JUMP
+
+  Usage: jump OR jump <contact>
+
+  Takes the vessel into hyperspace if jump drives are present.  The
+  vessel much first achieve a minimum sublight speed before jumping
+  to hyperspace. Alternatively, if no jump drives are present then 
+  jump <contact> can be used with jump gates.
+
+& AFTERBURN
+
+  Usage: afterburn
+
+  If afterburners are present on the vessel, this command puts the
+  vessel into afterburn mode, which basically dumps fuel into the
+  engines to create additional thrust.  Afterburning significantly
+  increases the speed of the vessel but typically results in poor
+  fuel efficiency.
+
+
+& SS
+
+  Usage: ss <velocity>
+
+  Sets the desired velocity for the vessel, assuming the 
+  <velocity> is valid.  Engine damage, available power,
+  and other factors may limit the maximum capable speed of the
+  engines.
+
+& NOBURN
+
+  Usage: noburn
+
+  If the ship is currently afterburning, this command will cease
+  the process and take the ship back into regular speed levels.
+
+& UNLOCK
+  
+  Usage: unlock
+
+  If the console is currently locked onto a target object, the
+  unlock command disengages the console's lock.  This need not
+  be used before establishing another target lock.  If another
+  lock is obtained while currently locked on a target, the lock
+  is changed from the previous to the new target.
+
+& LOCK
+
+  Usage: lock <contact ID>
+
+  Locks the console's weapons (if available) on the target object 
+  with the given <contact ID> on sensors.  The contact must be
+  within range of the console's weapons, which is determined by the
+  weapon on the console with the maximum range.
+
+& TARGET
+
+  Usage: target <system name>
+
+  Attempts to target the given <system name> on the target object.
+  Any weapons on the console that support system targeting will
+  attempt to do damage to that system on the enemy object.  Not all
+  weapons may support system targeting.
+
+  To break a system target lock, specify a value of "none" for the
+  system name.
+
+& QREP
+
+  Usage: qrep
+
+  Displays a gunnery heads-up for the current target lock.  The
+  heads up contains a forward display of where the target is
+  located relative to the current heading of the console.  Information
+  about your heading and the target status is also displayed.
+
+& CPOWER
+
+  Usage: cpower <on/off>
+
+  Turns the console on or off.  This is required before using any
+  navigation or console commands.  Engineering commands do not 
+  require console power.  Power for consoles is extracted from the
+  internal computer.  For each of the weapons located on a console,
+  additional power is typically needed.  Thus, if damage to the
+  internal computer is encountered or the internal computer, for
+  whatever reason, cannot accomodate enough power, some consoles
+  may not be able to obtain the needed power.
+
+& LOAD
+
+  Usage: load <weapon #>
+
+  Attempts to load the given weapon, provided sufficient munition
+  is available and the weapon can be loaded.
+
+& UNLOAD
+
+  Usage: Unload <weapon #>
+
+  Attempts to unload the currently loaded weapon.  This is only
+  applicable for weapons that support this feature.  Once unload,
+  the munition from the weapon is put back into the ship's munitions
+  storage for later use.
+
+& CHEAD
+  
+  Usage the same as HEAD.  Refer to HEAD help file.
+
+& HEAD
+
+  Usage: head <XY> mark <Z>
+
+  Changes the ship's or console's heading to the desired angles.
+  Valid XY angles are from 0 to 359, while valid Z angles are from 90
+  to -90 (straight up, straight down).
+
+  Many consoles can move independently of where the ship is heading,
+  thus making gunnery turrets possible.  Even though the ship may
+  be heading 0 mark 0, it is possible for a side-facing turret to
+  turn in other directions to defend from attacking enemies.
+
+  For consoles, it may or may not be possible to turn to the desired
+  heading due to restrictions on where the console is located on the
+  sides of the ship.  If the console has been setup setup to deny
+  rotation, it may not be rotated from the current heading.
+
+& GREP
+
+  Usage: grep
+
+  For consoles controlling weapons, the grep command gives a gunnery
+  report, indicating which weapons are present, their status, weapon
+  attributes, and other information about the gunnery status of the
+  console.  Information about the ship's munitions storage is also
+  presented.
+
+& FIRE
+
+  Usage: fire <weapon #>
+
+  Attempts to fire the given <weapon #> on the console.  This assumes
+  that weapons are present.  Some weapons may require a target lock,
+  while others may not.
+
+& CONFIGURE
+
+  Usage: configure <weapon #>=<munitions #>
+
+  Attempts to configure the given weapon on the grep display to the
+  specified <munitions #>, which is a type of munition in the ship's
+  storage.  Typically the weapon must be empty before it can be
+  reconfigured.  Once configured, the weapon will load and fire that
+  munitions type.
+
+& AUTOLOAD
+
+  Usage: autoload <on/off>
+
+  Sets the console's autoloading status to on or off.  If set to on,
+  the console will automatically attempt to load any loadable weapons
+  after they are fired.  If no munitions for that weapon remain in the
+  ship's munitions storage, autoloading fails.
+
+  If set to off, loading must be performed manually with the load command.
+
+& AUTOROTATE
+
+  Usage: autorotate <on/off>
+
+  Sets the console's autorotating status to on or off.  Autorotating is
+  a convenient way to avoid manually changing the heading of the console
+  each time you want to attack a target on sensors.  If autorotating is
+  turned on, the console automatically determines the needed heading to
+  attack the target and attempts to turn to that heading.
+
+& SYSPRIORITY
+
+  Usage: syspriority <system name><+/->
+
+  Changes the system priority of the specified system for the ship.
+  The <system name> must be one of the systems listed on the sysrep
+  display for the ship.  It's status can be changed upward (+) or
+  download (-) on the list.  This is useful for when the ship may 
+  lose power.  If power is lost for any reason, the ship's computer
+  will begin deallocating power from systems at the top of the sysrep
+  list.  For systems you do not want power immediately drained from,
+  lower their priority on the list. 
+
+  For example, you may want life support to be the last thing that
+  gets power drained from it.  Thus, you can lower it's priority
+  repeatedly with:
+
+         syspriority life support-
+
+  Do this until the priority is lowered to your satisfaction.
+
+& SYSPOWER
+
+  Usage: syspower <system name>=<#>
+
+  Sets the megawatts of power allocated to a given system on the ship.
+  If insufficient power is available from the reactor, this operation
+  fails.
+
+  Ex.  syspower life support=10
+
+  You can abbreviate system names with most engineering commands.
+  For example, you can specify life instead of life support.
+
+& SYSPERC
+  
+  Usage: sysperc <system name>=<% power>
+
+  Sets the power allocation for the given system to a percentage of
+  the maximum power needs for the system.  If 100% is specified, the
+  reactor attempts to allocate 100% of the system's power needs to
+  it.  This is useful for when you want to quickly set a system's
+  power usage to a given level (e.g. 100%).
+
+  Ex.  sysperc life support=100
+
+& SYSREP
+
+  Usage: sysrep
+
+  Displays a list of systems currently present on the ship, information
+  about their status, damage, and power allocation.
+
+& SELFDESTRUCT
+
+  Usage: selfdestruct <seconds>=<boarding code>
+
+  Initiates the vessel's Self Destruct seaquence, it can be aborted
+  by entering 0 as the value of <seconds>, otherwise the ship
+  will be destroyed after <seconds> have passed, and all onboard crew
+  killed. This command will give warnings to everyone on the ship at:
+  1 HOUR left, 20 MINUTES left, 5 MINUTES left, 1 MINUTE left,
+  30 SECONDS left, 20 SECONDS left, and each second below 10.
+
+& TMODE
+
+  Usage: tmode <repulse/tractor/hold>
+
+  Specifies the mode to which the tractor beam should be set.
+
+  See also: HS-TRACTOR
+
+& TLOCK
+
+  Usage: tlock <contact id>
+
+  Locks the tractor beam on a contact.
+
+  See also: HS-TRACTOR
+
+& TDOCK
+
+  Usage: tdock <bay>=<contact id>
+
+  Docks a contact in a local bay using the tractor beam.
+
+  See also: HS-TRACTOR
+ 
+

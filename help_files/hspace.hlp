@@ -1,0 +1,495 @@
+& HSPACE
+
+  HSpace represents years of diligent work by many people and just as
+  many years of hard play by the players who have enjoyed it!  You may
+  read the following topics:
+
+  WHAT-IS-HSPACE     HSADMIN        HS-COMMANDS    HS-NEWBIE
+  HS-CHANGES         HS-FLAGS
+
+  HSpace is currently maintained and developed by Kyle Forbes (Gepht),
+  who can be found at http://www.hspace.org and via gepht@hspace.org.
+
+& HS-COMMANDS
+
+  The following is a list of all commands that may exist on a given
+  console.  Although many commands are considered specified to a
+  certain type of console (e.g. engineering), they may be available
+  from other types of consoles.  Where applicable, a G, E, or N has
+  been placed next to the command to indicate a general (G) console
+  command, an engineering (E) command, a navigation (N) command, or
+  an operations (O) command.
+
+  UNLOCK(G)    UNLOAD(G)    TARGET(G)      QREP(G)       CPOWER(G)
+  CHEAD(G)     GREP(G)      FIRE(G)        CONFIGURE(G)  AUTOLOAD(G)
+  LOCK(G)      LOAD(G)      AUTOROTATE(G)  SYSREP(E)     SYSPOWER(E)
+  SYSPERC(E)   VSTATS(G)    SS(N)          HEAD(N)       AFTERBURN(N)
+  VIEW(N)      SCAN(N)      LAND(N)        DOCK(N)       MAPRANGE(N) 
+  ABORT(N)     JUMP(N)      LINK(O)        UNLINK(O)     STAT(N)
+  NOBURN(N)    UNDOCK(N)    TAXI(N)        SREP(G)       CSTAT(G)
+  SPOSE(N)     ICOM(G)	    BLINKS(N)      CLOAK(N)      DECLOAK(N)
+  CREWREP(E)   ASSIGN(E)    GATE(N)        FUELCONV(N)   BAYSTAT(O)
+  CLOSE BAY(O) SET CODE(O)  SELFDESTRUCT(E)ETA(N)        PLOT(N)
+  HSTAT(O)     TLOCK(O)     TDOCK(O)       TMODE(O)
+  
+  The following are quickstart commands:
+
+  POWER        COMPUTER     SENSOR         ENGINES       THRUST
+  LIFE         FORE         AFT            PORT          STAR
+  COMM
+
+  The following are general ship usage commands:
+
+  BOARD        DISEMBARK    BOARDING CODE  SECURITY      SHIPNAME
+  CHOWN        SPECS	    DEADMAN
+ 
+  You may get help on any of these commands with 'help <command>'
+
+  If you are brand new to flying with HSpace, refer to the
+  "HS-NEWBIE" section of the help files: help hs-newbie
+
+& HS-WEAPON-ATTRS
+
+  Weapons loaded from the weapons database contain a variety of
+  attributes to govern how they respond when fired.  Each weapon
+  type has a different set of attributes, but all weapons share
+  some base sets of attributes.  The following attributes can
+  be set and retrieved for all weapon types:
+
+  Gettable/Settable attributes:
+  NAME :  The name of the weapon.
+  MIN TARGET SIZE: Integer variable that limits the size of ship a weapon
+      can target.
+
+  Gettable attributes only:
+  TYPE :  The type of the weapon (0 = lasers, 1 = missiles)
+  
+  See Also: HS-LASER-ATTRS, HS-MISSILE-ATTRS
+
+& HS-LASER-ATTRS
+
+  The following attributes may be set and retrieved on laser
+  weapons loaded from the database:
+
+  Gettable/Settable attributes:
+  REGEN TIME: Time it takes for the weapon to regenerate.
+  RANGE     : Range of the weapon for attacking.
+  STRENGTH  : Damage strength when attacking.
+  ACCURACY  : Accuracy of the laser.
+  POWER     : How much reactor power is required to power up.
+  NOHULL    : If set to 1 only shield/system damage is done.
+
+  See Also: HS-WEAPON-ATTRS, HS-MISSILE-ATTRS
+
+& HS-MISSILE-ATTRS
+
+  The following attributes may be set and retrieved on
+  missile weapons loaded from the database:
+
+  Gettable/Settable attributes:
+  RELOAD TIME: Time it takes for the weapon to reload.
+  RANGE      : Maximum range the missile can reach.
+  STRENGTH   : Damage strength when the missile hits.
+  TURN RATE  : The degrees the missile can turn at one time.
+  SPEED      : Speed of the missile in units per hour.
+
+  Missiles, after being shot, have two retrievable attributes via
+  hs_get_attr():
+  TARGET     : DBREF of the target of the missile
+  SOURCE     : DBREF of the vessel that fired the missile
+
+  See Also: HS-WEAPON-ATTRS, HS-LASER-ATTRS
+
+& WHAT-IS-HSPACE
+
+  What is HSpace?  Simply put, HSpace is a space simulation
+  package that is an easy addition to your MU*.  It is fully
+  3-dimensional with full combat and navigation support for
+  space vessels.  Not only does it allow game players to
+  travel realistically through space, but HSpace also 
+  provides many flexible methods for building your own 
+  tools and MU* code to produce things like ship upgrade
+  terminals, navigational aids, etc.
+
+  HSpace comes from the name Hemlock Space, and it was
+  first developed on the Hemlock MUSH series of games.
+  It was released in 1997 and has been increasing in popularity
+  ever since.  Now, it is written in a more object-oriented
+  gaming language -- C++.  This allows even more realistic
+  and flexible space modeling to enhance your gaming
+  experience!
+
+  The goals of HSpace development are: easy administration,
+  quick installation, realistic but simple playability.
+
+& HS-NEWBIE
+
+  Flying through space in an HSpace ship may initially seem
+  difficult and complex, but it's really not!  You simply
+  must remember the following things:
+
+  * HSpace is 3D, that means X, Y, and Z coordinates.
+  * Most flight is based on headings and bearings.
+    - Headings are where you want to go.
+    - Bearings are where some object is located relative
+      to you.
+  * All headings and bearings have two parts: an XY angle
+    and a Z angle.
+  * You need speed to move.
+
+  Assuming you are in your vessel and "manning" a navigation
+  console, here are some simple things you can do to get going:
+
+  1) type sysrep
+     
+     This shows you your current engineering systems status.
+     You need power to use your systems.
+
+  2) type sysperc reactor=100
+
+     This sets your reactor to 100% desired power output.
+     You're going to need a lot of power from it to power your
+     other systems.  You can also use syspower <system>=<#>
+     to set a fixed amount of power allocated to the system.
+
+  3) type computer
+
+     If the game tells you there is insufficient power, wait
+     a while for the reactor to power up more.  You can use
+     sysrep to keep checking your power output.
+
+  4) type cpower on
+
+     This tells the computer to allocate power to your console
+     and all of its gadgets.
+
+  5) type stat
+
+     You get a navigation status display, indicating your
+     current heading, speed, etc.
+
+  6) If you're landed on the ground, type undock.
+
+  These are just some of the basic commands to get you started.
+  From here, you'll probably want to power up the rest of your
+  systems, set a heading, and set your speed.  You can get a
+  full listing of commands by typing help hs-commands.
+
+  Enjoy!
+
+& HS-CHANGES
+  Version: 4.4.1p1
+  * Two minor fixes to deal with interfacing with PennMUSH 1.8.3p7
+  * Updated INSTALLATION_GUIDE.txt to reflect changes to PennMUSH 1.8.x
+  * Changed 'Unman' command to allow a player to use it with no arguments
+    The system will now check to see if they are on a console, and if so
+    remove them from it.  The old format of unman <console> will still
+    work.
+
+& HS-CHANGES441
+  
+  * Add COMM_HANDLER capability on consoles as patched by Jay.
+  * Remove class name length limit.
+  * Allow ship size to be set on individual ships not just at
+    the class level (Antaeus)
+  * Allow max hull points to be set on an individual basis not just
+    at the ship class level.
+  * Critical crash fix for AddLandingLoc (kevin/grapenut)
+  * Add contributed help on flags (Zoe)
+  * Trigger MAN, OMAN, AMAN when a player mans a console.
+  * Trigger UNMAN, OUNMAN, AUNMAN when player unmans a console.
+  * Fix invalid computer system crash bug for consoles (grapenut)
+  * Fix XYHeading error (grapenut)
+  * Allow hs_sysset to lookup object by console as well as normal path
+  * Allow missiles to target other missiles
+  * Fix fault in missile object deletion
+  * Add efficiency docs.
+  * Fix reactor output efficiency calculation.
+  * Do not consume fuel when efficiency is 0 for engines and jump drives
+  * Allow generic space objects to have VISIBLE attrib set
+  * Add hs_command() function (grapenut)
+  * Invalidate all console/ship weapon locks when an object is lost 
+    from sensors for any given reason.
+  * Fix capability to shoot down missiles.
+  * Fix crash when cleaning up missile objects upon termination.
+  * Remove artificial fixed limit on number of territories
+  * Fix help on TERRITORY-ATTRS to reflect proper settable attributes
+  * Stop @space/clone from cloning rooms that are not SROOMS of the
+    target ship.
+  * Fix capability to override ship size from the default class value.
+  * Fix MUX interface handling of adding exits to rooms.
+  * Force ships to unlock weapons when the target is lost from sensors.
+  * Stop missiles from automatically locating ships that are cloaked.
+  * Afterburning now uses desired rather than max speed
+  * Fix hs_get_attr(ship,hatches) to return space separated dbref list
+  
+  Related Topic: HS-CHANGESV4311
+
+& HS-CHANGESV4311
+ 
+  * Fix missile removal to properly delete objects
+  * Fix efficiency handling in reactor systems
+  * Efficiency of 0 stops engines, reactors, and jump drives from 
+    consuming fuel
+  * Fix missiles to make them at least have activity for 1 cycle
+
+	See: HS-CHANGESV4310
+
+& HS-CHANGESV4310
+
+  * Add contributed hspace flag help file (Zoe)
+  * Fix XYHeading to work properly again.  
+  
+	Related Topic: HS-CHANGESV439
+
+& HS-CHANGESV439
+    
+  * Add COMM_HANDLER capability on consoles as patched by Jay.
+  * Critical bug fix for @space/addlandingloc on Penn's (kevin/grapenut)
+  
+  Related Topic:  HS-CHANGESV438
+
+& HS-CHANGESV438
+ 
+  * Move generic TYPENAME attribute from being planet specific to all
+    3D Objects.
+  * Add logging of failed messages when connecting to the admin port.
+  * Fixed crash caused by invalid crew numbers in damage control.
+  * Missiles are now represented by actual game objects.
+  * Missiles have two gettable attributes 'TARGET' and 'SOURCE'.
+  * Bug Fix: Potential crash fix in @space/clone (licenser)
+  * Bug Fix: Fix stress calculation (licenser)
+  * Always trigger LEAVE attrib on territory even if new territory
+    target doesn't have an ENTER (licenser)
+  * Add grapenut's AI/Autopilot 0.4 patch into the main tree.
+  * hs_sys_attr() now returns numerical values for boolean variables
+    rather than text strings of true or false (licenser)
+  * Bug Fix: Get shield type from ship class when not specified on
+    local vessel.
+  * Bug Fix: Fix CloneThing() implementation for PENNMUSH per 
+    Revian's fix.
+  * Allow missiles to have a turning rate of 0 for non-maneuvering
+    missiles. (Revian)
+  * Pass combat damage messages onto ship rooms in addition to consoles
+    (Revian)
+  * Fix @space/delconsole & @space/delterritory help entries (Adkins)
+  * Add/repair floating point support in HSCONF (licenser)
+  * Cleanup XYAngle, ZAngle code to use atan2() rather than atan()
+    to eliminate numerous special case state checks (Mike W.)
+  * Massive warnings cleanup for non-virtual destructors, unused
+    variables, invalid code not returning values, type casting,
+	and incomplete switch statements.
+  * Bug fix: Allow ZOFFSET attribute to be set on consoles.
+  * Switch object based storage to be stateful during operations
+    rather than writing data / clearing data on dumps and loads.
+	Changes hatches, consoles, and land locations.  This repairs
+	a database save issue in the MUX port.
+  * Some various code reorganization.
+  * Add @space/save to allow admins to dump database within the game
+    separate from the game db save process
+  * Fix shields to use proper power allocation methods (licenser)
+  * Updated hspilot.cpp to the 0.4.1 autopilot release version from
+    grapenut.
+
+& HS-CHANGESV437
+ 
+  * All space database files are now copied to *.prev during initialization.
+    This allows admin's to recover the input files if needed. 
+  * Bug Fix for writing Nebula SHIELDAFF to file with invalid name. 
+  * Bug Fix to allow reading of Nebula Density attribute. 
+  * Bug Fix to allow hs_get_attr/hs_set_attr to work on territories.
+  * LandingLocs, Hatches and Consoles now validate objects prior to loading
+	information.
+  * @space/delhatch command now works. 
+  * @space/addhatch & delhatch can lookup ship via console objects
+  * Wormholes upgraded to allow error in destination coordinates, a flag 
+    for avoiding damage when passing through, and customized messaging. 
+  * Bug Fix for response timeouts for admin port handlers.
+  * Fixes for gcc 3.4.x.
+  * When undocking from a planet, use current UID, X, Y, Z of the planet
+    for the undocked location as the planet may have moved.
+  * Started a more formal 'Docs' directory within the distribution.
+  * Add MAX_GATE_DIST to the configuration file to remove hard-coded limit.
+  * AddObject and Activate commands now set the space object name to the 
+	name of the game object used.
+  * @space/clone now refuels ship to maximum capacity.
+  * New configuration variables 'asteroid_size_multiplier' and 
+    'nebula_size_multiplier' to set scan report multiplier's and effect
+	distance
+  * Planet objects now have a TYPENAME attribute used to display a 
+    specific typename in ship sensor reports.  Default is 'Planet'.
+  * Fictional systems now provide CHARGE and CHARGE RATE attributes to
+    incrementally charge much like jump drives. See HS-FICTIONAL
+  * Set defaults for configuration options to avoid undefined behavior.
+
+& HS-CHANGESv436
+  Changes in HSpace v4.3.6
+ 
+  * Added hs_nearby(), hs_list(), hs_explode(), and hs_del_weapon() functions.
+  * @space/setmissile now deletes the type from the missile bay when max <= 0.
+  * Bug fix for @eng/setsyspower by percentage or MW where specified value
+    is less than the current.
+  * Bug fix for hs_spacemsg case 1 that only handled detected ships on 
+    sensors, not detected and identified as stated in help.
+  * Bug fix for admin port logins in the TM3 port.
+  * Annoyance fix for reporting unit name improperly.
+  * Bug fix for exit linking in TM3 port that affected @nav/boardlink.
+  * Bug fix for disconnecting boarding links when a ship starts moving.
+  * Add in some core functionality for support MUX2.x
+  * HSMSG_REACTOR_ACTIVATING_EXTERNAL custom messaging attribute added.
+  * Report if admin server is active in @space.
+  * Report lots of other options after the normal @space readout.  Purged
+    configuration variables that are no longer valid.
+  * Do not save deleted universes (Adkins).
+  * Fixes for FreeBSD and CYGWIN compilation.
+  * Allow @console/fire to take optional 1/0 argument for hit or miss.
+  * New command @space/options lists configuration options
+  * New command @space/config allows setting run-time options on the fly.
+  * New weapon attribute: MIN TARGET SIZE
+  * Add @nav/tractorunlock to release tractor locks w/o power down
+  * Repair PassesLock() to deal with normal object locks (Sholevi/grapenut)
+  * Fix Addweapon to properly deal with newly inserted missiles to eliminate
+    a reboot prior to using them.
+  * Fix crash in GetConsoleUser.
+
+& HS-CHANGESv434
+  Changes in HSpace v4.3.4
+
+  * Added a variety of bugfixes and changes by Mark Hassman.
+
+  * Fixed a bug in deleting weapons from a ship.
+
+  * Fixed a bug in deleting a system from a ship class.  Note
+    that deleting a system from a ship class now deletes that
+	system from all ships of that class!
+
+  * Fixed various bugs in hs_spacemsg.
+
+  * Added the HS-ATTRIBUTES section to the administrator help files.
+  
+  * Added the @eng section to the help files (help @eng).
+ 
+  See also: HS-CHANGESv433
+ 
+& HS-CHANGESv433
+  Changes in HSpace v4.3.3
+
+  * Updated HSInterface files for latest version of PennMUSH.
+ 
+  See also: HS-CHANGESv432
+
+& HS-CHANGESv432
+  Changes in HSpace v4.3.2
+
+  * Added additional support for the Admin Toolkit.
+
+  * Fixed a bug in creating new universes.
+    (Reported by Titan)
+
+  * Fixed a bug in viewing while docked.
+    (Reported by Titan)
+
+  * Removed code in setting a ship's heading where the value -1 told
+    HSpace to use the current desired heading.  This prevented the use
+	of a Z heading of -1.  Anyone interested in providing pilots with
+	an XY or Z command to change one part of the heading should softcode
+	that functionality.  It is no longer offered by HSpace.
+
+  * Updated the HSpace interface to work with the most current version of
+    PennMUSH.  Older versions are still supported.
+	(Submitted by Grapenut)
+
+  * Added threading support to the Admin Server, allowing faster processing
+    of admin client requests.
+
+  * Implemented a database reader/writer so that all HSpace databases are
+    written the same.
+
+  * Rewrote the weapon database code so that it uses the new database writer.
+
+  * Rewrote a substantial part of the weapons code to be more flexible and
+    efficient.
+
+  See also: HS-CHANGESv431
+
+& HS-CHANGESv431
+  Changes in HSpace v4.3.1
+
+  * Slightly reworked the way attributes are handled for engineering systems
+    to be more flexible.
+
+  * Added an ID tracker to the ship class database manager so that class
+    IDs are recycled when classes are deleted and new classes are created.
+	(Based on a suggestion by BladedThoth)
+
+  * Deleting a universe now removes the HSPACE_UNIVERSE flag.
+    (Reported by BladedThoth)
+ 
+  * AKILL is now only triggered once when a ship explodes.
+    (Reported by Titan)
+
+  * Fixed a bug in disembarking from a ship actively in space.
+    (Reported by Titan)
+
+  * Fixed a variety of problems caused by separate docked and
+    dropped variables in ships.  These have been merged into
+    a single docked variable for simplicity.
+
+  * Fixed a bug in cloning ship hatches that would crash the game.
+    (Reported by Titan)
+
+  * Fixed a bug where landing locations were not active until reboot.
+    (Reported by various people)
+
+  * Added the Admin Server Toolkit to the HSpace package for developers
+    who want to program remote client applications to administrate the
+	HSpace server.  Documentation is distributed with the HSpace package.
+
+  See also: HS-CHANGESv422
+
+& HS-CHANGESv422
+  Changes in HSpace v4.2.2:
+
+  * Reworked a lot of the internals of the system to increase
+  the overall performance and make developing the system
+  a little easier.
+
+  * Added the VISIBLE attribute to landing locations.  Refer
+    to the HS-LANDINGLOC-ATTRS section.
+    (Suggested by Titan @ Star Wars: ROE)
+
+  * Added the ability to land on a landing location by name
+    in addition to landing site #.  Useful for hidden sites.
+
+  * Reworked the universe listing code to solve a bug that could
+    prevent the list from printing.
+    (Reported by BladedThoth)
+
+  * Added ROOM_BROADCAST attribute check when messages are passed to
+    ship consoles.  If this attribute is set on the console object,
+    messages to the console are broadcast to everyone in the room,
+    not the console user.
+    (Suggested by Titan @ Star Wars: ROE)
+
+  * Upgraded HSpace to work with PennMUSH 1.7.5p10 and fixed some
+    problems preventing HSpace flags from working.
+    (Reported by BladedThoth)
+
+  * Fixed a crash in hs_addsys() that would occur if the system
+    were used before a reboot.
+    (Reported by Titan @ Star Wars: ROE)
+
+  * Fixed a possible division by 0 bug in system stress calculation.
+    (Reported by BladedThoth)
+
+  * Fixed a typo in the warning printed out when a system takes damage
+    from stress.
+	(Reported by BladedThoth)
+
+  * Fixed a bug in creating new objects and rooms during a ship clone
+    that accidentally used the same memory as the original copy of the
+	object, thereby creating a problem where two objects were using
+	the same memory and battling each other.
+	(Reported by BladedThoth)
+
+  * Added @space/dellandingloc to delete landing locations.

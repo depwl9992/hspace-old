@@ -1,0 +1,9 @@
+obj/HSDataStream.o: HSDataStream.cpp ../pch.h ../hstypes.h HSDataStream.h
+obj/HSNetwork.o: HSNetwork.cpp ../hsutils.h HSPackets.h ../HSVariant.h \
+  HSDataStream.h ../hstypes.h HSDataStream.h HSPacketTypes.h hssocket.h \
+  HSNetwork.h
+obj/HSPackets.o: HSPackets.cpp HSPackets.h ../HSVariant.h HSDataStream.h \
+  ../hstypes.h HSDataStream.h HSPacketTypes.h
+obj/hssocket.o: hssocket.cpp StdAfx.h ../hstypes.h HSDataStream.h \
+  ../hsutils.h hssocket.h
+obj/StdAfx.o: StdAfx.cpp StdAfx.h

@@ -1,0 +1,56 @@
+
+###############################
+# HSpace Admin Server Toolkit #
+###############################
+
+1. What is the Admin Server Toolkit?
+
+The Admin Server Toolkit is a collection of services that come
+with the HSpace package to allow developers to create applications,
+separate from HSpace, that can communicate with and administrate
+HSpace without the administrator ever having to login to the
+game.  Simply imagine sitting down at your computer, launching
+a graphical program, and telling it to do everything you would
+normally have to login and use text commands to do.  While the
+Admin Server Toolkit does not provide this application, it provides
+the necessary code to enable developers to create these applications.
+By providing the basic layer of communication, each developer can
+develop his/her own applications with his/her own style.
+
+The Admin Server Toolkit consists of two primary pieces.  These are
+the HSNetwork library and the HSpace Server.  As a developer you
+need only concern yourself with the first of these two things.  The
+HSpace server is fully integrated with HSpace and is maintained by
+the HSpace developers.
+
+2. How can I use the toolkit?
+
+The HSpace package includes several components: HSpace itself, the
+HSNetwork library, and the AdminTest example.  By compiling HSpace
+with your game, and turning on the ADMIN_SERVER options in hspace.cnf,
+you have already told HSpace you want to allow remote applications
+to connect to the server.  Your next action item should be to look
+over the AdminTest program to get an idea of how to use the HSNetwork
+communication layer.  Finally, you will want to develop your own
+application architecture that makes use of the HSNetwork in your
+own approach.  Do not think for a moment that the AdminTest program
+is the only way to develop an application.  It is nothing more than
+a simple application that shows how to communicate with the HSpace
+server.
+
+3. Do I have to use the Admin Server with HSpace?
+
+No.  By default, the admin server is turned off in your
+hspace.cnf file.  You can turn it on if you want people
+to be able to remotely connect to your HSpace server,
+but it's not an obligation.
+
+4. What languages can I use with the Admin Server Toolkit?
+
+The toolkit was built with C++ developers in mind.  We realize
+that many people enjoy Visual Basic and Delphi, and it may be
+possible to use the HSNetwork library with these languages.  In
+the future, we hope that someone will develop a generic wrapper
+to create an ActiveX (COM) object that can be used by any language.
+Since the Admin Server Toolkit is very young, it is currently only
+distributed as a C++ communications library.

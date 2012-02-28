@@ -1,0 +1,188 @@
+& MESSAGE CONFIGURATION
+ 
+  HSpace provides the capability to customize messages on per ship basis. These
+  messages are often used for the notification of individuals in the ship and
+  to others when arriving or departing a location.   The following messages can
+  be used:
+  
+  HSMSG_COMPUTER_ACTIVATING    HSMSG_ENGINES_ACTIVATING    HSMSG_ENGINES_CUT
+  HSMSG_JUMPERS_CUT            HSMSG_LIFE_ACTIVATING       HSMSG_LIFE_CUT
+  HSMSG_REACTOR_ACTIVATING     HSMSG_ENGINE_FORWARD        HSMSG_ENGINE_REVERSE
+  HSMSG_SPEED_INCREASE         HSMSG_BEGIN_DESCENT         HSMSG_DOCKING_DOCKS
+  HSMSG_LANDING_APPEARS        HSMSG_LANDING_MSG           HSMSG_LANDING_LANDS
+  HSMSG_UNDOCK_START           HSMSG_UNDOCK_FINAL          HSMSG_TAKEOFF_START
+  HSMSG_LIFT_OFF               HSMSG_TAKEOFF_LIFTOFF       HSMSG_TAKEOFF_FINAL
+  HSMSG_AFTERBURN_ENGAGE       HSMSG_AFTERBURN_DISENGAGE   HSMSG_SHIP_JUMPS
+  HSMSG_END_JUMP               HSMSG_THRUSTERS_ACTIVATING  HSMSG_SPEED_DECREASE
+  HSMSG_REACTOR_ACTIVATING_EXTERNAL
+ 
+  These messages can be set by placing that attribute on the appropriate ship
+  object.
+
+& HSMSG_COMPUTER_ACTIVATING
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the computer has been activated.
+  
+& HSMSG_ENGINES_ACTIVATING
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the engines have been activated.
+  
+& HSMSG_ENGINES_CUT
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the power has been cut to the 
+  ship's engines.
+  
+& HSMSG_JUMPERS_CUT
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the power has been cut to the 
+  ship's jump drive.
+  
+& HSMSG_LIFE_ACTIVATING
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that power has been supplied to the
+  life support system.
+  
+& HSMSG_LIFE_CUT
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the life support system has been
+  powered off. 
+  
+& HSMSG_REACTOR_ACTIVATING
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the ship's reactor has been 
+  started.
+  
+& HSMSG_ENGINE_FORWARD
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the thrust of the main engines 
+  has increased.
+  
+& HSMSG_ENGINE_REVERSE
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that thrust of the ship's engines has
+  been reversed.
+
+& HSMSG_SPEED_INCREASE
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the speed of the ship has been
+  increased.
+  
+& HSMSG_SPEED_DECREASE
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the speed of the ship has been
+  decreased.
+  
+& HSMSG_BEGIN_DESCENT
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the ship has begun dropping to the
+  surface of a planet
+  
+& HSMSG_DOCKING_DOCKS
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects in the docking location that the ship has successfully
+  docked.
+  
+& HSMSG_LANDING_APPEARS
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects in the target landing location that the ship has 
+  appeared.
+  
+& HSMSG_LANDING_MSG
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the ship has landed on the surface
+  of a planet or other celestial body.
+  
+& HSMSG_LANDING_LANDS
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects in the landing location that the ship has landed.
+  
+& HSMSG_UNDOCK_START
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects in the docking location that the ship is preparing to
+  depart.
+  
+& HSMSG_UNDOCK_FINAL
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects in the docking location that the ship has successfully
+  undocked.
+  
+& HSMSG_TAKEOFF_START
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects at the landing location that the ship is preparing 
+  for takeoff.
+  
+& HSMSG_LIFT_OFF
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the ship has lifted off from 
+  the landing location.
+  
+& HSMSG_TAKEOFF_LIFTOFF
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects in the landing location that the ship has lifted off
+  the surface.
+  
+& HSMSG_TAKEOFF_FINAL
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects at the previous landing location that the ship has
+  disappeared from view.
+  
+& HSMSG_AFTERBURN_ENGAGE
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the ship has engaged its 
+  afterburners.
+  
+& HSMSG_AFTERBURN_DISENGAGE
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the ship has disengaged its 
+  afterburners.
+  
+& HSMSG_SHIP_JUMPS
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the ship has enaged its jump 
+  drives and entered hyperspace.
+  the landing location.
+  
+& HSMSG_END_JUMP
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the ship has disengaged its 
+  jump drives.
+
+& HSMSG_THRUSTERS_ACTIVATING
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  all listening objects within the ship that the ship's thrusters have been
+  powered.
+  
+& HSMSG_REACTOR_ACTIVATING_EXTERNAL
+ 
+  When this attribute is set on a ship object, this message is used to notify
+  the objects in the docked location (landingloc or dock) that the ship's
+  reactor has been started.
+   
+

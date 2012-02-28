@@ -1,0 +1,242 @@
+INTRODUCTION 
+
+The HSToolkit.dll (HSToolkit DLL) is a COM library built on top of the HSpace remote administration toolkit library, which is written in C++ and available for C++ developers.  This DLL is built exclusively for use with the Microsoft Windows operating system.  The HSToolkit DLL provides non-C++ developers generic access to the administration toolkit objects and, therefore, the ability to communicate with an HSpace server.  The HSToolkit DLL provides the fundamental communication layer that a client administration application requires in order to communicate with an HSpace server.  Developers in languages such as Visual Basic, Delphi, C, and C++ can build their applications around the HSToolkit DLL, leaving the details of network communication to the DLL while concentrating on higher-level aspects such as presenting data to the user.
+
+This document will provide details on how to use the HSToolkit DLL with sample code that one might find in an application built on the DLL.  It is important for beginning and advanced developers alike to understand the architecture of communication employed in Hspace and the remote administration toolkit.  This toolkit ONLY provides the communication layer.  A game using HSpace will inherently contain the necessary server-side code to handle communication with clients.  Therefore, developers need only concern themselves with building the client administration application.
+
+
+
+THE PACKET MODEL 
+
+Communication between the HSpace server and administration clients is accomplished through packet objects.  One might think of a packet as a message, containing a message type and the message body.  These two pieces of information alone allow great levels of communication.  Imagine one person asking another person, "What time is it?"  This simple message can be separated into two components: request and context.  The message is a request because it is a question from one person to another.  But a request has no meaning unless it has context.  The context is the time.  Thus, the full message is the request of the current time.  This is the toolkit's approach to communication.  In general, requests are sent from the administration client application to the HSpace server, whereby the server responds with some piece of information.  Each message sent from the client to server and server to client contains a message type and some data of interest.  These messages are packets, and each message has a packet type.  
+
+It is your job as a client application developer to make use of these packets to create some usable application.  When a user clicks the connect button, you will ask the HSToolkit DLL to connect to the server, and it will respond to say whether it was able to connect and login or not.  When you want to retrieve a list of ship classes from the server, you will ask the HSToolkit DLL to send the appropriate request to the server, and the server will send you a message containing the list of classes.  It is that simple.  In some cases, however, the server may send you a message without you requesting it.  It is up to you to ask the HSToolkit DLL when unexpected messages are waiting, and you may choose to do something with those messages.  For example, the server may shut down and tell you that the connection has been closed.  In that case you will receive a message that the connection has been closed.  You might choose to pop up a message for the user to indicate that the connection to the server is closed.
+
+
+HOW THE HSTOOLKIT DLL IS BUILT
+
+The HSToolkit DLL is essentially a "wrapper" around the C++ HSpace remote administration toolkit.  The C++ toolkit contains an object known as the HSNetwork.  The HSNetwork is responsible for managing the connection with the server (on the server side, managing the client connections) and transforming data from the connection into individual packets (messages).  When you want to send or receive a packet, it is through the HSNetwork object.  Every other object in the toolkit is a packet object, one for each type of message that could be sent to the server or to the client (and sometimes to the server or client).  When you want to send a request to the server, you create a packet representing the request you want to send, and you as the HSNetwork to send it to the server.  The HSNetwork doesn't care what type of message you are sending.  It is merely responsible for taking your packet and handing it to the connection for transport across the network.
+
+How does this translate to the DLL version of the HSToolkit?  Since COM has very strict rules on how applications must communicate with the COM objects that reside in the DLL, some differences exist between the pure C++ HSToolkit and the DLL version.  The toolkit is still built upon the idea of a HSNetwork object and a HSPacket object, but accessing them requires the use of some COM functions supported by your language and the use of COM interfaces.  To some that may sound like unfamiliar territory, but it should not scare you.  Using the interfaces to the HSNetwork and HSPacket objects is very simple so that you can spend less time figuring out how to communicate and more time communicating!
+
+
+HOW TO USE THE HSTOOLKIT DLL IN YOUR APPLICATION
+
+This explanation varies greatly with each language.  We will describe three languages to demonstrate how to interact with with the DLL.
+
+First, you must register the DLL with the operating system.  This is accomplished with the Windows regsvr32 program.  Perform the following steps to register the DLL.  Once you have it registered, DO NOT MOVE IT!
+
+1) Open a DOS window, and change to the directory where you have HSToolkit.dll
+2) Type regsvr32 HSToolkit.dll
+
+You should see a message that says the registration succeeded.  That's it!  The registration process adds the necessary keys to the Windows registry so that you can create the objects located within the DLL.
+
+Actually using the objects in the DLL is another issue.  Here are some examples of how to use the DLL in various languages:
+
+--- In C++ ---
+Copy the dll to your workspace for use with #import.  Try the following code.
+
+#import "HSToolkit.dll"
+
+void main()
+{
+	CoInitialize(NULL); /* Initialize the COM subsystem */
+
+	HSNetwork::IHSNetworkPtr	pHSNetwork;
+
+	if (SUCCEEDED(pHSNetwork.CreateInstance("HSpace.HSNetwork")))
+	{
+		/* We've got a COM HSNetwork object! */
+
+		/* Now what do we do with it? */
+		/* How about connect to our HSpace server! */
+		pHSNetwork.ConnectToServer("192.168.1.1", 4202, "one", "one");
+
+		/* Don't forget to release what you create */
+		pHSNetwork.Release();
+	}
+	else
+	{
+		printf("Failed to create the COM HSnetwork object.\n");
+	}
+
+	CoUnintialize();
+}
+
+
+--- In Visual Basic ---
+Use the Project menu to reference the DLL so that Visual Basic knows about the
+objects you want to create.  Try the following code:
+
+Private Sub CreateHSNetworkObject()
+
+Dim TheHSNetwork As Object
+Set TheHSNetwork = CreateObject("HSpace.HSNetwork")
+
+' Now do something!
+connected = TheHSNetwork.ConnectToServer("192.168.1.1", 4202, "one", "one");
+
+End Sub
+
+
+--- In Delphi ---
+The easiest way to set up the interface is by using the Import Type Library feature of Delphi. The following process will make an individual unit. If you want a componant, this is a little more complex. (Watch http://themeless.xidus.net for more Delphi-related topics.)
+
+1. Go to the menu Project --> Import Type Library...
+2. Browse for 'HSpace Client Toolkit (Version 1.0)' in the top window. If it is not locatable (Delphi for some reason doesn't repopulate the registered DLLs often.), click the 'Add' button and browse to the HSToolkit.dll file and add it. Select the 'HSpace Client Toolkit'.
+3. Set the 'Unit dir name' to either the directory of the project you wish to include the DLL in, OR add it to one of the search path directories so that it can be used globally.
+4. Turn off 'Generate Component Wrapper' checkbox, and then click 'Create Unit'.
+
+To include this file in a project, add to the form's 'uses' statement the name of the file.  If you saved the file to the project folder rather than a part of the search path, you need to use Project --> Add To Project... to add the file to the project.
+
+Once this is done, add the THSNetwork declaration to the form, as so:
+
+
+type
+  TForm1 = class(TForm)
+    HSNetwork1: THSNetwork;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+
+To test this, make a button, and use this to the OnClick event for the button:
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  IsConnected: WordBool;
+begin
+  HSNetwork1.ConnectToServer('192.168.1.1', 4202, 'one', 'one', IsConnected);
+  if IsConnected then
+    ShowMessage('Connected!')
+  else
+    ShowMessage('Connection not avalable');
+end;
+
+
+
+HOW TO SEND REQUESTS TO THE SERVER
+
+Sending requests (packets) to the server is really just a matter of deciding what you want to say to the server, creating a packet of that type of message, and asking the HSNetwork object to send it.  In most cases the server will need a little more information from you than a simple request type.  For example, you want to know the position of a ship in space.  You must send a little more information than the position request -- you need to tell the server what object you are interested in.  For this reason most packets have several functions (or methods) that you use to set some information before sending it to the server.  Let's assume you have already created the HSpace.HSNetwork COM object.  Now you want to create a ship class on the server.  The HSToolkit allows you to create a new class by specifying its name.  Once you have created the class, you can then use other packets to set additional attributes on the class.  Here's how we would do that in the various languages:
+
+--- In C++ ---
+
+/* Create a pointer to the packet we want */
+HSToolkit::ICreateClassPacket*	pPacket;
+
+/* Ask the HSNetwork to create the packet we want. */
+if (SUCCEEDED(pNetwork->CreatePacket(HSToolkit::PACKET_CREATE_CLASS, (LPDISPATCH*)&pPacket)))
+{
+	/* We've got the packet we want! */
+
+	/* Set the name of the class we want to create */
+	pPacket->PutNewClassName("Test Class");
+
+	/* Ask the HSNetwork to send the packet to the server. */
+	pNetwork->SendPacket((LPDISPATCH)pPacket);
+
+	/* Always release what you create! */
+	pPacket->Release();
+}
+
+
+--- In Visual Basic ---
+
+' Declare a generic packet object.
+Dim Packet As Object
+
+' Ask the HSNetwork to create a packet for Create Class.
+created = TheHSNetwork.CreatePacket(PACKET_CREATE_CLASS, Packet)
+
+' We need to access the packet as a ICreateClassPacket object.
+Dim CreateClassInterface As ICreateClassPacket
+Set CreateClassInterface = Packet
+
+' Now set the name of the class we want to create.
+CreateClassInterface.NewClassName = "Test Class"
+
+' Ask HSNetwork to send the packet.
+sent = TheHSNetwork.SendPacket(Packet)
+
+
+--- In Delphi ---
+var
+  OutPacket: IDispatch;
+  SentPacket: WordBool;
+begin
+// Create packet
+  THSNetwork.CreatePacket(PACKET_CREATE_CLASS, OutPacket);
+// Use Set_NewClassName on Outpacket as ICreateClassPacket
+  (OutPacket as ICreateClassPacket).Set_NewClassName('Test Class');
+// Send Packet
+  THSNetwork.SendPacket(OutPacket, SentPacket);
+end;
+
+HOW TO RECEIVE A PACKET FROM THE SERVER
+
+By now you have begun to understand how to send a packet to the server, but what do you do when the server responds to your packet?  The server will usually send a packet as a response to your packet.  In the example above for sending a CreateClass packet to the server, the server is going to respond with a packet to tell you if the class was created and, if so, what the ID of the new class is.  For this, you simply need to ask the HSNetwork object to "wait" for the response you expect.
+
+Try the following code:
+
+--- In C++ ---
+
+/* Create a pointer to the response packet you expect */
+HSToolkit::ICreateClassRespPacket*	pPacket;
+
+if (pNetwork->WaitForPacket(HSToolkit::PACKET_CREATE_CLASS_RESP, (LPDISPATCH*)&pPacket))
+{
+	/* We received a response! */
+			
+	/* Did the create succeed? */
+	if (pPacket->GetSucceeded())
+	{
+		/* What is the ID of the new class? */
+		int iNewID = pPacket->GetClassID();
+	}
+
+	/* Always release what you create! */
+	pPacket->Release();
+}
+
+
+--- In Visual Basic ---
+' Create an object to receive the response.
+Dim response as Object
+
+received = TheHSNetwork.WaitForPacket(PACKET_CREATE_CLASS_RESP, response)
+
+' Transform our generic object to the ICreateClassRespPacket object.
+Dim CreateClassResp as ICreateClassRespPacket
+
+Set CreateClassResp = received
+
+' Did the create work?
+created = CreateClassResp.Succeeded
+
+' What is the new ID for the class?
+new_id = CreateClassResp.ClassID
+
+
+--- In Delphi ---
+var
+  InPacket: IDispatch;
+  RecievedPacket, Succeeded: WordBool;
+  NewClassID: Smallint;
+begin
+// Wait for inbound packet of type PACKET_CREATE_CLASS_RESP
+  HSNetwork.WaitForPacket(PACKET_CREATE_CLASS_RESP, InPacket, RecievedPacket);
+// Did packet recieve work?
+  Succeeded := (InPacket as ICreateClassRespPacket).Get_Succeeded(Succeeded);
+  if RecievedPacket and Succeeded then
+// Retrieve new class ID.
+    (InPacket as ICreateClassRespPacket).Get_ClassID(NewClassID);
+end;
+
+
+MISCELLANEOUS INFORMATION
+
+Through the sections above, you have learned how to create the HSNetwork COM object, ask it to create packets that you can send to the server, and how to receive packets from the server.  These are, of course, only a few small examples of how you can use the HSToolkit DLL.  There are many other functions available in HSNetwork and the many packets that the HSToolkit supports.  The compiler for your language will have its own way of showing you what packet types are available in the HSToolkit and what methods and properties they support.  The HSToolkit DLL will grow in time to support a greater level of functionality.  Ultimately, you will be able to fully control HSpace through your remote client application!
+
+

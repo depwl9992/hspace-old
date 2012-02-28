@@ -1,0 +1,42 @@
+1. Introduction
+
+This document describes briefly how to build and use HSpace on 
+a computer running the Windows operating system.  This discussion
+only accounts for the PennMUSH game engine, since HSpace officially
+only works with that engine.
+
+2. Where to start?
+
+First, you should begin by downloading, building, and firing up the
+game server on your machine.  This probably means downloading PennMUSH
+and compiling it with Microsoft Visual Studio or some similar compiler
+that does the job.  Get everything working before you go adding HSpace,
+which is our advice on both Windows and UNIX.
+
+3. Adding HSpace to Your Game
+
+You have probably already downloaded and unpacked HSpace from www.hspace.org,
+which is why you are reading this file.  Be sure the hspace directory from
+the HSpace package is located in the pennmush/src directory, so that the
+path to HSpace is pennmush/src/hspace.  In the hspace directory, you will find
+the hspace.dsp project file for Microsoft Visual Studio.  If you are using
+some other compiler (like gcc and cygwin), you may find the Makefile useful
+in that same directory.  Add the dsp to your PennMUSH workspace (or compile
+the Makefile to produce hspace.lib).  If you are using Visual Studio, choose
+the 'Project' menu, and then 'Dependencies'.  Make the hspace project a 
+dependency of the pennmush project.  Thus, when you compile pennmush, it will
+first compile hspace, then pennmush, and then link the two together at the end.
+
+!! Read the HSpace installation guide that comes with HSpace and follow the
+!! instructions in that guide for modifying PennMUSH so that it properly talks
+!! to HSpace.
+
+4. And now?
+
+Provided you have followed the instructions above and received no compiler
+errors, you should be good to go.  HSpace is developed natively on Windows
+and ported to UNIX, so there should be no compatibility issues with Windows.
+When you start up your game, HSpace should work as it is supposed to.  Try
+logging into your game and typing @space.  You should see a full HSpace
+statistics display.  If not, then something has gone wrong, and you should
+contact gepht@hspace.org.

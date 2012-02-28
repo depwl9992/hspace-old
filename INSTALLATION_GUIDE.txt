@@ -1,0 +1,179 @@
+# # # # # # # # # # # # # # # # # # # # # # # #
+# THE HSPACE INSTALLATION GUIDE TO ... HSPACE #
+# # # # # # # # # # # # # # # # # # # # # # # #
+
+HSpace 4.4.1p1 Millenium Edition
+http://www.mindgames-studio.com/trac/hspace
+
+
+1. What is HSpace?
+
+If you are familiar with MUSH, then you probably have some idea of what
+HSpace is.  If you're not familiar with MUSH and online text games (that's
+what a MUSH is), then you probably have no use for this package.
+
+HSpace (Hemlock Space, from the Hemlock series of games) is a sort of "plug-in"
+to online text games, adding to the game a virtual space environment with ships
+that can navigate and engage in combat and a variety of other space-like things.
+Since most text-based game engines (e.g. PennMUSH or TinyMUSH) only provide a
+basis for creating an online text game, to create a space game you either need
+to develop your own space engine, choose not to have any space flight at all, or
+download and install a package like HSpace.  You have obviously chosen the 
+latter of the three.  If you are still interested in using HSpace, then 
+continue reading the sections to follow.
+
+2. SUPPORTED GAME ENGINES
+
+HSpace 4.4.1 is currently only compatible with PennMUSH 1.8.3p7
+Later versions of PennMUSH will not compile and as we are starting
+a new development line of HSpace there is no desire to work on backwards
+compatability at this point as the fixes would need to be made in Penn.
+
+While HSpace has been used with TinuMUSH and MUX at this time those engines
+require extensive modification.  Check with the developers for these packages
+as they may have released pre-modified/compiled versions of their codebases
+with HSpace.
+
+3. PACKAGE CONTENTS
+
+You have unpacked the HSpace package, which contains a single "hspace" directory
+with the HSpace source code and this text file that you are reading.  There is
+a Makefile in the same directory, which you will use to build the HSpace 
+library.
+
+4. BUILDING HSPACE
+
+First, you will need to unpack and compile your game engine, be it PennMUSH or
+whatever.  It is important for you to compile your game without HSpace to be 
+certain that you can even get that far.  Build your game, start it up, and get
+it running well.  If you install HSpace without first testing your game without
+it, you won't be able to distinguish normal game problems from problems that
+could be caused by the space system!
+
+Ok, you know your game works, right?  Shut down your game, and let's build 
+HSpace.
+
+To build HSpace, you need to do the following things:
+
+For PennMUSH:
+
+1. Move your hspace directory into your pennmush/src directory, 
+   so that your hspace directory should be at pennmush/src/hspace.
+
+2. Go to the hspace directory, and type make.
+
+If all goes well, it should compile.  You should see several lines like 
+"Generating dependencies for ..." and "Compiling ..."  If you see any errors, 
+you have compilation problems that were not forseen when this package was 
+created.  If that happens, go to the sectioned titled "WHERE TO GET HELP" in 
+this guide.
+
+When your package is done building, you will see a file called in the hspace 
+directory named "libhspace.a." This is the fully compiled HSpace code that 
+will need to be "plugged in" to your game engine.
+
+5. INSTALLATION HSPACE FOR PENNMUSH
+
+You will need to modify one two files for PennMUSH to add HSpace: src/local.c 
+and Makefile.in.
+
+** It is a good idea at this point to make a backup of each file you modify
+so you may easily revert to a working version of PennMUSH if needed.
+
+Make the following change to Makefile.in (in the pennmush directory):
+
+** This line may include other defines, just make sure you add the stuff at the 
+** end starting with -lpthread.
+Change: CLIBS=@LIBS@
+To: CLIBS=@LIBS@ -lpthread -Lhspace -lhspace -Lhspace/hsnetwork -lhsnetwork -lstdc++
+
+Note that this assumes you have your hspace package directory in the 
+pennmush/src directory! If this is not the case, then you should have  
+-L<path to libhspace.a> (e.g. -L../spacestuff/hspace).
+
+Make the following changes to src/local.c, but do not include the <--- and the 
+text after it!:
+
+local_startup(void)  // <--- Find this
+{
+	hsInit(); // <--- Add this
+}
+
+local_dump_database(void) // <--- Find this
+{
+	hsDumpDatabases(); // <--- Add this
+}
+
+local_shutdown(void) // <--- Find this
+{
+	hsShutdown(); // <--- Add this
+}
+
+local_timer(void) // <--- Find this
+{
+	hsCycle(); // <--- Add this
+}
+
+local_data_free(dbref object __attribute__ ((__unused__))) // <--- Find this
+{
+    hsDestroyObject(object); // <--- Add This
+}
+
+In pennush/src/destroy.c, change:
+
+Around line 83 change: 
+static void free_object(dbref thing);
+
+to:
+void free_object(dbref thing);
+
+
+Around line 589 change:
+
+static void
+free_object(dbref thing)
+
+to:
+
+void
+free_object(dbref thing)
+
+
+When you have made these changes, change to your top-level PennMUSH directory, 
+and type './configure', which will regenerate your main Makefile, 
+then type 'make' then 'make install', which should compile PennMUSH again and link the 
+HSpace code with your game.
+
+In the PennMUSH game directory, make a directory named "space," and copy the 
+hspace/hspace.cnf file to this directory.  Edit the hspace.cnf, and change 
+things as you please.  
+
+Copy all files in the hspace/help_files directory to your 
+pennmush/game/txt/hlp directory.  From pennmush/game/txt type 'make' to 
+rebuild the help files.
+
+Restart your game, and you should have HSpace commands available.  Type 
+'help hspace' for the HSpace help files.
+
+6. WHERE TO GET HELP
+
+** It should be noted that HSpace has become somewhat defunct with little to 0
+support to be found. 
+
+HSpace has been in use for quite some time and has had time to evolve, but the 
+package is free, so to some extent you must expect there could be some problems
+that take time to sort out.  One of the main problems could be that the package
+doesn't compile for you.  This would not be a surprise, and the developers 
+will need to know why it failed.  Another problem could be that these 
+instructions were not clear enough, so the developers will need to know that as
+well.  Or maybe you just have some burning questions on your mind and want to 
+ask them.  In any case, here's the address where you can contact the 
+developers of this package, and this package only!
+
+gepht@hspace.org, mark@moosh.net
+
+Please include the package version, found in hsversion.h, the operating system
+you are using for your game server, and a decent description of the problem or
+question.
+
+Additional information can be garnered from http://www.hspace.org!

@@ -1,0 +1,554 @@
+obj/hsai.o: hsai.cpp pch.h hstypes.h hspace.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsautopilot.h hsship.h hsai.h
+obj/hsautopilot.o: hsautopilot.cpp pch.h hstypes.h hspace.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsansi.h hsautopilot.h hsship.h hsai.h
+obj/hscelestial.o: hscelestial.cpp pch.h hstypes.h hspace.h hsconf.h \
+  hsuniverse.h hsobject.h hsobjects.h hslandingloc.h hshatch.h \
+  hscopyright.h hsinterface.h hsutils.h hsflags.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h \
+  hscomputer.h hsfuel.h hsship.h hscelestial.h hsansi.h hsuniversedb.h \
+  HSSingleton.h
+obj/hsclass.o: hsclass.cpp pch.h hstypes.h hscopyright.h hspace.h hsclass.h \
+  HSSingleton.h hsengines.h hsfuel.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hsconf.h hsutils.h hsinterface.h
+obj/hscloaking.o: hscloaking.cpp pch.h hstypes.h hsinterface.h hscloaking.h \
+  hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h
+obj/hscmds.o: hscmds.cpp hscopyright.h hspace.h hstypes.h hsversion.h \
+  hscmds.h hsuniverse.h hsobject.h hsobjects.h hslandingloc.h hshatch.h \
+  pch.h hsinterface.h hsutils.h hsflags.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h \
+  hscomputer.h hsfuel.h hsship.h hsuniversedb.h HSSingleton.h \
+  hscelestial.h hsdb.h hsconf.h hsterritory.h hsclass.h hsai.h
+obj/hscomm.o: hscomm.cpp pch.h hstypes.h hscomm.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsuniversedb.h HSSingleton.h hsconf.h hsdb.h hsansi.h \
+  hsjammer.h
+obj/hscommunications.o: hscommunications.cpp pch.h hstypes.h hsinterface.h \
+  hscommunications.h hseng.h HSVariant.h hsnetwork/HSDataStream.h \
+  HSEngTypes.h
+obj/hscomputer.o: hscomputer.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsconf.h
+obj/hsconf.o: hsconf.cpp hstypes.h hsutils.h hsconf.h
+obj/hsconsolecmds.o: hsconsolecmds.cpp pch.h hstypes.h hsdb.h hscmds.h \
+  hsobjects.h hsobject.h hslandingloc.h hshatch.h hscopyright.h \
+  hsinterface.h hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h \
+  hscomputer.h hsfuel.h
+obj/hsconsole.o: hsconsole.cpp pch.h hstypes.h hscopyright.h hspace.h \
+  hsobjects.h hsobject.h hslandingloc.h hshatch.h hsinterface.h hsutils.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsansi.h hsmissile.h
+obj/hsdamagecontrol.o: hsdamagecontrol.cpp pch.h hstypes.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsansi.h hsconf.h hsdamagecontrol.h
+obj/hsdb.o: hsdb.cpp pch.h hstypes.h hscopyright.h hsdb.h hsconf.h hsweapon.h \
+  hsobject.h hsinterface.h hsutils.h hsuniverse.h hsobjects.h \
+  hslandingloc.h hshatch.h hspace.h hsflags.h hsconsole.h hssensors.h \
+  hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h \
+  hsfuel.h hsship.h hsuniversedb.h HSSingleton.h hsclass.h hsterritory.h \
+  hscelestial.h
+obj/hsengcmds.o: hsengcmds.cpp pch.h hstypes.h hscopyright.h hscmds.h hsdb.h \
+  hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hsinterface.h \
+  hsutils.h hsobjects.h hsobject.h hslandingloc.h hshatch.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hscomputer.h hsfuel.h \
+  hsship.h
+obj/hseng.o: hseng.cpp pch.h hstypes.h hsutils.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hscelestial.h hsansi.h hsengines.h hsconf.h hsjumpdrive.h \
+  hsthrusters.h hsshields.h hsreactor.h hscommunications.h \
+  hslifesupport.h hscloaking.h hstachyon.h hsdamagecontrol.h hsjammer.h \
+  hstractor.h hsautopilot.h hsai.h hswarpdrive.h hsfictional.h
+obj/hsengines.o: hsengines.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsansi.h hsconf.h hsengines.h
+obj/hsfictional.o: hsfictional.cpp hscopyright.h hsfictional.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h hstypes.h HSEngTypes.h
+obj/HSFileDatabase.o: HSFileDatabase.cpp pch.h hstypes.h HSFileDatabase.h \
+  hsobject.h
+obj/hsfuel.o: hsfuel.cpp pch.h hstypes.h hsinterface.h hsfuel.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h
+obj/hsfuncs.o: hsfuncs.cpp pch.h hstypes.h hscopyright.h hsfuncs.h \
+  hsinterface.h hsobjects.h hsobject.h hslandingloc.h hshatch.h hsutils.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsmissile.h hsdb.h hsuniverse.h hsship.h hsuniversedb.h HSSingleton.h \
+  hsterritory.h hscomm.h hscmds.h
+obj/HSHandlerClass.o: HSHandlerClass.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h hsclass.h \
+  hsnetwork/HSNetwork.h hsuniverse.h hsobject.h hsobjects.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hspace.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h HSEngTypes.h \
+  hscomputer.h hsfuel.h hsship.h hsuniversedb.h HSHandlerClass.h
+obj/HSHandlerLogin.o: HSHandlerLogin.cpp pch.h hstypes.h hsutils.h hsflags.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h hsinterface.h \
+  hsnetwork/HSNetwork.h HSHandlerLogin.h
+obj/HSHandlerMisc.o: HSHandlerMisc.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h hsclass.h \
+  hseng.h HSVariant.h HSEngTypes.h hsnetwork/HSNetwork.h hsuniverse.h \
+  hsobject.h hsobjects.h hslandingloc.h hshatch.h hscopyright.h \
+  hsinterface.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h \
+  hscomputer.h hsfuel.h hsship.h hsuniversedb.h HSHandlerMisc.h
+obj/HSHandlerObject.o: HSHandlerObject.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h \
+  hsnetwork/HSNetwork.h hsobjects.h hsobject.h hslandingloc.h hshatch.h \
+  hscopyright.h hsinterface.h hspace.h hsflags.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniversedb.h hsuniverse.h hsship.h hsdb.h HSHandlerObject.h
+obj/HSHandlerUniverse.o: HSHandlerUniverse.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h \
+  hsuniversedb.h hsuniverse.h hsobject.h hsobjects.h hslandingloc.h \
+  hshatch.h hscopyright.h hsinterface.h hspace.h hsflags.h hsconsole.h \
+  hsweapon.h hssensors.h hseng.h HSVariant.h HSEngTypes.h hscomputer.h \
+  hsfuel.h hsship.h hsnetwork/HSNetwork.h HSHandlerUniverse.h
+obj/HSHandlerWeapon.o: HSHandlerWeapon.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h \
+  hsnetwork/HSNetwork.h hsweapon.h hsobject.h HSHandlerWeapon.h
+obj/hshatch.o: hshatch.cpp hscopyright.h hshatch.h pch.h hstypes.h \
+  hsobjects.h hsobject.h hslandingloc.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h \
+  hscomputer.h hspace.h hsfuel.h hsinterface.h hsutils.h hsflags.h
+obj/hsinterface.o: hsinterface.cpp hsconf.h hstypes.h hsutils.h hsflags.h \
+  hscmds.h hscopyright.h hsinterface.h hspace.h
+obj/hsjammer.o: hsjammer.cpp pch.h hstypes.h hsjammer.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h
+obj/hsjumpdrive.o: hsjumpdrive.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsansi.h hsconf.h hsjumpdrive.h hsengines.h
+obj/hslandingloc.o: hslandingloc.cpp hslandingloc.h hsobjects.h hsobject.h \
+  hshatch.h pch.h hstypes.h hscopyright.h hsinterface.h hsutils.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h
+obj/hslifesupport.o: hslifesupport.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsconf.h hslifesupport.h
+obj/hsmain.o: hsmain.cpp pch.h hstypes.h hsinterface.h hspace.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsutils.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsdb.h \
+  hsuniverse.h hsship.h
+obj/hsmissile.o: hsmissile.cpp pch.h hstypes.h hsmissile.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hsconf.h hsansi.h hscloaking.h HSFileDatabase.h
+obj/hsnavcmds.o: hsnavcmds.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hscmds.h \
+  hsdb.h hsconf.h hstractor.h hsautopilot.h hsship.h hsai.h
+obj/hsobjects.o: hsobjects.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsansi.h \
+  hsuniverse.h hsship.h hsuniversedb.h HSSingleton.h hsconf.h
+obj/hspace.o: hspace.cpp pch.h hstypes.h hspace.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsuniversedb.h HSSingleton.h hscmds.h hsfuncs.h hsconf.h \
+  hsdb.h hsserver.h HSPacketHandler.h hsnetwork/HSPacketTypes.h hspilot.h \
+  hsai.h
+obj/hspilot.o: hspilot.cpp pch.h hstypes.h hspace.h hsinterface.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsutils.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsansi.h \
+  hsengines.h hsconf.h hsautopilot.h hsship.h hsai.h hspilot.h \
+  hsjumpdrive.h hswarpdrive.h
+obj/hsplanet.o: hsplanet.cpp pch.h hstypes.h hscopyright.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hscelestial.h hsansi.h
+obj/hsreactor.o: hsreactor.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsconf.h \
+  hsansi.h hsship.h hsreactor.h
+obj/hssensors.o: hssensors.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsconf.h \
+  hsuniverse.h hsship.h hscelestial.h hsautopilot.h hsai.h
+obj/hsserver.o: hsserver.cpp hstypes.h hsnetwork/HSNetwork.h \
+  hsnetwork/HSPacketTypes.h HSPacketHandler.h hsnetwork/HSPackets.h \
+  HSVariant.h hsnetwork/HSDataStream.h hstypes.h hsnetwork/HSDataStream.h \
+  hsutils.h HSHandlerLogin.h HSHandlerClass.h HSHandlerMisc.h \
+  HSHandlerUniverse.h HSHandlerObject.h HSHandlerWeapon.h hsconf.h \
+  hsserver.h HSSingleton.h hsnetwork/HSPacketTypes.h
+obj/hsshields.o: hsshields.cpp hsobjects.h hsobject.h hslandingloc.h \
+  hstypes.h hshatch.h pch.h hscopyright.h hsinterface.h hsutils.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hscelestial.h hsshields.h
+obj/hsship.o: hsship.cpp pch.h hstypes.h hscopyright.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hsinterface.h hsutils.h hspace.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hsuniversedb.h HSSingleton.h hsconf.h hsansi.h \
+  hsengines.h hsjumpdrive.h hswarpdrive.h hscomm.h hsdb.h hsclass.h \
+  hsmissile.h hsshields.h hsreactor.h hscommunications.h hslifesupport.h \
+  hscloaking.h hstachyon.h hscelestial.h
+obj/hsshipeng.o: hsshipeng.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsconf.h hsansi.h hsclass.h HSSingleton.h hsshields.h hsreactor.h \
+  hsdamagecontrol.h
+obj/hsshipnav.o: hsshipnav.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hscelestial.h hsship.h hsconf.h hsengines.h hsjumpdrive.h hswarpdrive.h \
+  hsdb.h hsansi.h hsuniverse.h hsterritory.h hsclass.h HSSingleton.h \
+  hsthrusters.h hsshields.h hsreactor.h hslifesupport.h hscloaking.h \
+  hsautopilot.h hsai.h
+obj/hstachyon.o: hstachyon.cpp pch.h hstypes.h hstachyon.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h
+obj/hsterritory.o: hsterritory.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsterritory.h
+obj/hsthrusters.o: hsthrusters.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsconf.h hsthrusters.h
+obj/hstractor.o: hstractor.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hsansi.h hsconf.h hsengines.h hstractor.h
+obj/hstrig.o: hstrig.cpp hscopyright.h
+obj/hsuniverse.o: hsuniverse.cpp pch.h hstypes.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsconf.h hscelestial.h
+obj/hsuniversedb.o: hsuniversedb.cpp pch.h hstypes.h hsuniversedb.h \
+  HSSingleton.h hsuniverse.h hsobject.h hsobjects.h hslandingloc.h \
+  hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h
+obj/hsutils.o: hsutils.cpp pch.h hstypes.h hsutils.h hsansi.h hsinterface.h
+obj/hswarpdrive.o: hswarpdrive.cpp hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h pch.h hscopyright.h hsinterface.h hsutils.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsansi.h hsconf.h hswarpdrive.h hsengines.h
+obj/hsweapon.o: hsweapon.cpp pch.h hstypes.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsdb.h hsansi.h hsmissile.h HSFileDatabase.h hscloaking.h
+obj/hsai.o: hsai.cpp pch.h hstypes.h hspace.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsautopilot.h hsship.h hsai.h
+obj/hsautopilot.o: hsautopilot.cpp pch.h hstypes.h hspace.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsansi.h hsautopilot.h hsship.h hsai.h
+obj/hscelestial.o: hscelestial.cpp pch.h hstypes.h hspace.h hsconf.h \
+  hsuniverse.h hsobject.h hsobjects.h hslandingloc.h hshatch.h \
+  hscopyright.h hsinterface.h hsutils.h hsflags.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h \
+  hscomputer.h hsfuel.h hsship.h hscelestial.h hsansi.h hsuniversedb.h \
+  HSSingleton.h
+obj/hsclass.o: hsclass.cpp pch.h hstypes.h hscopyright.h hspace.h hsclass.h \
+  HSSingleton.h hsengines.h hsfuel.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hsconf.h hsutils.h hsinterface.h
+obj/hscloaking.o: hscloaking.cpp pch.h hstypes.h hsinterface.h hscloaking.h \
+  hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h
+obj/hscmds.o: hscmds.cpp hscopyright.h hspace.h hstypes.h hsversion.h \
+  hscmds.h hsuniverse.h hsobject.h hsobjects.h hslandingloc.h hshatch.h \
+  pch.h hsinterface.h hsutils.h hsflags.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h \
+  hscomputer.h hsfuel.h hsship.h hsuniversedb.h HSSingleton.h \
+  hscelestial.h hsdb.h hsconf.h hsterritory.h hsclass.h hsai.h
+obj/hscomm.o: hscomm.cpp pch.h hstypes.h hscomm.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsuniversedb.h HSSingleton.h hsconf.h hsdb.h hsansi.h \
+  hsjammer.h
+obj/hscommunications.o: hscommunications.cpp pch.h hstypes.h hsinterface.h \
+  hscommunications.h hseng.h HSVariant.h hsnetwork/HSDataStream.h \
+  HSEngTypes.h
+obj/hscomputer.o: hscomputer.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsconf.h
+obj/hsconf.o: hsconf.cpp hstypes.h hsutils.h hsconf.h
+obj/hsconsolecmds.o: hsconsolecmds.cpp pch.h hstypes.h hsdb.h hscmds.h \
+  hsobjects.h hsobject.h hslandingloc.h hshatch.h hscopyright.h \
+  hsinterface.h hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h \
+  hscomputer.h hsfuel.h
+obj/hsconsole.o: hsconsole.cpp pch.h hstypes.h hscopyright.h hspace.h \
+  hsobjects.h hsobject.h hslandingloc.h hshatch.h hsinterface.h hsutils.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsansi.h hsmissile.h
+obj/hsdamagecontrol.o: hsdamagecontrol.cpp pch.h hstypes.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsansi.h hsconf.h hsdamagecontrol.h
+obj/hsdb.o: hsdb.cpp pch.h hstypes.h hscopyright.h hsdb.h hsconf.h hsweapon.h \
+  hsobject.h hsinterface.h hsutils.h hsuniverse.h hsobjects.h \
+  hslandingloc.h hshatch.h hspace.h hsflags.h hsconsole.h hssensors.h \
+  hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h \
+  hsfuel.h hsship.h hsuniversedb.h HSSingleton.h hsclass.h hsterritory.h \
+  hscelestial.h
+obj/hsengcmds.o: hsengcmds.cpp pch.h hstypes.h hscopyright.h hscmds.h hsdb.h \
+  hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hsinterface.h \
+  hsutils.h hsobjects.h hsobject.h hslandingloc.h hshatch.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hscomputer.h hsfuel.h \
+  hsship.h
+obj/hseng.o: hseng.cpp pch.h hstypes.h hsutils.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hscelestial.h hsansi.h hsengines.h hsconf.h hsjumpdrive.h \
+  hsthrusters.h hsshields.h hsreactor.h hscommunications.h \
+  hslifesupport.h hscloaking.h hstachyon.h hsdamagecontrol.h hsjammer.h \
+  hstractor.h hsautopilot.h hsai.h hswarpdrive.h hsfictional.h
+obj/hsengines.o: hsengines.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsansi.h hsconf.h hsengines.h
+obj/hsfictional.o: hsfictional.cpp hscopyright.h hsfictional.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h hstypes.h HSEngTypes.h
+obj/HSFileDatabase.o: HSFileDatabase.cpp pch.h hstypes.h HSFileDatabase.h \
+  hsobject.h
+obj/hsfuel.o: hsfuel.cpp pch.h hstypes.h hsinterface.h hsfuel.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h
+obj/hsfuncs.o: hsfuncs.cpp pch.h hstypes.h hscopyright.h hsfuncs.h \
+  hsinterface.h hsobjects.h hsobject.h hslandingloc.h hshatch.h hsutils.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsmissile.h hsdb.h hsuniverse.h hsship.h hsuniversedb.h HSSingleton.h \
+  hsterritory.h hscomm.h hscmds.h
+obj/HSHandlerClass.o: HSHandlerClass.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h hsclass.h \
+  hsnetwork/HSNetwork.h hsuniverse.h hsobject.h hsobjects.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hspace.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h HSEngTypes.h \
+  hscomputer.h hsfuel.h hsship.h hsuniversedb.h HSHandlerClass.h
+obj/HSHandlerLogin.o: HSHandlerLogin.cpp pch.h hstypes.h hsutils.h hsflags.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h hsinterface.h \
+  hsnetwork/HSNetwork.h HSHandlerLogin.h
+obj/HSHandlerMisc.o: HSHandlerMisc.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h hsclass.h \
+  hseng.h HSVariant.h HSEngTypes.h hsnetwork/HSNetwork.h hsuniverse.h \
+  hsobject.h hsobjects.h hslandingloc.h hshatch.h hscopyright.h \
+  hsinterface.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h \
+  hscomputer.h hsfuel.h hsship.h hsuniversedb.h HSHandlerMisc.h
+obj/HSHandlerObject.o: HSHandlerObject.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h \
+  hsnetwork/HSNetwork.h hsobjects.h hsobject.h hslandingloc.h hshatch.h \
+  hscopyright.h hsinterface.h hspace.h hsflags.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniversedb.h hsuniverse.h hsship.h hsdb.h HSHandlerObject.h
+obj/HSHandlerUniverse.o: HSHandlerUniverse.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h \
+  hsuniversedb.h hsuniverse.h hsobject.h hsobjects.h hslandingloc.h \
+  hshatch.h hscopyright.h hsinterface.h hspace.h hsflags.h hsconsole.h \
+  hsweapon.h hssensors.h hseng.h HSVariant.h HSEngTypes.h hscomputer.h \
+  hsfuel.h hsship.h hsnetwork/HSNetwork.h HSHandlerUniverse.h
+obj/HSHandlerWeapon.o: HSHandlerWeapon.cpp pch.h hstypes.h hsutils.h \
+  hsnetwork/HSPackets.h HSVariant.h hsnetwork/HSDataStream.h hstypes.h \
+  hsnetwork/HSDataStream.h hsnetwork/HSPacketTypes.h hsserver.h \
+  HSSingleton.h HSPacketHandler.h hsnetwork/HSPacketTypes.h \
+  hsnetwork/HSNetwork.h hsweapon.h hsobject.h HSHandlerWeapon.h
+obj/hshatch.o: hshatch.cpp hscopyright.h hshatch.h pch.h hstypes.h \
+  hsobjects.h hsobject.h hslandingloc.h hsconsole.h hsweapon.h \
+  hssensors.h hseng.h HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h \
+  hscomputer.h hspace.h hsfuel.h hsinterface.h hsutils.h hsflags.h
+obj/hsinterface.o: hsinterface.cpp hsconf.h hstypes.h hsutils.h hsflags.h \
+  hscmds.h hscopyright.h hsinterface.h hspace.h
+obj/hsjammer.o: hsjammer.cpp pch.h hstypes.h hsjammer.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h
+obj/hsjumpdrive.o: hsjumpdrive.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsansi.h hsconf.h hsjumpdrive.h hsengines.h
+obj/hslandingloc.o: hslandingloc.cpp hslandingloc.h hsobjects.h hsobject.h \
+  hshatch.h pch.h hstypes.h hscopyright.h hsinterface.h hsutils.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h
+obj/hslifesupport.o: hslifesupport.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsconf.h hslifesupport.h
+obj/hsmain.o: hsmain.cpp pch.h hstypes.h hsinterface.h hspace.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsutils.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsdb.h \
+  hsuniverse.h hsship.h
+obj/hsmissile.o: hsmissile.cpp pch.h hstypes.h hsmissile.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hsconf.h hsansi.h hscloaking.h HSFileDatabase.h
+obj/hsnavcmds.o: hsnavcmds.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hscmds.h \
+  hsdb.h hsconf.h hstractor.h hsautopilot.h hsship.h hsai.h
+obj/hsobjects.o: hsobjects.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsansi.h \
+  hsuniverse.h hsship.h hsuniversedb.h HSSingleton.h hsconf.h
+obj/hspace.o: hspace.cpp pch.h hstypes.h hspace.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsuniversedb.h HSSingleton.h hscmds.h hsfuncs.h hsconf.h \
+  hsdb.h hsserver.h HSPacketHandler.h hsnetwork/HSPacketTypes.h hspilot.h \
+  hsai.h
+obj/hspilot.o: hspilot.cpp pch.h hstypes.h hspace.h hsinterface.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hscopyright.h hsutils.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsansi.h \
+  hsengines.h hsconf.h hsautopilot.h hsship.h hsai.h hspilot.h \
+  hsjumpdrive.h hswarpdrive.h
+obj/hsplanet.o: hsplanet.cpp pch.h hstypes.h hscopyright.h hsobjects.h \
+  hsobject.h hslandingloc.h hshatch.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hscelestial.h hsansi.h
+obj/hsreactor.o: hsreactor.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsconf.h \
+  hsansi.h hsship.h hsreactor.h
+obj/hssensors.o: hssensors.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsconf.h \
+  hsuniverse.h hsship.h hscelestial.h hsautopilot.h hsai.h
+obj/hsserver.o: hsserver.cpp hstypes.h hsnetwork/HSNetwork.h \
+  hsnetwork/HSPacketTypes.h HSPacketHandler.h hsnetwork/HSPackets.h \
+  HSVariant.h hsnetwork/HSDataStream.h hstypes.h hsnetwork/HSDataStream.h \
+  hsutils.h HSHandlerLogin.h HSHandlerClass.h HSHandlerMisc.h \
+  HSHandlerUniverse.h HSHandlerObject.h HSHandlerWeapon.h hsconf.h \
+  hsserver.h HSSingleton.h hsnetwork/HSPacketTypes.h
+obj/hsshields.o: hsshields.cpp hsobjects.h hsobject.h hslandingloc.h \
+  hstypes.h hshatch.h pch.h hscopyright.h hsinterface.h hsutils.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hscelestial.h hsshields.h
+obj/hsship.o: hsship.cpp pch.h hstypes.h hscopyright.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hsinterface.h hsutils.h hspace.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hsuniversedb.h HSSingleton.h hsconf.h hsansi.h \
+  hsengines.h hsjumpdrive.h hswarpdrive.h hscomm.h hsdb.h hsclass.h \
+  hsmissile.h hsshields.h hsreactor.h hscommunications.h hslifesupport.h \
+  hscloaking.h hstachyon.h hscelestial.h
+obj/hsshipeng.o: hsshipeng.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsconf.h hsansi.h hsclass.h HSSingleton.h hsshields.h hsreactor.h \
+  hsdamagecontrol.h
+obj/hsshipnav.o: hsshipnav.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hscelestial.h hsship.h hsconf.h hsengines.h hsjumpdrive.h hswarpdrive.h \
+  hsdb.h hsansi.h hsuniverse.h hsterritory.h hsclass.h HSSingleton.h \
+  hsthrusters.h hsshields.h hsreactor.h hslifesupport.h hscloaking.h \
+  hsautopilot.h hsai.h
+obj/hstachyon.o: hstachyon.cpp pch.h hstypes.h hstachyon.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h
+obj/hsterritory.o: hsterritory.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsterritory.h
+obj/hsthrusters.o: hsthrusters.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h \
+  hsconf.h hsthrusters.h
+obj/hstractor.o: hstractor.cpp pch.h hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h \
+  hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsuniverse.h hsship.h hsansi.h hsconf.h hsengines.h hstractor.h
+obj/hstrig.o: hstrig.cpp hscopyright.h
+obj/hsuniverse.o: hsuniverse.cpp pch.h hstypes.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsconf.h hscelestial.h
+obj/hsuniversedb.o: hsuniversedb.cpp pch.h hstypes.h hsuniversedb.h \
+  HSSingleton.h hsuniverse.h hsobject.h hsobjects.h hslandingloc.h \
+  hshatch.h hscopyright.h hsinterface.h hsutils.h hspace.h hsflags.h \
+  hsconsole.h hsweapon.h hssensors.h hseng.h HSVariant.h \
+  hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h hsship.h
+obj/hsutils.o: hsutils.cpp pch.h hstypes.h hsutils.h hsansi.h hsinterface.h
+obj/hswarpdrive.o: hswarpdrive.cpp hstypes.h hsobjects.h hsobject.h \
+  hslandingloc.h hshatch.h pch.h hscopyright.h hsinterface.h hsutils.h \
+  hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsansi.h hsconf.h hswarpdrive.h hsengines.h
+obj/hsweapon.o: hsweapon.cpp pch.h hstypes.h hsuniverse.h hsobject.h \
+  hsobjects.h hslandingloc.h hshatch.h hscopyright.h hsinterface.h \
+  hsutils.h hspace.h hsflags.h hsconsole.h hsweapon.h hssensors.h hseng.h \
+  HSVariant.h hsnetwork/HSDataStream.h HSEngTypes.h hscomputer.h hsfuel.h \
+  hsship.h hsdb.h hsansi.h hsmissile.h HSFileDatabase.h hscloaking.h

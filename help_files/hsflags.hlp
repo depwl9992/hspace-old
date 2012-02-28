@@ -1,0 +1,112 @@
+& HS-FLAGS
+ 
+ The following flags are used within the HSpace System:
+
+ HSPACE_C_LOCKED        HSPACE_COMM             HSPACE_CONSOLE
+ HSPACE_HATCH           HSPACE_LANDINGLOC       HSPACE_OBJECT
+ HSPACE_SIM             HSPACE_TERRITORY        HSPACE_UNIVERSE  
+
+& HSPACE_TERRITORY
+
+ FLAG: HSPACE_TERRITORY($)   (thing)
+ 
+ This flag, set using the @space/addterritory command, designated an object as
+ a territory in a particular HSpace Universe.  The ENTER, AENTER, LEAVE, and 
+ OLEAVE attributes are triggered when a ship enters or leaves a territory.
+ 
+ See also: HS_TERRITORIES, HS-TERRITORY-ATTRs, HS-TERRITORY-SETUP,
+          @SPACE-ADDTERRITORY
+
+
+& HSPACE_OBJECT
+ 
+ FLAG: HSPACE_OBJECT(@)   (thing)
+
+ In as much as HSpace is a truly Object Oriented code, the HSPACE_OBJECT flag
+ exists to tag and designate any 'object' that exists in a particulat Space are
+ as an HSpace Object. Every object, weather a Ship, Planet, Wormwhole, or 
+ asteroid will have this flag.
+
+ See also: HS-TYPES, @SPACE-ADDOBJECT
+
+
+& HSPACE_CONSOLE
+
+ FLAG: HSPACE_CONSOLE(#)  (thing)
+ 
+ An objcet set with this flag via the @space/addconsole command is given 
+ control over an HSpace Ship Object and may use the @nav (navigation), @eng 
+ (engineering), and @console commands.
+
+ See also: HS-CONSOLES, @nav, @eng, @console, @SPACE-ADDCONSOLE
+
+
+& HSPACE_SIM
+ 
+ FLAG: HSPACE_SIM(^) (thing)
+ 
+ When set on a ship object, the passengers on the ship are spared from death  
+ in the event of the ship being destroyed in combat.  The ship is still 
+ removed from the space system upon destruction but can be reset using
+ @space/repair.
+
+& HSPACE_C_LOCKED
+
+ FLAG: HSPACE_C_LOCKED(%)  (thing)
+ 
+ When set on an HSpace Console, this flag effective lockes out all commands from
+ the console, starting with the 'man <console>' command.
+
+ See also: HS-CONSOLES
+
+
+& HSPACE_COMM
+   
+ FLAG: HSPACE_COMM(&)  (thing)
+
+ Setting this flag on an object or console allows it to use softcoded commands 
+ that will send and recieve messages via the HS_COMM_MSG() attribute.
+ 
+ See also: HS-CONSOLES, HS_COMM_MSG, HS_SPACEMSG
+
+& HSPACE_LANDINGLOC
+
+ FLAG: HSPACE_LANDINGLOC(^)  (room)
+
+ This flag, when set with @space/addlandingloc, will designate a particular i
+ room as a landing location on an HSpace object with type 3 (Planet). 
+ Once a landing location is set, it will show up on a ships sensors when 
+ the 'scan <contact>' command is used.
+
+ See also: @SPACE-ADDLANDINGLOC, srep, scan
+
+& HSPACE_UNIVERSE
+
+ FLAG: HSPACE_UNIVERSE(*) (room)
+
+ When set using the @space/newuniverse command, this flag designates a room 
+ as being an HSpace Universe. The '@space/list Universe' command can be used
+ to see all rooms set with this flag.
+
+ See also: @SPACE-NEWUNIVERSE, @SPACE-DELUNIVERSE
+
+& HSPACE_HATCH
+
+ FLAG: HSPACE_HATCH(()  (exit)
+ 
+ When set on an exit using @space/addhatch, this flag designates an exit as 
+ a hatch to and from an HSpace Ship Object. This flag gives control of the 
+ exits locking functions to some softcoded Consoles, as well as keeping 
+ people from exiting a ship when it's in the vacume of space.
+ 
+ See also: @SPACE-ADDHATCH, @SPACE-DELHATCH
+
+& HSPACE_ADMIN
+
+ FLAG: HSPACE_ADMIN()) (player)
+ 
+ This flag is used to identify a particular player as the HSpace Wizard. 
+ When set on a player, that player has access to some commands not available 
+ to normal players.  Players with the WIZARD flag also have access to all
+ HSpace commands.
+

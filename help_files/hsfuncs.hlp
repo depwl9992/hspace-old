@@ -1,0 +1,286 @@
+& HS_CLONE
+
+  HS_CLONE(<obj>)
+
+  Currently only works on ships.
+
+  The hs_clone() function is a handy way of using @space/clone
+  within a function.  If successful, the dbref of the new clone
+  is returned.
+
+& HS_DECAY_MSG
+ 
+  HS_DECAY_MSG(<message>, <decay level>)
+ 
+  The hs_decay_msg() function is used to decay a message based on
+  the decay level.  Decay level ranges from 0 to 100 where 100 will
+  result in complete mangling of the message.   Decaying of a message
+  returns the original string with some words replaced with a series 
+  of dots.
+ 
+  > think [hs_decay_msg(Test the decay message function, 50)]
+  > Test ... decay ... ... 
+
+&HS_SET_MISSILE
+
+  HS_SET_MISSILE(<obj>, <type>, <num>)
+
+  Sets the current storage for the given weapon type (a
+  missile) on the object (a ship).  If <num> is greater
+  than the current maximum storage value, the maximum value
+  is raised to <num>.
+
+  See Also: HS_GET_MISSILE()
+
+&HS_COMM_MSG
+  
+  HS_COMM_MSG(<SID>,<DID>,<X>,<Y>,<Z>,<RANGE>,<FRQ>,<MSG>)
+
+  Sends a communications message into space, to be received
+  by any objects with communications capability.  The
+  object sending the message MUST have the HSPACE_COMM flag,
+  or the message will be rejected.  The parameters are:
+
+  SID: Source universe ID.
+  DID: Destination universe ID.
+  X  : Source X coordinate.
+  Y  : Source Y coordinate.
+  Z  : Source Z coordinate.
+  Range: Maximum range to transmit.
+  FRQ: Frequency upon which to transmit the message.
+  MSG: Message to transmit.
+
+&HS_GET_MISSILE
+
+  HS_GET_MISSILE(<obj>,<ID>)
+
+  Retrieves the current and maximum missile storage values
+  for the specified weapon ID, which can be obtained from
+  @space/list weapons.  The values are returned as:
+
+		<current>/<max>
+
+  See Also: @space-setmissile
+
+&HS_SYSSET()
+ 
+  HS_SYSSET(<obj>/<system>, <attr name>[:<value>])
+
+  Sets the <value> of the given <attr name> for the
+  specified <system> on the <obj>, which is usually a ship
+  of sorts.  The <value> can be left empty to clear the
+  attribute and reset the system values to the defaults of
+  the class it belongs to.  For example, a ship of a
+  certain class has default maximum speed values, but
+  setting this value on the ship overrides the setting of
+  the class.  Clearing the value resets the maximum speed
+  to that of the ship class.
+
+  See Also: HS_SYS_ATTR()
+
+&HS_SYS_ATTR()
+
+  HS_SYS_ATTR(<obj>/<system>, <attr name>, <adjusted>)
+
+  Returns the value of the requested attribute with <attr name>
+  if the system is present on <obj> (typically a ship) and
+  possesses the specified attribute.  The <system> must
+  be a valid engineering system.  The <adjusted> parameter
+  can be set to 0 (unadjusted) or 1 (adjusted) to return
+  the system information according to current damage and
+  power levels.  A value of 1 specifies that adjusted
+  values should be returned, while a value of 0 specifies that
+  the raw attribute value should be returned. 
+
+  See Also: HS_SYSSET()
+  
+&HS_ADD_WEAPON()
+
+  HS_ADD_WEAPON(<console>, <class>)
+
+  Allows a weapon of ID <class> on the global list of weapons
+  to be added to the console specified by <console>.  This
+  is identical to the @space/addweapon command.  To be able
+  to add a weapon, the player or object using the function
+  must control the object the weapon is being added to.
+
+&HS_WEAPON_ATTR()
+
+  HS_WEAPON_ATTR(<class>,<attrname>[:<value>])
+
+  Allows information to be retrieved and set on a weapon loaded
+  from the weapon database.  The <class> is the ID of the weapon
+  as shown on the @space/list weapons command.  The
+  <attrname> is a valid attribute that contains information on
+  the weapon.  Optionally, a value can be specified to set
+  the new value for that attribute on that weapon.  This is
+  restricted to wizards only.
+
+  See Also: HS-WEAPON-ATTRS
+
+&HS_GET_ATTR()
+
+  HS_GET_ATTR(<object>, <attr>)
+
+  The HS_GET_ATTR function allows attributes for the specified
+  object to be retrieved.  The <object> parameter is any object
+  in the game that represents an HSpace object (e.g. a ship).
+  The <attr> parameter is the name of a valid, retrievable
+  attribute for that type of HSpace object.
+
+  For ships, any console can be used in place of the ship object
+  to allow players without see_all powers to get attributes from
+  the ship through the consoles.  Players may only get attributes
+  from HSpace objects they are standing in the same room as, unless
+  they are granted the ability to see anywhere in the game.
+
+&HS_SET_ATTR()
+
+  HS_SET_ATTR(<object>/<attr>, <value>)
+
+  Only wizards may set attributes attributes on the specified
+  game <object>, which represents an object in HSpace (e.g a ship).
+  The <attr> parameter is any valid, settable attribute for that
+  type of HSpace object, while <value> is a valid value for that
+  attribute.  Not all attributes that are retrievable for an object
+  are settable and vice versa.
+
+&HS_SPACEMSG()
+
+  HS_SPACEMSG(0, <uid>, <X>, <Y>, <Z>, <dist>, <msg>)
+  HS_SPACEMSG(1, <msg>)
+  HS_SPACEMSG(2, <msg>)
+
+  The HS_SPACEMSG function allows messages to be sent into space in
+  a variety of ways.  This can allow what is commonly referred to as
+  "ship posing" such that players can type a command and have the ship
+  send a message as if it were performing some action in space.
+
+  The first form of the function allows a wizard or HSpace object to
+  send a message into the universe with the given <uid>, starting
+  at the specified X, Y, and Z coordinates, and reaching all other
+  HSpace objects within the specified <dist> range.
+
+  The second and third forms of the function allow an HSpace object
+  to send a message from itself into space such that other objects
+  with sensors receive the message.  The second form sends a message
+  to all HSpace objects with the source object on sensors, while the
+  third form sends to all HSpace objects that have the source object
+  IDENTIFIED on sensors.  Thus, the third form is very useful for 
+  ship posing.
+
+  Ex:  
+    think hs_spacemsg(2, The Excalibur comes screaming in for the kill.)
+
+&HS_SREP()
+
+  HS_SREP(<object>, <type>)
+
+  Retrieves the current sensor contacts for the specified HSpace <object>.
+  The <type> parameter specifies the type of object contacts you wish to
+  retrieve from the sensors.  Refer to HS-TYPES for each of the HSpace
+  types of objects.  If the No Type of object is specified for the <type>,
+  all sensor contacts are retrieved.  A list of contacts is returned in
+  the following format:
+
+    <contact> <contact> .. <contact>
+
+  Where <contact> contains the following information:
+   
+  For NON SHIPS:
+  
+    ID:Dbref:Type:Size:Name:XY Bearing:Z Bearing:Distance
+	  
+  For SHIPS (wrapped for legibility, output is in one string):
+    ID:DBREF:Type:Size:Name/Unknown:XYBearing:ZBearing:Distance:
+	XYHeading:ZHeading:Speed
+
+&HS_ENG_SYS
+
+  HS_ENG_SYS(<object>)
+
+  Returns a comma delimited list of engineering systems located on the
+  given HSpace <object>.
+
+&XYANG()
+ 
+  XYANG(<X1>, <Y1>, <X2>, <Y2>)
+
+  Returns the XY planar angle from the first pair of XY coordinates to
+  the second.
+
+&ZANG()
+ 
+  ZANG(<X1>, <Y1>, <Z1>, <X2>, <Y2>, <Z2>)
+
+  Returns the Z planar angle from the first pair of XYZ coordinates to
+  the second.
+
+&HS_ADDSYS()
+
+  HS_ADDSYS(<object>, <system>)
+
+  Adds a system to a vessel as in @space/addsys.
+
+&HS_DELSYS()
+
+  HS_DELSYS(<object>, <system>)
+
+  Deletes a system from a vessel as in @space/delsys.
+
+& HS_NEARBY()
+ 
+  HS_NEARBY(<uid>, <x>, <y>, <z>, <range>)
+
+  Returns a space separated list of dbrefs of space objects within <range> 
+  of the specified coordinate within the specified universe.  Objects that
+  are not active are not included in the list.  Neither are ships that are
+  either landed or docked.   Ships with cloaking engaged are included in
+  the list even if cloaking is active.  Distance calculations are based on 
+  the center point of the target space object.  Boundaries for objects 
+  such as territories are not addressed by hs_nearb();
+
+  > think [hs_nearby(0, 3, 2, 13, 1000)]
+  > #3 #14
+ 
+& HS_LIST()
+  
+  HS_LIST(<uid>, <type>, <active>)
+ 
+  Returns a space separated listed of dbrefs of space objects within <uid>.
+  A valid HS-TYPE must be used for <type> or a 0 to list space objects of
+  all types.  The last argument, <active> must be a 1 or a 0 to specify if
+  the object must be active to be included in the list.   Ships that are
+  docked or landed are not considered active.  This function can return 
+  very LARGE lists depending on the size of the HSpace database. 
+ 
+& HS_EXPLODE() 
+ 
+  HS_EXPLODE(<uid>, <x>, <y>, <z>, <range>, <strength>)
+
+  HS_EXPLODE does damage to all ships and missiles within <range> of the
+  specified point in <uid>.   <strength> is the amount of damage done to
+  the target's hull or systems after shields are taken into account. This
+  is essentially a side-effect function and does not return anything. If
+  a ship's hull is reduced to 0 or below it is destroyed just as if hit 
+  by a missile or laser and the crew is killed with the exception of 
+  simulators.
+ 
+& HS_DEL_WEAPON()
+
+  HS_DEL_WEAPON(<console>,<weapon #>)
+ 
+  Deletes a weapon in the slot indicated by <weapon #> from the console
+  indicated by <console>.  Returns nothing on success; #-1 <error> where
+  error is an appropriate error message on failure.
+  
+& HS_CONWEAP
+ 
+  HS_CONWEAP(<console>/<weapon>[, <attr>[:<value>]])
+ 
+  The HS_CONWEAP function allows you to retrieve or specify values for a
+  specific weapon on a console. HS_CONWEAP allows you to set the same 
+	attributes that are allowed on the parent weapon class. You must be a 
+	wizard to do any of this.
+
+
