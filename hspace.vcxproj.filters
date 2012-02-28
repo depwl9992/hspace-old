@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{ec2726c3-7ae7-4bf3-b8e3-276b5b023fab}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9cec5c4f-5229-4774-b971-9892aa687d29}</UniqueIdentifier>
+      <Extensions>.h</Extensions>
+    </Filter>
+    <Filter Include="Help">
+      <UniqueIdentifier>{d7609ecf-63ff-41a8-99d4-0ca460d4362e}</UniqueIdentifier>
+      <Extensions>hlp</Extensions>
+    </Filter>
+    <Filter Include="Handlers">
+      <UniqueIdentifier>{14742ec1-31f3-4338-9dbf-eab41ca92633}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="hscelestial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsclass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hscloaking.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hscmds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hscomm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hscommunications.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hscomputer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsconf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsconsole.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsconsolecmds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsdamagecontrol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsdb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hseng.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsengcmds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsengines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HSFileDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsfuel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsfuncs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsinterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsjammer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hslifesupport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsmissile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsnavcmds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsobjects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hspace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsplanet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsreactor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hssensors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsserver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsshields.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsship.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsshipeng.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsshipnav.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hstachyon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsterritory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsthrusters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hstractor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hstrig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsuniverse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsuniversedb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsutils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hsweapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HSHandlerClass.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="HSHandlerLogin.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="HSHandlerMisc.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="HSHandlerObject.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="HSHandlerUniverse.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="HSHandlerWeapon.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="hsansi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hscelestial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsclass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hscloaking.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hscmds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hscomm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hscommunications.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hscomputer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsconsole.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hscopyright.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsdamagecontrol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsdb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hseng.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsengines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HSEngTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HSFileDatabase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsflags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsfuel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsfuncs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsinterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsjammer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hslifesupport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsmissile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsobject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsobjects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hspace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsreactor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hssensors.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsserver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsshields.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HSSingleton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hstachyon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsterritory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsthrusters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hstractor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hstypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsuniverse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsuniversedb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsutils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HSVariant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hsweapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HSHandlerClass.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="HSHandlerLogin.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="HSHandlerMisc.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="HSHandlerObject.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="HSHandlerUniverse.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="HSHandlerWeapon.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="HSPacketHandler.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="help_files\hsadmcmds.hlp">
+      <Filter>Help</Filter>
+    </None>
+    <None Include="help_files\hsadmin.hlp">
+      <Filter>Help</Filter>
+    </None>
+    <None Include="help_files\hscmds.hlp">
+      <Filter>Help</Filter>
+    </None>
+    <None Include="help_files\hsfuncs.hlp">
+      <Filter>Help</Filter>
+    </None>
+    <None Include="help_files\hspace.hlp">
+      <Filter>Help</Filter>
+    </None>
+    <None Include="ADMIN_TOOLKIT.txt" />
+    <None Include="INSTALLATION_GUIDE.txt" />
+  </ItemGroup>
+</Project>
