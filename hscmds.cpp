@@ -155,7 +155,7 @@ HSPACE_COMMAND *hsFindCommand(const HS_INT8 * switches, HSPACE_COMMAND * cmdlist
             return ptr;
 
         // Straight comparison of switch and key
-        if (!strncasecmp(switches, ptr->key, len))
+        if (!_strnicmp(switches, ptr->key, len))
             return ptr;
     }
 
@@ -1256,33 +1256,33 @@ HSPACE_COMMAND_HDR(hscAddObject)
         return;
 
     case HST_PLANET:
-        strcpy(strName, "planet");
+        strcpy_s(strName, "planet");
         cObj = new CHSPlanet;
         break;
 
     case HST_NEBULA:
-        strcpy(strName, "nebula");
+        strcpy_s(strName, "nebula");
         cObj = new CHSNebula;
         break;
 
     case HST_ASTEROID:
-        strcpy(strName, "asteroid belt");
+        strcpy_s(strName, "asteroid belt");
         cObj = new CHSAsteroid;
         break;
 
     case HST_BLACKHOLE:
-        strcpy(strName, "black hole");
+        strcpy_s(strName, "black hole");
         cObj = new CHSBlackHole;
         break;
 
     case HST_WORMHOLE:
-        strcpy(strName, "wormhole");
+        strcpy_s(strName, "wormhole");
         cObj = new CHSWormHole;
         break;
 
     case HST_NOTYPE:           // Generic object
         cObj = new CHS3DObject;
-        strcpy(strName, "space object");
+        strcpy_s(strName, "space object");
         break;
 
     default:
@@ -1963,7 +1963,7 @@ HSPACE_COMMAND_HDR(hscSysInfoClass)
             switch (varValue.GetType())
             {
             case CHSVariant::VT_BOOL:
-                sprintf(cBuffer, "%s",
+                sprintf_s(cBuffer, "%s",
                         varValue.GetBool() == true ? "true" : "false");
                 break;
 
@@ -1973,18 +1973,18 @@ HSPACE_COMMAND_HDR(hscSysInfoClass)
             case CHSVariant::VT_UINT16:
             case CHSVariant::VT_UINT32:
             case CHSVariant::VT_UINT8:
-                sprintf(cBuffer, "%d", varValue.GetUInt());
+                sprintf_s(cBuffer, "%d", varValue.GetUInt());
                 break;
 
             case CHSVariant::VT_FLOAT:
-                sprintf(cBuffer, "%.2f", varValue.GetFloat());
+                sprintf_s(cBuffer, "%.2f", varValue.GetFloat());
                 break;
             case CHSVariant::VT_DOUBLE:
-                sprintf(cBuffer, "%.2f", varValue.GetDouble());
+                sprintf_s(cBuffer, "%.2f", varValue.GetDouble());
                 break;
 
             case CHSVariant::VT_STRING:
-                strcpy(cBuffer, varValue.GetString());
+                strcpy_s(cBuffer, varValue.GetString());
                 break;
 
             default:
@@ -2189,11 +2189,11 @@ HSPACE_COMMAND_HDR(hscSetAttrClass)
     HS_INT32 iVal;
     len = strlen(attrname);
 
-    if (!strncasecmp(attrname, "NAME", len))
+    if (!_strnicmp(attrname, "NAME", len))
     {
         pClass->ClassName(arg_right);
     }
-    else if (!strncasecmp(attrname, "SIZE", len))
+    else if (!_strnicmp(attrname, "SIZE", len))
     {
         iVal = atoi(arg_right);
         if (iVal < 1)
@@ -2204,23 +2204,23 @@ HSPACE_COMMAND_HDR(hscSetAttrClass)
 
         pClass->Size(iVal);
     }
-    else if (!strncasecmp(attrname, "MAXHULL", len))
+    else if (!_strnicmp(attrname, "MAXHULL", len))
     {
         pClass->MaxHull(atoi(arg_right));
     }
-    else if (!strncasecmp(attrname, "CAN DROP", len))
+    else if (!_strnicmp(attrname, "CAN DROP", len))
     {
         pClass->CanDrop(atoi(arg_right) == 0 ? false : true);
     }
-    else if (!strncasecmp(attrname, "SPACEDOCK", len))
+    else if (!_strnicmp(attrname, "SPACEDOCK", len))
     {
         pClass->SpaceDock(atoi(arg_right) == 0 ? false : true);
     }
-    else if (!strncasecmp(attrname, "CARGO", len))
+    else if (!_strnicmp(attrname, "CARGO", len))
     {
         pClass->CargoSize(atoi(arg_right));
     }
-    else if (!strncasecmp(attrname, "MINMANNED", len))
+    else if (!_strnicmp(attrname, "MINMANNED", len))
     {
         pClass->MinCrew(atoi(arg_right));
     }
@@ -2264,7 +2264,7 @@ HSPACE_COMMAND_HDR(hscListDatabase)
 
 
     len = strlen(strName);
-    if (!strncasecmp(strName, "objects", len))
+    if (!_strnicmp(strName, "objects", len))
     {
         // Command usage for this is:
         //
@@ -2369,23 +2369,23 @@ HSPACE_COMMAND_HDR(hscListDatabase)
             }
         }
     }
-    else if (!strncasecmp(strName, "weapons", len))
+    else if (!_strnicmp(strName, "weapons", len))
     {
         waWeapons.PrintInfo(player);
     }
-    else if (!strncasecmp(strName, "universes", len))
+    else if (!_strnicmp(strName, "universes", len))
     {
         CHSUniverseDB::GetInstance().PrintInfo(player);
     }
-    else if (!strncasecmp(strName, "classes", len))
+    else if (!_strnicmp(strName, "classes", len))
     {
         CHSClassDB::GetInstance().PrintInfo(player);
     }
-    else if (!strncasecmp(strName, "territories", len))
+    else if (!_strnicmp(strName, "territories", len))
     {
         taTerritories.PrintInfo(player);
     }
-    else if (!strncasecmp(strName, "destroyed", len))
+    else if (!_strnicmp(strName, "destroyed", len))
     {
         // Print the header
         hsInterface.Notify(player,
@@ -2421,7 +2421,7 @@ HSPACE_COMMAND_HDR(hscListDatabase)
             }
         }
     }
-    else if (!strncasecmp(strName, "autopilots", len))
+    else if (!_strnicmp(strName, "autopilots", len))
     {
         cRoster.DumpRoster(player);
     }
@@ -2504,7 +2504,7 @@ HSPACE_COMMAND_HDR(hscSysInfo)
             switch (varValue.GetType())
             {
             case CHSVariant::VT_BOOL:
-                sprintf(cBuffer, "%s",
+                sprintf_s(cBuffer, "%s",
                         varValue.GetBool() == true ? "true" : "false");
                 break;
 
@@ -2514,18 +2514,18 @@ HSPACE_COMMAND_HDR(hscSysInfo)
             case CHSVariant::VT_UINT16:
             case CHSVariant::VT_UINT32:
             case CHSVariant::VT_UINT8:
-                sprintf(cBuffer, "%d", varValue.GetUInt());
+                sprintf_s(cBuffer, "%d", varValue.GetUInt());
                 break;
 
             case CHSVariant::VT_FLOAT:
-                sprintf(cBuffer, "%.2f", varValue.GetFloat());
+                sprintf_s(cBuffer, "%.2f", varValue.GetFloat());
                 break;
             case CHSVariant::VT_DOUBLE:
-                sprintf(cBuffer, "%.2f", varValue.GetDouble());
+                sprintf_s(cBuffer, "%.2f", varValue.GetDouble());
                 break;
 
             case CHSVariant::VT_STRING:
-                strcpy(cBuffer, varValue.GetString());
+                strcpy_s(cBuffer, varValue.GetString());
                 break;
 
             default:
@@ -2716,7 +2716,7 @@ HSPACE_COMMAND_HDR(hscSetAttrWeapon)
     *ptr = '\0';
     uiWeaponTypeID = atoi(arg_left);
     ptr++;
-    strncpy(name, ptr, 62);
+    strncpy_s(name, ptr, 62);
     name[63] = '\0';
 
     // See if the weapon exists.
@@ -2898,7 +2898,7 @@ HSPACE_COMMAND_HDR(hscDelSys)
 
 
     HS_INT8 tmp[64];
-    sprintf(tmp, "%s", cSys->GetName());
+    sprintf_s(tmp, "%s", cSys->GetName());
 
     // Delete the system
     if (pShip->GetSystems().DelSystem(cSys))
@@ -2966,7 +2966,7 @@ HSPACE_COMMAND_HDR(hscDelSysClass)
     }
 
     HS_INT8 tmp[64];
-    sprintf(tmp, "%s", cSys->GetName());
+    sprintf_s(tmp, "%s", cSys->GetName());
 
     if (pClass->m_pSystems && pClass->m_pSystems->DelSystem(cSys))
     {

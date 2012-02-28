@@ -25,7 +25,7 @@ HS_BOOL8 CHSSysTach::SetAttributeValue(const HS_INT8 * pcAttrName,
                                        const HS_INT8 * strValue)
 {
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "EFFICIENCY"))
+    if (!_stricmp(pcAttrName, "EFFICIENCY"))
     {
         if (atof(strValue) < 0 || 100 < atof(strValue))
         {
@@ -118,7 +118,7 @@ HS_BOOL8 CHSSysTach::GetAttributeValue(const HS_INT8 * pcAttrName,
                                        HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "EFFICIENCY"))
+    if (!_stricmp(pcAttrName, "EFFICIENCY"))
     {
         if (m_pfEfficiency)
         {

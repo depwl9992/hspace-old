@@ -28,7 +28,7 @@ CHSFileDatabase::EHSReturnVal
 {
     if (eMode == OPENMODE_READ)
     {
-        m_pFilePtr = fopen(pcFilePath, "r");
+        fopen_s(&m_pFilePtr, pcFilePath, "r");
         if (NULL == m_pFilePtr)
         {
             return DB_FILE_NOT_FOUND;
@@ -36,7 +36,7 @@ CHSFileDatabase::EHSReturnVal
     }
     else
     {
-        m_pFilePtr = fopen(pcFilePath, "w");
+        fopen_s(&m_pFilePtr, pcFilePath, "w");
         if (NULL == m_pFilePtr)
         {
             // Couldn't create it.

@@ -135,22 +135,22 @@ HS_BOOL8 CHS3DObject::SetAttributeValue(char *strName, char *strValue)
     int iVal;
 
     // Look for the attribute
-    if (!strcasecmp(strName, "X"))
+    if (!_stricmp(strName, "X"))
     {
         m_x = atof(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "Y"))
+    else if (!_stricmp(strName, "Y"))
     {
         m_y = atof(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "Z"))
+    else if (!_stricmp(strName, "Z"))
     {
         m_z = atof(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "NAME"))
+    else if (!_stricmp(strName, "NAME"))
     {
         if (!strValue || !*strValue)
             return false;
@@ -169,7 +169,7 @@ HS_BOOL8 CHS3DObject::SetAttributeValue(char *strName, char *strValue)
         return true;
 
     }
-    else if (!strcasecmp(strName, "UID"))
+    else if (!_stricmp(strName, "UID"))
     {
         iVal = atoi(strValue);
 
@@ -189,12 +189,12 @@ HS_BOOL8 CHS3DObject::SetAttributeValue(char *strName, char *strValue)
         m_uid = iVal;
         return (uDest->AddObject(this));
     }
-    else if (!strcasecmp(strName, "TYPENAME"))
+    else if (!_stricmp(strName, "TYPENAME"))
     {
         mTypeName = strValue;
         return true;
     }
-    else if (!strcasecmp(strName, "SIZE"))
+    else if (!_stricmp(strName, "SIZE"))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -203,7 +203,7 @@ HS_BOOL8 CHS3DObject::SetAttributeValue(char *strName, char *strValue)
         m_size = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "VISIBLE"))
+    else if (!_stricmp(strName, "VISIBLE"))
     {
         iVal = atoi(strValue);
         if (!iVal)
@@ -239,39 +239,39 @@ char *CHS3DObject::GetAttributeValue(char *strName)
 
     *rval = '\0';
 
-    if (!strcasecmp(strName, "X"))
+    if (!_stricmp(strName, "X"))
     {
-        sprintf(rval, "%.2f", m_x);
+        sprintf_s(rval, "%.2f", m_x);
     }
-    else if (!strcasecmp(strName, "Y"))
+    else if (!_stricmp(strName, "Y"))
     {
-        sprintf(rval, "%.2f", m_y);
+        sprintf_s(rval, "%.2f", m_y);
     }
-    else if (!strcasecmp(strName, "Z"))
+    else if (!_stricmp(strName, "Z"))
     {
-        sprintf(rval, "%.2f", m_z);
+        sprintf_s(rval, "%.2f", m_z);
     }
-    else if (!strcasecmp(strName, "NAME"))
+    else if (!_stricmp(strName, "NAME"))
     {
-        strcpy(rval, GetName());
+        strcpy_s(rval, GetName());
     }
-    else if (!strcasecmp(strName, "UID"))
+    else if (!_stricmp(strName, "UID"))
     {
-        sprintf(rval, "%d", m_uid);
+        sprintf_s(rval, "%d", m_uid);
     }
-    else if (!strcasecmp(strName, "SIZE"))
+    else if (!_stricmp(strName, "SIZE"))
     {
-        sprintf(rval, "%d", GetSize());
+        sprintf_s(rval, "%d", GetSize());
     }
-    else if (!strcasecmp(strName, "TYPENAME"))
+    else if (!_stricmp(strName, "TYPENAME"))
     {
-        strncpy(rval, mTypeName.c_str(), 127);
+        strncpy_s(rval, mTypeName.c_str(), 127);
     }
-    else if(!strcasecmp(strName, "TYPE"))
+    else if(!_stricmp(strName, "TYPE"))
     {
-        sprintf(rval, "%d", GetType());
+        sprintf_s(rval, "%d", GetType());
     }
-    else if (!strcasecmp(strName, "LANDINGLOCS"))
+    else if (!_stricmp(strName, "LANDINGLOCS"))
     {
         CSTLLandingLocList::iterator iter;
         for (iter = m_listLandingLocs.begin();
@@ -281,16 +281,16 @@ char *CHS3DObject::GetAttributeValue(char *strName)
 
             char cBuf[32];
             if (!*rval)
-                sprintf(cBuf, "#%d", pLoc->Object());
+                sprintf_s(cBuf, "#%d", pLoc->Object());
             else
-                sprintf(cBuf, " #%d", pLoc->Object());
+                sprintf_s(cBuf, " #%d", pLoc->Object());
 
-            strcat(rval, cBuf);
+            strcat_s(rval, cBuf);
         }
     }
-    else if (!strcasecmp(strName, "VISIBLE"))
+    else if (!_stricmp(strName, "VISIBLE"))
     {
-        sprintf(rval, "%d", m_visible);
+        sprintf_s(rval, "%d", m_visible);
     }
 
     else
@@ -437,7 +437,7 @@ HS_BOOL8 CHS3DObject::LoadFromFile(FILE * fp)
         }
         else if (!HandleKey(key, strValue, fp))
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "WARNING: Object key \"%s\" (%d) found but not handled.",
                     strKey, key);
             hs_log(tbuf);
@@ -470,7 +470,7 @@ HS_BOOL8 CHS3DObject::LoadFromFile(FILE * fp)
     uDest = GetUniverse();
     if (!uDest)
     {
-        sprintf(tbuf, "WARNING: HSpace object #%d has an invalid UID.  \
+        sprintf_s(tbuf, "WARNING: HSpace object #%d has an invalid UID.  \
 			Adding to default universe.", m_objnum);
         hs_log(tbuf);
 
@@ -498,7 +498,7 @@ HS_BOOL8 CHS3DObject::LoadFromFile(FILE * fp)
     {
         if (!uDest->AddObject(this))
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "WARNING: HSpace object #%d was not be added to universe.",
                     m_objnum);
             hs_log(tbuf);
@@ -830,22 +830,22 @@ void CHS3DObject::GiveScanReport(CHS3DObject * cScanner,
     char tbuf[256];
 
     // Print a header
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Scan Report    %30s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             id ? GetName() : "Unknown", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >----------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
     // Give object info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sX:%s %9.0f                   %s%sSize:%s %-3d       %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetX(),
@@ -853,20 +853,20 @@ void CHS3DObject::GiveScanReport(CHS3DObject * cScanner,
             GetSize(), ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sY:%s %9.0f%35s%s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetY(), " ", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sZ:%s %9.0f%35s%s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetZ(), " ", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
     // Finish the report
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -993,7 +993,7 @@ CHSLandingLoc *CHS3DObject::FindLandingLocByName(const HS_INT8 * pcName)
         CHSLandingLoc *pLoc = *iter;
 
         // Match based on number of characters specified in the input name.
-        if (!strncasecmp(pcName,
+        if (!_strnicmp(pcName,
                          hsInterface.GetName(pLoc->Object()), strlen(pcName)))
         {
             return pLoc;

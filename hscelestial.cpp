@@ -37,7 +37,7 @@ HS_INT8 *CHSCelestial::GetObjectColor()
 {
     static HS_INT8 tbuf[32];
 
-    sprintf(tbuf, "%s%s", ANSI_HILITE, ANSI_CYAN);
+    sprintf_s(tbuf, "%s%s", ANSI_HILITE, ANSI_CYAN);
     return tbuf;
 }
 
@@ -93,7 +93,7 @@ HS_INT8 *CHSNebula::GetObjectColor()
 {
     static HS_INT8 tbuf[32];
 
-    sprintf(tbuf, "%s%s", ANSI_HILITE, ANSI_MAGENTA);
+    sprintf_s(tbuf, "%s%s", ANSI_HILITE, ANSI_MAGENTA);
     return tbuf;
 
 }
@@ -135,13 +135,13 @@ HS_INT8 *CHSNebula::GetAttributeValue(HS_INT8 * strName)
     static HS_INT8 rval[64];
     *rval = '\0';
 
-    if (!strcasecmp(strName, "DENSITY"))
+    if (!_stricmp(strName, "DENSITY"))
     {
-        sprintf(rval, "%d", m_density);
+        sprintf_s(rval, "%d", m_density);
     }
-    else if (!strcasecmp(strName, "SHIELDAFF"))
+    else if (!_stricmp(strName, "SHIELDAFF"))
     {
-        sprintf(rval, "%f", m_shieldaff);
+        sprintf_s(rval, "%f", m_shieldaff);
     }
     else
         return CHSCelestial::GetAttributeValue(strName);
@@ -168,12 +168,12 @@ HS_BOOL8 CHSNebula::HandleKey(HS_INT32 key, HS_INT8 * strValue, FILE * fp)
 HS_BOOL8 CHSNebula::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
 {
 
-    if (!strcasecmp(strName, "DENSITY"))
+    if (!_stricmp(strName, "DENSITY"))
     {
         m_density = atoi(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "SHIELDAFF"))
+    else if (!_stricmp(strName, "SHIELDAFF"))
     {
         if (atof(strValue) < 0.00)
             return false;
@@ -193,22 +193,22 @@ void CHSNebula::GiveScanReport(CHS3DObject * cScanner,
     HS_INT8 tbuf[256];
 
     // Print a header
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Scan Report    %30s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             id ? GetName() : "Unknown", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >----------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
     // Give Nebula info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sX:%s %9.0f              %s%sDiameter:%s %-7d %s %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetX(),
@@ -217,7 +217,7 @@ void CHSNebula::GiveScanReport(CHS3DObject * cScanner,
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sY:%s %9.0f               %s%sDensity:%s %-3d        %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetY(),
@@ -225,14 +225,14 @@ void CHSNebula::GiveScanReport(CHS3DObject * cScanner,
             GetDensity(), ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sZ:%s %9.0f     %s%sShield Efficiency:%s %3.2f%%    %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetZ(), ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
             GetShieldaff(), ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
     // Finish the report
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -263,7 +263,7 @@ HS_INT8 *CHSAsteroid::GetObjectColor()
 {
     static HS_INT8 tbuf[32];
 
-    sprintf(tbuf, "%s%s", ANSI_HILITE, ANSI_BLACK);
+    sprintf_s(tbuf, "%s%s", ANSI_HILITE, ANSI_BLACK);
     return tbuf;
 }
 
@@ -298,9 +298,9 @@ HS_INT8 *CHSAsteroid::GetAttributeValue(HS_INT8 * strName)
     static HS_INT8 rval[64];
     *rval = '\0';
 
-    if (!strcasecmp(strName, "DENSITY"))
+    if (!_stricmp(strName, "DENSITY"))
     {
-        sprintf(rval, "%d", m_density);
+        sprintf_s(rval, "%d", m_density);
     }
     else
         return CHSCelestial::GetAttributeValue(strName);
@@ -339,7 +339,7 @@ HS_BOOL8 CHSAsteroid::HandleKey(HS_INT32 key, HS_INT8 * strValue, FILE * fp)
 HS_BOOL8 CHSAsteroid::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
 {
 
-    if (!strcasecmp(strName, "DENSITY"))
+    if (!_stricmp(strName, "DENSITY"))
     {
         m_density = atoi(strValue);
         return true;
@@ -356,22 +356,22 @@ void CHSAsteroid::GiveScanReport(CHS3DObject * cScanner,
     HS_INT8 tbuf[256];
 
     // Print a header
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Scan Report    %30s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             id ? GetName() : "Unknown", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >----------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
     // Give Nebula info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sX:%s %9.0f              %s%sDiameter:%s %7d %s %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetX(),
@@ -380,7 +380,7 @@ void CHSAsteroid::GiveScanReport(CHS3DObject * cScanner,
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sY:%s %9.0f               %s%sDensity:%s %3d/100m2  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetY(),
@@ -388,13 +388,13 @@ void CHSAsteroid::GiveScanReport(CHS3DObject * cScanner,
             GetDensity(), ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sZ:%s %9.0f%35s%s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetZ(), " ", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
     // Finish the report
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -481,7 +481,7 @@ HS_INT8 *CHSBlackHole::GetObjectColor()
 {
     static HS_INT8 tbuf[32];
 
-    sprintf(tbuf, "%s", ANSI_BLUE);
+    sprintf_s(tbuf, "%s", ANSI_BLUE);
     return tbuf;
 }
 
@@ -568,7 +568,7 @@ HS_INT8 *CHSWormHole::GetObjectColor()
 {
     static HS_INT8 tbuf[32];
 
-    sprintf(tbuf, "%s", ANSI_RED);
+    sprintf_s(tbuf, "%s", ANSI_RED);
     return tbuf;
 }
 
@@ -629,41 +629,41 @@ HS_INT8 *CHSWormHole::GetAttributeValue(HS_INT8 * strName)
     static HS_INT8 rval[64];
     *rval = '\0';
 
-    if (!strcasecmp(strName, "STABILITY"))
+    if (!_stricmp(strName, "STABILITY"))
     {
-        sprintf(rval, "%f", m_stability);
+        sprintf_s(rval, "%f", m_stability);
     }
-    else if (!strcasecmp(strName, "FLUCTUATION"))
+    else if (!_stricmp(strName, "FLUCTUATION"))
     {
-        sprintf(rval, "%f", m_fluctuation);
+        sprintf_s(rval, "%f", m_fluctuation);
     }
-    else if (!strcasecmp(strName, "BASESTABILITY"))
+    else if (!_stricmp(strName, "BASESTABILITY"))
     {
-        sprintf(rval, "%f", m_basestability);
+        sprintf_s(rval, "%f", m_basestability);
     }
-    else if (!strcasecmp(strName, "DESTX"))
+    else if (!_stricmp(strName, "DESTX"))
     {
-        sprintf(rval, "%.0f", m_destx);
+        sprintf_s(rval, "%.0f", m_destx);
     }
-    else if (!strcasecmp(strName, "DESTY"))
+    else if (!_stricmp(strName, "DESTY"))
     {
-        sprintf(rval, "%.0f", m_desty);
+        sprintf_s(rval, "%.0f", m_desty);
     }
-    else if (!strcasecmp(strName, "DESTZ"))
+    else if (!_stricmp(strName, "DESTZ"))
     {
-        sprintf(rval, "%.0f", m_destz);
+        sprintf_s(rval, "%.0f", m_destz);
     }
-    else if (!strcasecmp(strName, "DESTUID"))
+    else if (!_stricmp(strName, "DESTUID"))
     {
-        sprintf(rval, "%d", m_destuid);
+        sprintf_s(rval, "%d", m_destuid);
     }
-    else if (!strcasecmp(strName, "DESTERROR"))
+    else if (!_stricmp(strName, "DESTERROR"))
     {
-        sprintf(rval, "%d", m_desterror);
+        sprintf_s(rval, "%d", m_desterror);
     }
-    else if (!strcasecmp(strName, "NODAMAGE"))
+    else if (!_stricmp(strName, "NODAMAGE"))
     {
-        sprintf(rval, "%d", m_nodamage ? 1 : 0);
+        sprintf_s(rval, "%d", m_nodamage ? 1 : 0);
     }
     else
         return CHSCelestial::GetAttributeValue(strName);
@@ -675,7 +675,7 @@ HS_BOOL8 CHSWormHole::HandleKey(HS_INT32 key, HS_INT8 * strValue, FILE * fp)
 {
     // Find the key and handle it
     HS_INT8 tmp[64];
-    sprintf(tmp, "%d", key);
+    sprintf_s(tmp, "%d", key);
     switch (key)
     {
     case HSK_STABILITY:
@@ -713,47 +713,47 @@ HS_BOOL8 CHSWormHole::HandleKey(HS_INT32 key, HS_INT8 * strValue, FILE * fp)
 HS_BOOL8 CHSWormHole::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
 {
 
-    if (!strcasecmp(strName, "STABILITY"))
+    if (!_stricmp(strName, "STABILITY"))
     {
         m_stability = (HS_FLOAT32) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "FLUCTUATION"))
+    else if (!_stricmp(strName, "FLUCTUATION"))
     {
         m_fluctuation = (HS_FLOAT32) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "BASESTABILITY"))
+    else if (!_stricmp(strName, "BASESTABILITY"))
     {
         m_basestability = (HS_FLOAT32) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "DESTX"))
+    else if (!_stricmp(strName, "DESTX"))
     {
         m_destx = (HS_FLOAT32) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "DESTY"))
+    else if (!_stricmp(strName, "DESTY"))
     {
         m_desty = (HS_FLOAT32) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "DESTZ"))
+    else if (!_stricmp(strName, "DESTZ"))
     {
         m_destz = (HS_FLOAT32) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "DESTUID"))
+    else if (!_stricmp(strName, "DESTUID"))
     {
         m_destuid = atoi(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "DESTERROR"))
+    else if (!_stricmp(strName, "DESTERROR"))
     {
         m_desterror = atoi(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "NODAMAGE"))
+    else if (!_stricmp(strName, "NODAMAGE"))
     {
         m_nodamage = atoi(strValue) ? true : false;
         return true;
@@ -770,22 +770,22 @@ void CHSWormHole::GiveScanReport(CHS3DObject * cScanner,
     HS_INT8 tbuf[256];
 
     // Print a header
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Scan Report    %30s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             id ? GetName() : "Unknown", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >----------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
     // Give Nebula info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sX:%s %9.0f                  %s%sSize:%s %-3d        %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetX(),
@@ -793,7 +793,7 @@ void CHSWormHole::GiveScanReport(CHS3DObject * cScanner,
             GetSize(), ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sY:%s %9.0f             %s%sStability:%s %-10s %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetY(),
@@ -802,13 +802,13 @@ void CHSWormHole::GiveScanReport(CHS3DObject * cScanner,
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sZ:%s %9.0f %34s%s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetZ(), " ", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
     // Finish the report
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -910,7 +910,7 @@ void CHSWormHole::GateShip(CHSShip * cShip)
             yerr = hsInterface.GetRandom((HS_UINT32) yerr);
             zerr = hsInterface.GetRandom((HS_UINT32) zerr);
 
-            // Randomly move the offset +/- 
+            // Randomly move the offset +/-
             xerr *= hsInterface.GetRandom(2) ? 1 : -1;
             yerr *= hsInterface.GetRandom(2) ? 1 : -1;
             zerr *= hsInterface.GetRandom(2) ? 1 : -1;

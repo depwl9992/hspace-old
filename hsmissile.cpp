@@ -36,25 +36,25 @@ const HS_INT8 *CHSMTube::GetAttributeValue(const HS_INT8 * strName)
     static char rval[HS_BUF_64];
 
     *rval = '\0';
-    if (!strncasecmp(strName, "RELOAD TIME", strlen(strName)))
+    if (!_strnicmp(strName, "RELOAD TIME", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_reload_time);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_reload_time);
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_range);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_range);
     }
-    else if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    else if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_strength);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_strength);
     }
-    else if (!strncasecmp(strName, "TURNRATE", strlen(strName)))
+    else if (!_strnicmp(strName, "TURNRATE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_turnrate);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_turnrate);
     }
-    else if (!strncasecmp(strName, "SPEED", strlen(strName)))
+    else if (!_strnicmp(strName, "SPEED", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_speed);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_speed);
     }
     else
     {
@@ -71,25 +71,25 @@ HS_BOOL8 CHSMTube::WriteToDatabase(CHSFileDatabase * pDatabase)
 
     m_pWeaponData->WriteToDatabase(pDatabase);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_reload_time);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_reload_time);
     pDatabase->AddSectionAttribute("RELOAD TIME", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_range);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_range);
     pDatabase->AddSectionAttribute("RANGE", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_strength);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_strength);
     pDatabase->AddSectionAttribute("STRENGTH", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_turnrate);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_turnrate);
     pDatabase->AddSectionAttribute("TURNRATE", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_speed);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_speed);
     pDatabase->AddSectionAttribute("SPEED", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%3.0f", m_shield_percentage);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%3.0f", m_shield_percentage);
     pDatabase->AddSectionAttribute("SHIELD PERCENTAGE", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%3.0f", m_hull_percentage);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%3.0f", m_hull_percentage);
     pDatabase->AddSectionAttribute("HULL PERCENTAGE", cBuffer);
 
     return true;
@@ -117,7 +117,7 @@ HS_BOOL8 CHSMTube::SetAttributeValue(const HS_INT8 * strName,
     int iVal = -1;
 
     // Try to match the name
-    if (!strncasecmp(strName, "RELOAD TIME", strlen(strName)))
+    if (!_strnicmp(strName, "RELOAD TIME", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 0)
@@ -126,7 +126,7 @@ HS_BOOL8 CHSMTube::SetAttributeValue(const HS_INT8 * strName,
         m_reload_time = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -135,7 +135,7 @@ HS_BOOL8 CHSMTube::SetAttributeValue(const HS_INT8 * strName,
         m_range = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    else if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -144,7 +144,7 @@ HS_BOOL8 CHSMTube::SetAttributeValue(const HS_INT8 * strName,
         m_strength = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "TURNRATE", strlen(strName)))
+    else if (!_strnicmp(strName, "TURNRATE", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -153,7 +153,7 @@ HS_BOOL8 CHSMTube::SetAttributeValue(const HS_INT8 * strName,
         m_turnrate = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "SPEED", strlen(strName)))
+    else if (!_strnicmp(strName, "SPEED", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 0)
@@ -279,7 +279,7 @@ const HS_INT8 *CHSMTube::GetStatus()
 
     if (m_reloading)
     {
-        snprintf(tbuf, HS_BUF_64_CPY, "(%d) Loading", m_time_to_reload);
+        _snprintf_s(tbuf, HS_BUF_64_CPY, "(%d) Loading", m_time_to_reload);
         return tbuf;
     }
 
@@ -550,7 +550,7 @@ const HS_INT8 *CHSMTube::GetAttrInfo()
 {
     static char rval[HS_BUF_128];
 
-    snprintf(rval, HS_BUF_128_CPY, "R: %-5d S: %-3d V : %d",
+    _snprintf_s(rval, HS_BUF_128_CPY, "R: %-5d S: %-3d V : %d",
              GetRange(), GetStrength(), GetSpeed());
 
     return rval;
@@ -1276,7 +1276,7 @@ char *CHSMissile::GetObjectColor()
 {
     static char tbuf[HS_BUF_64];
 
-    snprintf(tbuf, HS_BUF_64_CPY, "%s%s", ANSI_HILITE, ANSI_YELLOW);
+    _snprintf_s(tbuf, HS_BUF_64_CPY, "%s%s", ANSI_HILITE, ANSI_YELLOW);
     return tbuf;
 }
 
@@ -1317,29 +1317,29 @@ HS_INT8 *CHSMissile::GetAttributeValue(HS_INT8 * strName)
     static char rval[HS_BUF_64];
     *rval = 0;
 
-    if (!strncasecmp(strName, "TARGET", strlen(strName)))
+    if (!_strnicmp(strName, "TARGET", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "#%d", GetTargetDbref());
+        _snprintf_s(rval, HS_BUF_64_CPY, "#%d", GetTargetDbref());
     }
-    else if (!strncasecmp(strName, "SOURCE", strlen(strName)))
+    else if (!_strnicmp(strName, "SOURCE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "#%d", GetSourceDbref());
+        _snprintf_s(rval, HS_BUF_64_CPY, "#%d", GetSourceDbref());
     }
-    else if (!strncasecmp(strName, "SPEED", strlen(strName)))
+    else if (!_strnicmp(strName, "SPEED", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_speed);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_speed);
     }
-    else if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    else if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_strength);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_strength);
     }
-    else if (!strncasecmp(strName, "TURNRATE", strlen(strName)))
+    else if (!_strnicmp(strName, "TURNRATE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "#%d", m_turnrate);
+        _snprintf_s(rval, HS_BUF_64_CPY, "#%d", m_turnrate);
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "#%d", m_range);
+        _snprintf_s(rval, HS_BUF_64_CPY, "#%d", m_range);
     }
     else
     {
@@ -1355,7 +1355,7 @@ HS_BOOL8 CHSMissile::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
 {
     int iVal = -1;
 
-    if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -1364,7 +1364,7 @@ HS_BOOL8 CHSMissile::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
         m_strength = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "TURNRATE", strlen(strName)))
+    else if (!_strnicmp(strName, "TURNRATE", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -1373,7 +1373,7 @@ HS_BOOL8 CHSMissile::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
         m_turnrate = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "SPEED", strlen(strName)))
+    else if (!_strnicmp(strName, "SPEED", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 0)
@@ -1382,7 +1382,7 @@ HS_BOOL8 CHSMissile::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
         m_speed = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 0)

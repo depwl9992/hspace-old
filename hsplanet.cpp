@@ -33,7 +33,7 @@ char *CHSPlanet::GetObjectColor()
 {
     static char tbuf[32];
 
-    sprintf(tbuf, "%s%s", ANSI_HILITE, ANSI_GREEN);
+    sprintf_s(tbuf, "%s%s", ANSI_HILITE, ANSI_GREEN);
     return tbuf;
 }
 
@@ -95,22 +95,22 @@ void CHSPlanet::GiveScanReport(CHS3DObject * cScanner,
     char tbuf[256];
 
     // Print a header
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Scan Report    %30s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             id ? GetName() : "Unknown", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >----------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
     // Give object info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sX:%s %9.0f                   %s%sSize:%s %-3d       %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetX(),
@@ -118,13 +118,13 @@ void CHSPlanet::GiveScanReport(CHS3DObject * cScanner,
             GetSize(), ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sY:%s %9.0f%35s%s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetY(), " ", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sZ:%s %9.0f%35s%s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetZ(), " ", ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -138,13 +138,13 @@ void CHSPlanet::GiveScanReport(CHS3DObject * cScanner,
                            hsInterface.HSPrintf("%s%s|%48s|%s",
                                                 ANSI_HILITE, ANSI_BLUE, " ",
                                                 ANSI_NORMAL));
-        sprintf(tbuf, "%s%s| %sLanding Locations:%s %-2d%26s%s%s|%s",
+        sprintf_s(tbuf, "%s%s| %sLanding Locations:%s %-2d%26s%s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
                 GetNumVisibleLandingLocs(), " ", ANSI_HILITE, ANSI_BLUE,
                 ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
 
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s| %s[%s##%s] Name                     Active  Code     %s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_WHITE, ANSI_GREEN,
                 ANSI_BLUE, ANSI_NORMAL);
@@ -165,9 +165,9 @@ void CHSPlanet::GiveScanReport(CHS3DObject * cScanner,
                 continue;
             }
 
-            strncpy(strPadName, hsInterface.GetName(pLoc->Object()), 32);
+            strncpy_s(strPadName, hsInterface.GetName(pLoc->Object()), 32);
             strPadName[23] = '\0';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|%s  %2d  %-25s  %3s   %3s      %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                     idx + 1,
@@ -181,7 +181,7 @@ void CHSPlanet::GiveScanReport(CHS3DObject * cScanner,
     }
 
     // Finish the report
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);

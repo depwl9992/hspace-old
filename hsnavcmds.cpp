@@ -353,7 +353,7 @@ HSPACE_COMMAND_HDR(hscSetMapRange)
         hsStdError(dbUser, "Failed to set map range.");
     else
     {
-        sprintf(tbuf, "Map range now set to %d %s.", units, HSCONF.unit_name);
+        sprintf_s(tbuf, "Map range now set to %d %s.", units, HSCONF.unit_name);
         hsStdError(dbUser, tbuf);
     }
 }

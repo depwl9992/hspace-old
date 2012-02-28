@@ -40,7 +40,7 @@ HS_BOOL8 CHSSysComm::SetAttributeValue(const HS_INT8 * pcAttrName,
     int iVal;
 
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "MAX RANGE"))
+    if (!_stricmp(pcAttrName, "MAX RANGE"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -78,7 +78,7 @@ HS_BOOL8 CHSSysComm::GetAttributeValue(const HS_INT8 * pcAttrName,
                                        HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, return the value.
-    if (!strcasecmp(pcAttrName, "MAX RANGE"))
+    if (!_stricmp(pcAttrName, "MAX RANGE"))
     {
         if (m_puiCommRange)
         {

@@ -84,7 +84,7 @@ void CHSTerritoryArray::SaveToFile(const char *lpstrPath)
     }
 
     // Try to open the specified file for writing.
-    fp = fopen(lpstrPath, "w");
+    fopen_s(&fp, lpstrPath, "w");
     if (!fp)
     {
         hs_log(hsInterface.HSPrintf("Failed to open territory db '%s'.",
@@ -140,7 +140,7 @@ void CHSTerritoryArray::PrintInfo(int player)
                 cCubic = (CHSCubicTerritory *) m_territories.at(idx);
                 hsInterface.Notify(player,
                         hsInterface.HSPrintf("[%5d] %-18s CUBIC   %-3d Min: %f,%f,%f  Max: %f,%f,%f",
-                         m_territories.at(idx)->GetDbref(), 
+                         m_territories.at(idx)->GetDbref(),
                          hsInterface.GetName(m_territories.at(idx)->GetDbref()),
                          m_territories.at(idx)->GetUID(),
                          cCubic->GetMinX(), cCubic->GetMinY(),
@@ -157,7 +157,7 @@ HS_BOOL8 CHSTerritoryArray::LoadFromFile(const char *lpstrPath)
     FILE *fp;
 
     // Try to open the specified file.
-    fp = fopen(lpstrPath, "r");
+    fopen_s(&fp, lpstrPath, "r");
     if (!fp)
     {
         hs_log(hsInterface.HSPrintf("Failed to open %s for writing.",
@@ -190,7 +190,7 @@ HS_BOOL8 CHSTerritoryArray::LoadFromFile(const char *lpstrPath)
         extract(tbuf, value, 1, 1, '=');
 
         // Is it a new territory?
-        if (!strcasecmp(key, "TERRITORY"))
+        if (!_stricmp(key, "TERRITORY"))
         {
             // Grab a new territory.
             cTerritory = NewTerritory(HSNOTHING, (TERRTYPE) atoi(value));
@@ -337,9 +337,9 @@ HS_INT8 *CHSTerritory::GetAttributeValue(HS_INT8 * strName)
     static HS_INT8 rval[64];
     *rval = '\0';
 
-    if (!strcasecmp(strName, "UID"))
+    if (!_stricmp(strName, "UID"))
     {
-        sprintf(rval, "%d", m_uid);
+        sprintf_s(rval, "%d", m_uid);
     }
     else
     {
@@ -356,13 +356,13 @@ HS_BOOL8 CHSTerritory::SetAttributeValue(char *strName, char *strValue)
     int iVal;
 
     // Match the name
-    if (!strcasecmp(strName, "UID"))
+    if (!_stricmp(strName, "UID"))
     {
         iVal = atoi(strValue);
         m_uid = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "OBJNUM"))
+    else if (!_stricmp(strName, "OBJNUM"))
     {
         iVal = atoi(strValue);
         m_objnum = iVal;
@@ -407,21 +407,21 @@ HS_INT8 *CHSRadialTerritory::GetAttributeValue(HS_INT8 * strName)
     static HS_INT8 rval[64];
     *rval = '\0';
 
-    if (!strcasecmp(strName, "CX"))
+    if (!_stricmp(strName, "CX"))
     {
-        sprintf(rval, "%.2f", m_cx);
+        sprintf_s(rval, "%.2f", m_cx);
     }
-    else if (!strcasecmp(strName, "CY"))
+    else if (!_stricmp(strName, "CY"))
     {
-        sprintf(rval, "%.2f", m_cy);
+        sprintf_s(rval, "%.2f", m_cy);
     }
-    else if (!strcasecmp(strName, "CZ"))
+    else if (!_stricmp(strName, "CZ"))
     {
-        sprintf(rval, "%.2f", m_cz);
+        sprintf_s(rval, "%.2f", m_cz);
     }
-    else if (!strcasecmp(strName, "RADIUS"))
+    else if (!_stricmp(strName, "RADIUS"))
     {
-        sprintf(rval, "%.0f", m_radius);
+        sprintf_s(rval, "%.0f", m_radius);
     }
     else
         return CHSTerritory::GetAttributeValue(strName);
@@ -473,25 +473,25 @@ HS_BOOL8 CHSRadialTerritory::SetAttributeValue(char *strName, char *strValue)
     HS_FLOAT64 iVal;
 
     // Match the name
-    if (!strcasecmp(strName, "CX"))
+    if (!_stricmp(strName, "CX"))
     {
         iVal = atof(strValue);
         m_cx = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "CY"))
+    else if (!_stricmp(strName, "CY"))
     {
         iVal = atof(strValue);
         m_cy = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "CZ"))
+    else if (!_stricmp(strName, "CZ"))
     {
         iVal = atof(strValue);
         m_cz = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "RADIUS"))
+    else if (!_stricmp(strName, "RADIUS"))
     {
         iVal = atof(strValue);
         m_radius = (HS_FLOAT64) iVal;
@@ -575,29 +575,29 @@ HS_INT8 *CHSCubicTerritory::GetAttributeValue(HS_INT8 * strName)
     static HS_INT8 rval[64];
     *rval = '\0';
 
-    if (!strcasecmp(strName, "MAXX"))
+    if (!_stricmp(strName, "MAXX"))
     {
-        sprintf(rval, "%.2f", m_maxx);
+        sprintf_s(rval, "%.2f", m_maxx);
     }
-    else if (!strcasecmp(strName, "MAXY"))
+    else if (!_stricmp(strName, "MAXY"))
     {
-        sprintf(rval, "%.2f", m_maxy);
+        sprintf_s(rval, "%.2f", m_maxy);
     }
-    else if (!strcasecmp(strName, "MAXZ"))
+    else if (!_stricmp(strName, "MAXZ"))
     {
-        sprintf(rval, "%.2f", m_maxz);
+        sprintf_s(rval, "%.2f", m_maxz);
     }
-    if (!strcasecmp(strName, "MINX"))
+    if (!_stricmp(strName, "MINX"))
     {
-        sprintf(rval, "%.2f", m_minx);
+        sprintf_s(rval, "%.2f", m_minx);
     }
-    else if (!strcasecmp(strName, "MINY"))
+    else if (!_stricmp(strName, "MINY"))
     {
-        sprintf(rval, "%.2f", m_miny);
+        sprintf_s(rval, "%.2f", m_miny);
     }
-    else if (!strcasecmp(strName, "MINZ"))
+    else if (!_stricmp(strName, "MINZ"))
     {
-        sprintf(rval, "%.2f", m_minz);
+        sprintf_s(rval, "%.2f", m_minz);
     }
     else
         return CHSTerritory::GetAttributeValue(strName);
@@ -613,37 +613,37 @@ HS_BOOL8 CHSCubicTerritory::SetAttributeValue(char *strName, char *strValue)
     HS_FLOAT64 iVal;
 
     // Match the name
-    if (!strcasecmp(strName, "MINX"))
+    if (!_stricmp(strName, "MINX"))
     {
         iVal = atof(strValue);
         m_minx = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "MINY"))
+    else if (!_stricmp(strName, "MINY"))
     {
         iVal = atof(strValue);
         m_miny = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "MINZ"))
+    else if (!_stricmp(strName, "MINZ"))
     {
         iVal = atof(strValue);
         m_minz = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "MAXX"))
+    else if (!_stricmp(strName, "MAXX"))
     {
         iVal = atof(strValue);
         m_maxx = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "MAXY"))
+    else if (!_stricmp(strName, "MAXY"))
     {
         iVal = atof(strValue);
         m_maxy = iVal;
         return true;
     }
-    else if (!strcasecmp(strName, "MAXZ"))
+    else if (!_stricmp(strName, "MAXZ"))
     {
         iVal = atof(strValue);
         m_maxz = iVal;

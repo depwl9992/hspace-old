@@ -495,7 +495,7 @@ HSPACE_COMMAND_HDR(hscTargetSystem)
     }
 
     // Find the type of system based on the name
-    if (!strcasecmp(arg_left, "none"))
+    if (!_stricmp(arg_left, "none"))
         type = HSS_NOTYPE;
     else
         type = hsGetEngSystemType(arg_left);

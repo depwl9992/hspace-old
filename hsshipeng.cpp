@@ -38,22 +38,22 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
     int idx;
 
     // Give the header info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.--------------------------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Engineering Systems Report         %30s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, GetName(),
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >------------------------------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
     // Print system list and information
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s %s%sSystem               Status    Power      Stress      Damage%s       %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, ANSI_HILITE,
             ANSI_GREEN, ANSI_NORMAL, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -80,7 +80,7 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
         nslots = (int) (stress - .01);
         if (nslots < 10)
             nslots++;
-        sprintf(pbuf, "%.0f%%", cSys->GetStress());
+        sprintf_s(pbuf, "%.0f%%", cSys->GetStress());
         ptr = pbuf;
         len = strlen(pbuf);
 
@@ -102,17 +102,17 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
             {
                 if (idx < 3)
                 {
-                    sprintf(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BGREEN,
+                    sprintf_s(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BGREEN,
                             c, ANSI_NORMAL);
                 }
                 else if (idx < 7)
                 {
-                    sprintf(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BYELLOW,
+                    sprintf_s(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BYELLOW,
                             c, ANSI_NORMAL);
                 }
                 else
                 {
-                    sprintf(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BRED,
+                    sprintf_s(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BRED,
                             c, ANSI_NORMAL);
                 }
             }
@@ -121,7 +121,7 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
                 strTmp[0] = c;
                 strTmp[1] = '\0';
             }
-            strcat(strStress, strTmp);
+            strcat_s(strStress, strTmp);
 
             nslots--;
         }
@@ -130,38 +130,38 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
         switch (cSys->GetDamageLevel())
         {
         case DMG_LIGHT:
-            sprintf(strDamage,
+            sprintf_s(strDamage,
                     "%s%s  LIGHT   %s",
                     ANSI_HILITE, ANSI_BGREEN, ANSI_NORMAL);
             break;
 
         case DMG_MEDIUM:
-            sprintf(strDamage,
+            sprintf_s(strDamage,
                     "%s%s  MEDIUM  %s",
                     ANSI_HILITE, ANSI_BYELLOW, ANSI_NORMAL);
             break;
 
         case DMG_HEAVY:
-            sprintf(strDamage,
+            sprintf_s(strDamage,
                     "%s%s  HEAVY   %s", ANSI_HILITE, ANSI_BRED, ANSI_NORMAL);
             break;
 
         case DMG_INOPERABLE:
-            sprintf(strDamage,
+            sprintf_s(strDamage,
                     "%s%sINOPERABLE%s",
                     ANSI_HILITE, ANSI_BBLACK, ANSI_NORMAL);
             break;
 
         default:
-            strcpy(strDamage, "None   ");
+            strcpy_s(strDamage, "None   ");
         }
-        strcat(strDamage, "   ");
+        strcat_s(strDamage, "   ");
 
         // Setup power output string, which can vary in length
-        sprintf(strPower, "%3d (%d)",
+        sprintf_s(strPower, "%3d (%d)",
                 cSys->GetCurrentPower(), cSys->GetOptimalPower());
 
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%s %-20s %-9s %-10s %-11s %-13s%s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, cSys->GetName(),
                 cSys->GetStatus(),
@@ -175,25 +175,25 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
     cComputer = (CHSSysComputer *) m_systems.GetSystem(HSS_COMPUTER);
     if (cComputer)
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s >------------------------------------------------------------------<%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%s                        %s+%s- Computer Status -%s%s+                       %s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, ANSI_HILITE,
                 ANSI_GREEN, ANSI_NORMAL, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
         char tbuf2[128];
-        sprintf(tbuf2, "%d/%d", cComputer->GetUsedPower(),
+        sprintf_s(tbuf2, "%d/%d", cComputer->GetUsedPower(),
                 cComputer->GetCurrentPower());
-        sprintf(tbuf, "%s%s|%s Power Usage: %-25s Surplus: %-18s %s%s|%s",
+        sprintf_s(tbuf, "%s%s|%s Power Usage: %-25s Surplus: %-18s %s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, tbuf2,
                 hsInterface.HSPrintf("%d", cComputer->GetPowerSurplus()),
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
-        sprintf(tbuf2, "%d", cComputer->GetPoweredConsoles());
-        sprintf(tbuf, "%s%s|%s Consoles   : %-25s Powered: %-18s %s%s|%s",
+        sprintf_s(tbuf2, "%d", cComputer->GetPoweredConsoles());
+        sprintf_s(tbuf, "%s%s|%s Consoles   : %-25s Powered: %-18s %s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                 hsInterface.HSPrintf("%d", cComputer->GetConsoles()), tbuf2,
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -204,22 +204,22 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
     cReactor = (CHSReactor *) m_systems.GetSystem(HSS_REACTOR);
     if (cReactor)
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s >------------------------------------------------------------------<%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%s                        %s+%s- Reactor Status -%s%s+                        %s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, ANSI_HILITE,
                 ANSI_GREEN, ANSI_NORMAL, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
 
-        sprintf(strPower, "%d/%d(%d/%d)",
+        sprintf_s(strPower, "%d/%d(%d/%d)",
                 cReactor->GetOutput(),
                 cReactor->GetDesiredOutput(),
                 cReactor->GetOutput() - m_systems.GetPowerUse(),
                 cReactor->GetMaximumOutput());
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%s Type  : %-30s Output: %-20s%s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, cReactor->GetName(),
                 strPower, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -233,7 +233,7 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
         nslots = (int) (stress - .01);
         if (nslots < 10)
             nslots++;
-        sprintf(pbuf, "%.0f%%", cReactor->GetStress());
+        sprintf_s(pbuf, "%.0f%%", cReactor->GetStress());
         ptr = pbuf;
         len = strlen(pbuf);
 
@@ -248,17 +248,17 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
             {
                 if (idx < 3)
                 {
-                    sprintf(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BGREEN,
+                    sprintf_s(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BGREEN,
                             c, ANSI_NORMAL);
                 }
                 else if (idx < 7)
                 {
-                    sprintf(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BYELLOW,
+                    sprintf_s(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BYELLOW,
                             c, ANSI_NORMAL);
                 }
                 else
                 {
-                    sprintf(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BRED,
+                    sprintf_s(strTmp, "%s%s%c%s", ANSI_HILITE, ANSI_BRED,
                             c, ANSI_NORMAL);
                 }
             }
@@ -267,7 +267,7 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
                 strTmp[0] = c;
                 strTmp[1] = '\0';
             }
-            strcat(strStress, strTmp);
+            strcat_s(strStress, strTmp);
 
             nslots--;
         }
@@ -276,33 +276,33 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
         switch (cReactor->GetDamageLevel())
         {
         case DMG_LIGHT:
-            sprintf(strDamage,
+            sprintf_s(strDamage,
                     "%s%s  LIGHT   %s",
                     ANSI_HILITE, ANSI_BGREEN, ANSI_NORMAL);
             break;
 
         case DMG_MEDIUM:
-            sprintf(strDamage,
+            sprintf_s(strDamage,
                     "%s%s  MEDIUM  %s",
                     ANSI_HILITE, ANSI_BYELLOW, ANSI_NORMAL);
             break;
 
         case DMG_HEAVY:
-            sprintf(strDamage,
+            sprintf_s(strDamage,
                     "%s%s  HEAVY   %s", ANSI_HILITE, ANSI_BRED, ANSI_NORMAL);
             break;
 
         case DMG_INOPERABLE:
-            sprintf(strDamage,
+            sprintf_s(strDamage,
                     "%s%sINOPERABLE%s",
                     ANSI_HILITE, ANSI_BBLACK, ANSI_NORMAL);
             break;
 
         default:
-            strcpy(strDamage, "None");
+            strcpy_s(strDamage, "None");
         }
-        strcat(strDamage, "         ");
-        sprintf(tbuf,
+        strcat_s(strDamage, "         ");
+        sprintf_s(tbuf,
                 "%s%s|%s Stress: %-30s Damage: %-19s %s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                 strStress, strDamage, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -314,11 +314,11 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
     if (cFuel)
     {
         // Give a fuel systems report
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s >------------------------------------------------------------------<%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%s                          %s+%s- Fuel Status -%s%s+                         %s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, ANSI_HILITE,
                 ANSI_GREEN, ANSI_NORMAL, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -338,7 +338,7 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
             fLvl = 0.0f;
         }
 
-        sprintf(pbuf, "%.0f%%", fLvl);
+        sprintf_s(pbuf, "%.0f%%", fLvl);
 
         // Use some tricks to print out the numerical fuel as well.
         fLvl *= .1f;
@@ -369,19 +369,19 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
             {
                 if (idx < 3)
                 {
-                    sprintf(strTmp, "%s%s%s%c%s",
+                    sprintf_s(strTmp, "%s%s%s%c%s",
                             ANSI_HILITE, ANSI_WHITE,
                             ANSI_BRED, c, ANSI_NORMAL);
                 }
                 else if (idx < 7)
                 {
-                    sprintf(strTmp, "%s%s%s%c%s",
+                    sprintf_s(strTmp, "%s%s%s%c%s",
                             ANSI_HILITE, ANSI_WHITE,
                             ANSI_BYELLOW, c, ANSI_NORMAL);
                 }
                 else
                 {
-                    sprintf(strTmp, "%s%s%s%c%s",
+                    sprintf_s(strTmp, "%s%s%s%c%s",
                             ANSI_HILITE, ANSI_WHITE,
                             ANSI_BGREEN, c, ANSI_NORMAL);
                 }
@@ -391,13 +391,13 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
                 strTmp[0] = c;
                 strTmp[1] = '\0';
             }
-            strcat(strStress, strTmp);
+            strcat_s(strStress, strTmp);
 
             nslots--;
         }
         // Burnable fuel indicator setup.
         char strBurn[256];
-        strcpy(strBurn, strStress);
+        strcpy_s(strBurn, strStress);
 
         // Print out two fuel types?
         if (HSCONF.use_two_fuels)
@@ -417,7 +417,7 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
             }
 
             // Use some tricks to print out the numerical fuel as well.
-            sprintf(pbuf, "%.0f%%", fLvl);
+            sprintf_s(pbuf, "%.0f%%", fLvl);
 
             fLvl *= .1f;
             nslots = fLvl == 0 ? 0 : (int) (fLvl - .01);
@@ -443,17 +443,17 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
                 {
                     if (idx < 3)
                     {
-                        sprintf(strTmp, "%s%s%c%s",
+                        sprintf_s(strTmp, "%s%s%c%s",
                                 ANSI_HILITE, ANSI_BRED, c, ANSI_NORMAL);
                     }
                     else if (idx < 7)
                     {
-                        sprintf(strTmp, "%s%s%c%s",
+                        sprintf_s(strTmp, "%s%s%c%s",
                                 ANSI_HILITE, ANSI_BYELLOW, c, ANSI_NORMAL);
                     }
                     else
                     {
-                        sprintf(strTmp, "%s%s%c%s",
+                        sprintf_s(strTmp, "%s%s%c%s",
                                 ANSI_HILITE, ANSI_BGREEN, c, ANSI_NORMAL);
                     }
                 }
@@ -462,12 +462,12 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
                     strTmp[0] = c;
                     strTmp[1] = '\0';
                 }
-                strcat(strStress, strTmp);
+                strcat_s(strStress, strTmp);
 
                 nslots--;
             }
 
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|%s Reactor Fuel: %-10s                   Engine Fuel: %-10s %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                     strStress, strBurn, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -475,7 +475,7 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
         }
         else
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|%s Storage Level: %-s                                          %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                     strBurn, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -484,7 +484,7 @@ void CHSShip::GiveEngSysReport(HS_DBREF player)
 
     }
     // Finish the report
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`--------------------------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -555,7 +555,7 @@ void CHSShip::SetSystemPower(HS_DBREF player,
         }
         else
         {
-            sprintf(tbuf, "Desired reactor output level now set to %d MW.",
+            sprintf_s(tbuf, "Desired reactor output level now set to %d MW.",
                     iLvl);
             hsStdError(player, tbuf);
         }
@@ -605,7 +605,7 @@ void CHSShip::SetSystemPower(HS_DBREF player,
             }
             else
             {
-                sprintf(tbuf, "%s power now set to %d MW.",
+                sprintf_s(tbuf, "%s power now set to %d MW.",
                         cShi->GetName(), iLvl);
                 hsStdError(player, tbuf);
             }
@@ -618,7 +618,7 @@ void CHSShip::SetSystemPower(HS_DBREF player,
             }
             else
             {
-                sprintf(tbuf, "%s power now set to %d MW.",
+                sprintf_s(tbuf, "%s power now set to %d MW.",
                         cSys->GetName(), iLvl);
                 hsStdError(player, tbuf);
             }
@@ -695,16 +695,16 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
     iHull = 100 * (GetHullPoints() / GetMaxHullPoints());
 
     // Give the header info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.--------------------------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Vessel Statistics                  %30s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, GetName(),
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >------------------------------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -712,7 +712,7 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
     // Now draw a pretty picture
     if (!CHSClassDB::GetInstance().LoadClassPicture(m_class, picture))
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%s                       No picture available                         %s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -741,17 +741,17 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
                     case 'h':  // HULL
                     case 'H':
                         if (iHull < 25)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_RED,
                                     iHull, ANSI_NORMAL);
                         else if (iHull < 50)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_YELLOW,
                                     iHull, ANSI_NORMAL);
                         else
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_GREEN,
                                     iHull, ANSI_NORMAL);
@@ -760,18 +760,18 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
                     case 'a':  // Aft shield
                     case 'A':
                         if (iAft < 0)
-                            strcpy(valbuf, "---%");
+                            strcpy_s(valbuf, "---%");
                         else if (iAft < 25)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_RED, iAft, ANSI_NORMAL);
                         else if (iAft < 50)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_YELLOW,
                                     iAft, ANSI_NORMAL);
                         else
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_GREEN,
                                     iAft, ANSI_NORMAL);
@@ -780,19 +780,19 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
                     case 'f':  // Fore shield
                     case 'F':
                         if (iFore < 0)
-                            strcpy(valbuf, "---%");
+                            strcpy_s(valbuf, "---%");
                         if (iFore < 25)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_RED,
                                     iFore, ANSI_NORMAL);
                         else if (iFore < 50)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_YELLOW,
                                     iFore, ANSI_NORMAL);
                         else
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_GREEN,
                                     iFore, ANSI_NORMAL);
@@ -801,19 +801,19 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
                     case 's':  // Starboard shield
                     case 'S':
                         if (iStar < 0)
-                            strcpy(valbuf, "---%");
+                            strcpy_s(valbuf, "---%");
                         if (iStar < 25)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_RED,
                                     iStar, ANSI_NORMAL);
                         else if (iStar < 50)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_YELLOW,
                                     iStar, ANSI_NORMAL);
                         else
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_GREEN,
                                     iStar, ANSI_NORMAL);
@@ -822,19 +822,19 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
                     case 'p':  // Port shield
                     case 'P':
                         if (iPort < 0)
-                            strcpy(valbuf, "---%");
+                            strcpy_s(valbuf, "---%");
                         if (iPort < 25)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_RED,
                                     iPort, ANSI_NORMAL);
                         else if (iPort < 50)
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_YELLOW,
                                     iPort, ANSI_NORMAL);
                         else
-                            sprintf(valbuf,
+                            sprintf_s(valbuf,
                                     "%s%s%3d%%%s",
                                     ANSI_HILITE, ANSI_GREEN,
                                     iPort, ANSI_NORMAL);
@@ -842,34 +842,34 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
                         break;
                     case 'i':
                     case 'I':
-                        sprintf(valbuf, "%s%s%-10s%s",
+                        sprintf_s(valbuf, "%s%s%-10s%s",
                                 ANSI_HILITE, ANSI_RED, m_ident, ANSI_NORMAL);
                         len += 10;
                         break;
                     case 'x':
                     case 'X':
-                        sprintf(valbuf, "%s%s%3i%s",
+                        sprintf_s(valbuf, "%s%s%3i%s",
                                 ANSI_HILITE, ANSI_RED,
                                 m_current_xyheading, ANSI_NORMAL);
                         len += 3;
                         break;
                     case 'z':
                     case 'Z':
-                        sprintf(valbuf, "%s%s%-3i%s",
+                        sprintf_s(valbuf, "%s%s%-3i%s",
                                 ANSI_HILITE, ANSI_RED,
                                 m_current_zheading, ANSI_NORMAL);
                         len += 3;
                         break;
                     case 'v':
                     case 'V':
-                        sprintf(valbuf, "%s%s%-6i%s",
+                        sprintf_s(valbuf, "%s%s%-6i%s",
                                 ANSI_HILITE, ANSI_RED,
                                 m_current_speed, ANSI_NORMAL);
                         len += 6;
                         break;
                     case 'n':
                     case 'N':
-                        sprintf(valbuf, "%s%s%-20s%s",
+                        sprintf_s(valbuf, "%s%s%-20s%s",
                                 ANSI_HILITE, ANSI_BLUE, m_name, ANSI_NORMAL);
                         len += 20;
                         break;
@@ -903,7 +903,7 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
             }
             *dptr = '\0';
 
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|%s%-68s%s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                     tbuf2, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -914,7 +914,7 @@ void CHSShip::GiveVesselStats(HS_DBREF player)
     }
 
     // Finish the report
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`--------------------------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -1222,20 +1222,20 @@ void CHSShip::GiveCrewRep(HS_DBREF player)
 
     char tbuf[512];
     // Give the header info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.--------------------------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Damage Control Report              %30s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, GetName(),
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >------------------------------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s-%s#%s%s-%s  %s*%s- %sSystem %s%s-           - %sTime Left %s%s-  - %sDamage %s%s-   - %sAim %s%s-      %s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL, ANSI_HILITE,
             ANSI_GREEN, ANSI_NORMAL, ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
@@ -1260,44 +1260,44 @@ void CHSShip::GiveCrewRep(HS_DBREF player)
             switch (pAssignedSys->GetDamageLevel())
             {
             case DMG_LIGHT:
-                sprintf(strDamage,
+                sprintf_s(strDamage,
                         "%s%s  LIGHT   %s",
                         ANSI_HILITE, ANSI_BGREEN, ANSI_NORMAL);
-                sprintf(strDamage2, "   None   ");
+                sprintf_s(strDamage2, "   None   ");
                 break;
 
             case DMG_MEDIUM:
-                sprintf(strDamage,
+                sprintf_s(strDamage,
                         "%s%s  MEDIUM  %s",
                         ANSI_HILITE, ANSI_BYELLOW, ANSI_NORMAL);
-                sprintf(strDamage2,
+                sprintf_s(strDamage2,
                         "%s%s  LIGHT   %s",
                         ANSI_HILITE, ANSI_BGREEN, ANSI_NORMAL);
                 break;
 
             case DMG_HEAVY:
-                sprintf(strDamage,
+                sprintf_s(strDamage,
                         "%s%s  HEAVY   %s",
                         ANSI_HILITE, ANSI_BRED, ANSI_NORMAL);
-                sprintf(strDamage2,
+                sprintf_s(strDamage2,
                         "%s%s  MEDIUM  %s",
                         ANSI_HILITE, ANSI_BYELLOW, ANSI_NORMAL);
                 break;
 
             case DMG_INOPERABLE:
-                sprintf(strDamage,
+                sprintf_s(strDamage,
                         "%s%sINOPERABLE%s",
                         ANSI_HILITE, ANSI_BBLACK, ANSI_NORMAL);
-                sprintf(strDamage2,
+                sprintf_s(strDamage2,
                         "%s%s  HEAVY   %s",
                         ANSI_HILITE, ANSI_BRED, ANSI_NORMAL);
                 break;
 
             default:
-                sprintf(strDamage, "   None   ");
-                sprintf(strDamage2, "   None   ");
+                sprintf_s(strDamage, "   None   ");
+                sprintf_s(strDamage2, "   None   ");
             }
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|%s[%s%i%s%s]%s  %-20s %9d       %s %10s     %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL, idx,
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
@@ -1307,7 +1307,7 @@ void CHSShip::GiveCrewRep(HS_DBREF player)
         }
         else
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|%s[%s%i%s%s]%s  %-20s        -             -          -         %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL, idx,
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL, "Crew Idle",
@@ -1317,7 +1317,7 @@ void CHSShip::GiveCrewRep(HS_DBREF player)
         hsInterface.Notify(player, tbuf);
     }
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`--------------------------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -1360,7 +1360,7 @@ void CHSShip::AssignCrew(HS_DBREF player, int iCrew, char *lpstrSysName)
     }
     CHSEngSystem *tSys;
 
-    if (!strcasecmp(lpstrSysName, "IDLE"))
+    if (!_stricmp(lpstrSysName, "IDLE"))
         tSys = NULL;
     else
     {

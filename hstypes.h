@@ -21,13 +21,6 @@ typedef int HS_DBREF;
 
 typedef std::list < std::string > CHSAttributeList;
 
-#ifdef WIN32
-#ifndef strcasecmp
-#define strcasecmp		stricmp
-#define strncasecmp		strnicmp
-#endif
-#endif
-
 const int HS_BUF_64 = 64;
 const int HS_BUF_128 = 128;
 const int HS_BUF_256 = 256;

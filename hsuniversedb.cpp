@@ -136,10 +136,10 @@ HS_BOOL8 CHSUniverseDBDef::LoadFromFile(const char *lpstrPath)
     char *ptr;
     CHSUniverse *pNewUniverse = NULL;
 
-    sprintf(tbuf, "LOADING: %s", lpstrPath);
+    sprintf_s(tbuf, "LOADING: %s", lpstrPath);
     hs_log(tbuf);
 
-    fp = fopen(lpstrPath, "r");
+    fopen_s(&fp, lpstrPath, "r");
     if (!fp)
     {
         hs_log("ERROR: Unable to open object database for loading!");
@@ -190,7 +190,7 @@ HS_BOOL8 CHSUniverseDBDef::LoadFromFile(const char *lpstrPath)
             if (pNewUniverse
                 && !pNewUniverse->SetAttributeValue(strKey, strValue))
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "WARNING: Key \"%s\" encountered but not handled.",
                         strKey);
                 hs_log(tbuf);
@@ -199,7 +199,7 @@ HS_BOOL8 CHSUniverseDBDef::LoadFromFile(const char *lpstrPath)
     }
 
     fclose(fp);
-    sprintf(tbuf, "LOADING: %d universes loaded.", m_mapUniverses.size());
+    sprintf_s(tbuf, "LOADING: %d universes loaded.", m_mapUniverses.size());
     hs_log(tbuf);
 
     return true;
@@ -256,10 +256,10 @@ void CHSUniverseDBDef::SaveToFile(const char *lpstrPath)
     }
 
     // Open the database
-    fp = fopen(lpstrPath, "w");
+    fopen_s(&fp, lpstrPath, "w");
     if (!fp)
     {
-        sprintf(tbuf, "ERROR: Unable to write universes to %s.", lpstrPath);
+        sprintf_s(tbuf, "ERROR: Unable to write universes to %s.", lpstrPath);
         hs_log(tbuf);
         return;
     }

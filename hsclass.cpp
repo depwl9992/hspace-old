@@ -3,7 +3,6 @@
 // -----------------------------------------------------------------------
 
 #include "pch.h"
-
 #include <cstdio>
 #include <stdlib.h>
 
@@ -106,7 +105,7 @@ void CHSClassDBDef::LockClassID(HS_UINT32 uiClassID)
             1 + (std::max(uiClassID, HSCONST_DEFAULT_MAX_CLASSIDS) / 8);
 #else
         HS_UINT32 uiSize =
-            1 + (_cpp_max(uiClassID, HSCONST_DEFAULT_MAX_CLASSIDS) / 8);
+            1 + ((std::max)(uiClassID, HSCONST_DEFAULT_MAX_CLASSIDS) / 8);
 #endif
 
         HS_UINT8 *pucNewArray;
@@ -183,30 +182,30 @@ HS_BOOL8 CHSClassDBDef::LoadFromFile(const char *pcPath)
     CHSShipClass *pNewClass = NULL;
     CHSEngSystem *cSys;
 
-    sprintf(tbuf, "LOADING: %s", pcPath);
+    sprintf_s(tbuf, "LOADING: %s", pcPath);
     hs_log(tbuf);
-
-    fp = fopen(pcPath, "r");
+	
+    fopen_s(&fp, pcPath, "r");
     if (!fp)
     {
-        sprintf(tbuf, "ERROR: Couldn't open %s for loading.", pcPath);
+        sprintf_s(tbuf, "ERROR: Couldn't open %s for loading.", pcPath);
         hs_log(tbuf);
         return false;
     }
 
     // Load database version for possible conversion.
-    strcpy(tbuf, getstr(fp));
+    strcpy_s(tbuf, getstr(fp));
     extract(tbuf, strKey, 0, 1, '=');
     extract(tbuf, strValue, 1, 1, '=');
 
-    if (strcasecmp(strKey, "DBVERSION"))
+    if (_stricmp(strKey, "DBVERSION"))
     {
         // Pre-4.0 database
     }
     else
     {
         // 4.0 and later
-        strcpy(tbuf, getstr(fp));       // Beginning ! mark
+        strcpy_s(tbuf, getstr(fp));       // Beginning ! mark
     }
 
     if (*tbuf == EOF)
@@ -222,7 +221,7 @@ HS_BOOL8 CHSClassDBDef::LoadFromFile(const char *pcPath)
     HS_BOOL8 bHasID = false;
     while (ok)
     {
-        strcpy(tbuf, getstr(fp));
+        strcpy_s(tbuf, getstr(fp));
         if (*tbuf == '!')
         {
             // Insert the previously loaded class.
@@ -247,7 +246,7 @@ HS_BOOL8 CHSClassDBDef::LoadFromFile(const char *pcPath)
             bHasID = false;
             continue;
         }
-        else if (!strcasecmp(tbuf, "*END*"))
+        else if (!_stricmp(tbuf, "*END*"))
         {
             if (pNewClass)
             {
@@ -264,7 +263,7 @@ HS_BOOL8 CHSClassDBDef::LoadFromFile(const char *pcPath)
 
         // Figure out the key type, and see what we can
         // do with it.
-        if (!strcasecmp(strKey, "ID"))
+        if (!_stricmp(strKey, "ID"))
         {
             pNewClass->Id(atoi(strValue));
 
@@ -272,35 +271,35 @@ HS_BOOL8 CHSClassDBDef::LoadFromFile(const char *pcPath)
             LockClassID(pNewClass->Id());
             bHasID = true;
         }
-        else if (!strcasecmp(strKey, "NAME"))
+        else if (!_stricmp(strKey, "NAME"))
         {
             pNewClass->ClassName(strValue);
         }
-        else if (!strcasecmp(strKey, "DROP CAPABLE"))
+        else if (!_stricmp(strKey, "DROP CAPABLE"))
         {
             pNewClass->CanDrop(atoi(strValue) == 0 ? false : true);
         }
-        else if (!strcasecmp(strKey, "SPACEDOCK"))
+        else if (!_stricmp(strKey, "SPACEDOCK"))
         {
             pNewClass->SpaceDock(atoi(strValue) == 0 ? false : true);
         }
-        else if (!strcasecmp(strKey, "CARGOSIZE"))
+        else if (!_stricmp(strKey, "CARGOSIZE"))
         {
             pNewClass->CargoSize(atoi(strValue));
         }
-        else if (!strcasecmp(strKey, "MINMANNED"))
+        else if (!_stricmp(strKey, "MINMANNED"))
         {
             pNewClass->MinCrew(atoi(strValue));
         }
-        else if (!strcasecmp(strKey, "MAXHULL"))
+        else if (!_stricmp(strKey, "MAXHULL"))
         {
             pNewClass->MaxHull(atoi(strValue));
         }
-        else if (!strcasecmp(strKey, "SIZE"))
+        else if (!_stricmp(strKey, "SIZE"))
         {
             pNewClass->Size(atoi(strValue));
         }
-        else if (!strcasecmp(strKey, "SYSTEMDEF"))
+        else if (!_stricmp(strKey, "SYSTEMDEF"))
         {
             if (!pNewClass->m_pSystems)
             {
@@ -316,7 +315,7 @@ HS_BOOL8 CHSClassDBDef::LoadFromFile(const char *pcPath)
     }
     fclose(fp);
 
-    sprintf(lbuf, "LOADING: %s - %d classes loaded (done)", pcPath,
+    sprintf_s(lbuf, "LOADING: %s - %d classes loaded (done)", pcPath,
             m_mapShipClasses.size());
     hs_log(lbuf);
 
@@ -406,7 +405,7 @@ CHSEngSystem *CHSClassDBDef::LoadSystem(FILE * fp, CHSShipClass * pClass)
 
             if (!cSys)
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "ERROR: Invalid system type %d encountered.", type);
                 hs_log(tbuf);
             }
@@ -427,7 +426,7 @@ CHSEngSystem *CHSClassDBDef::LoadSystem(FILE * fp, CHSShipClass * pClass)
                 {
                     char cError[128];
 
-                    sprintf(cError,
+                    sprintf_s(cError,
                             "Failed attribute load on system.  Attribute: %s\n",
                             strKey);
                     hs_log(cError);
@@ -463,10 +462,10 @@ void CHSClassDBDef::SaveToFile(char *lpstrPath)
     }
 
     // Open output file.
-    fp = fopen(lpstrPath, "w");
+    fopen_s(&fp, lpstrPath, "w");
     if (!fp)
     {
-        sprintf(tbuf, "ERROR: Unable to write classes to %s.", lpstrPath);
+        sprintf_s(tbuf, "ERROR: Unable to write classes to %s.", lpstrPath);
         hs_log(tbuf);
         return;
     }
@@ -523,8 +522,8 @@ HS_BOOL8 CHSClassDBDef::LoadClassPicture(int iClass, char **buff)
     char *ptr;
     int idx;
 
-    sprintf(tbuf, "%s/class_%d.pic", HSCONF.picture_dir, iClass);
-    fp = fopen(tbuf, "r");
+    sprintf_s(tbuf, "%s/class_%d.pic", HSCONF.picture_dir, iClass);
+    fopen_s(&fp, tbuf, "r");
     if (!fp)
         return false;
 

@@ -63,14 +63,14 @@ void CHSHandlerLogin::HandleLogin(CHSPacket * pPacket)
             }
             else
             {
-                sprintf(errstr, "HandleLogin %s does not have a Wizard flag!",
+                sprintf_s(errstr, "HandleLogin %s does not have a Wizard flag!",
                         pLogin->m_pcPassword);
                 hs_log(errstr);
             }
         }
         else
         {
-            sprintf(errstr,
+            sprintf_s(errstr,
                     "HandleLogin Login Failed! Could not validate password for %s.",
                     pLogin->m_pcPlayerName);
             hs_log(errstr);
@@ -78,7 +78,7 @@ void CHSHandlerLogin::HandleLogin(CHSPacket * pPacket)
     }
     else
     {
-        sprintf(errstr, "HandleLogin No such player '%s'.",
+        sprintf_s(errstr, "HandleLogin No such player '%s'.",
                 pLogin->m_pcPlayerName);
         hs_log(errstr);
     }

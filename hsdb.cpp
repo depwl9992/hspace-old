@@ -52,11 +52,11 @@ HS_BOOL8 CHSDB::LoadDatabases()
     LoadObjectDB();
 
     // Load Territories
-    sprintf(tbuf, "LOADING: %s", HSCONF.territorydb);
+    sprintf_s(tbuf, "LOADING: %s", HSCONF.territorydb);
     hs_log(tbuf);
     LoadTerritoryDB(HSCONF.territorydb);
     cnt = taTerritories.NumTerritories();
-    sprintf(tbuf, "LOADING: %d %s loaded.", cnt,
+    sprintf_s(tbuf, "LOADING: %d %s loaded.", cnt,
             cnt == 1 ? "territory" : "territories");
     hs_log(tbuf);
 
@@ -120,7 +120,7 @@ HS_BOOL8 CHSDB::LoadObjectDB()
     HS_UINT32 nShips, nCelestials, nObjs;
     CHS3DObject *newObj;
 
-    sprintf(tbuf, "LOADING: %s ...", HSCONF.objectdb);
+    sprintf_s(tbuf, "LOADING: %s ...", HSCONF.objectdb);
     hs_log(tbuf);
 
     // Load the object database, pulling out key/value pairs.
@@ -128,7 +128,7 @@ HS_BOOL8 CHSDB::LoadObjectDB()
     // new object definition.  Thus, we just allocate that
     // type of object, and tell it to load from the file.
     nShips = nCelestials = nObjs = 0;
-    fp = fopen(HSCONF.objectdb, "r");
+    fopen_s(&fp, HSCONF.objectdb, "r");
     if (!fp)
     {
         hs_log("ERROR: Unable to open object database for loading!");
@@ -157,7 +157,7 @@ HS_BOOL8 CHSDB::LoadObjectDB()
         switch (key)
         {
         case HSK_NOKEY:
-            sprintf(tbuf, "WARNING: Invalid key \"%s\" encountered.", strKey);
+            sprintf_s(tbuf, "WARNING: Invalid key \"%s\" encountered.", strKey);
             hs_log(tbuf);
             break;
 
@@ -215,7 +215,7 @@ HS_BOOL8 CHSDB::LoadObjectDB()
             break;
 
         default:
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "WARNING: Key \"%s\" encountered but not handled.",
                     strKey);
             hs_log(tbuf);
@@ -223,11 +223,11 @@ HS_BOOL8 CHSDB::LoadObjectDB()
         }
     }
     fclose(fp);
-    sprintf(tbuf, "LOADING: %d generic objects loaded.", nObjs);
+    sprintf_s(tbuf, "LOADING: %d generic objects loaded.", nObjs);
     hs_log(tbuf);
-    sprintf(tbuf, "LOADING: %d celestial objects loaded.", nCelestials);
+    sprintf_s(tbuf, "LOADING: %d celestial objects loaded.", nCelestials);
     hs_log(tbuf);
-    sprintf(tbuf, "LOADING: %d ship objects loaded (Done).", nShips);
+    sprintf_s(tbuf, "LOADING: %d ship objects loaded (Done).", nShips);
     hs_log(tbuf);
 
     return true;
@@ -246,10 +246,10 @@ void CHSDB::DumpObjectDB()
         return;
     }
 
-    fp = fopen(HSCONF.objectdb, "w");
+    fopen_s(&fp, HSCONF.objectdb, "w");
     if (!fp)
     {
-        sprintf(tbuf, "ERROR: Unable to open object db \"%s\" for writing.",
+        sprintf_s(tbuf, "ERROR: Unable to open object db \"%s\" for writing.",
                 HSCONF.objectdb);
         hs_log(tbuf);
         return;
@@ -288,27 +288,27 @@ void CHSDB::DumpDatabases()
     char ostr[256];
 
     // Save classes
-    sprintf(ostr, "Saving class database '%s'.", HSCONF.classdb);
+    sprintf_s(ostr, "Saving class database '%s'.", HSCONF.classdb);
     hs_log(ostr);
     DumpClassDB(HSCONF.classdb);
 
     // Save weapons
-    sprintf(ostr, "Saving weapon database '%s'.", HSCONF.weapondb);
+    sprintf_s(ostr, "Saving weapon database '%s'.", HSCONF.weapondb);
     hs_log(ostr);
     DumpWeaponDB(HSCONF.weapondb);
 
     // Save universes
-    sprintf(ostr, "Saving universe database '%s'.", HSCONF.univdb);
+    sprintf_s(ostr, "Saving universe database '%s'.", HSCONF.univdb);
     hs_log(ostr);
     DumpUniverseDB(HSCONF.univdb);
 
     // Save planets
-    sprintf(ostr, "Saving object database '%s'.", HSCONF.objectdb);
+    sprintf_s(ostr, "Saving object database '%s'.", HSCONF.objectdb);
     hs_log(ostr);
     DumpObjectDB();
 
     // Territories
-    sprintf(ostr, "Saving territory database '%s'.", HSCONF.territorydb);
+    sprintf_s(ostr, "Saving territory database '%s'.", HSCONF.territorydb);
     hs_log(ostr);
     taTerritories.SaveToFile(HSCONF.territorydb);
 
@@ -691,7 +691,7 @@ HS_BOOL8 CHSDB::BackupFile(HS_INT8 * origfile, HS_INT8 * newfile)
 {
     int result = 0;
 #ifdef WIN32                    // Windows cannot rename over an existing file
-    unlink(newfile);
+    _unlink(newfile);
 #endif
 
     result = rename(origfile, newfile);
@@ -709,28 +709,28 @@ void CHSDB::BackupDatabases(HS_INT8 * suffix)
     char tmpfname[180];
 
     // Class Database
-    strncpy(tmpfname, HSCONF.classdb, 179);
+    strncpy_s(tmpfname, HSCONF.classdb, 179);
     if (BackupFile(HSCONF.classdb, strncat(tmpfname, suffix, 179)) == false)
     {
         hs_log("WARNING: Failed to backup Class DB file.");
     }
 
     // Weapon DB
-    strncpy(tmpfname, HSCONF.weapondb, 179);
+    strncpy_s(tmpfname, HSCONF.weapondb, 179);
     if (BackupFile(HSCONF.weapondb, strncat(tmpfname, suffix, 179)) == false)
     {
         hs_log("WARNING: Failed to backup Weapon DB file.");
     }
 
     // Universe DB
-    strncpy(tmpfname, HSCONF.univdb, 179);
+    strncpy_s(tmpfname, HSCONF.univdb, 179);
     if (BackupFile(HSCONF.univdb, strncat(tmpfname, suffix, 179)) == false)
     {
         hs_log("WARNING: Failed to backup Universe DB file.");
     }
 
     // Territory DB
-    strncpy(tmpfname, HSCONF.territorydb, 179);
+    strncpy_s(tmpfname, HSCONF.territorydb, 179);
     if (BackupFile(HSCONF.territorydb, strncat(tmpfname, suffix, 179))
         == false)
     {
@@ -738,7 +738,7 @@ void CHSDB::BackupDatabases(HS_INT8 * suffix)
     }
 
     // Object DB
-    strncpy(tmpfname, HSCONF.objectdb, 179);
+    strncpy_s(tmpfname, HSCONF.objectdb, 179);
     if (BackupFile(HSCONF.objectdb, strncat(tmpfname, suffix, 179)) == false)
     {
         hs_log("WARNING: Failed to backup Object DB file.");

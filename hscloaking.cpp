@@ -26,7 +26,7 @@ HS_BOOL8 CHSSysCloak::SetAttributeValue(const HS_INT8 * pcAttrName,
                                         const HS_INT8 * strValue)
 {
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "EFFICIENCY"))
+    if (!_stricmp(pcAttrName, "EFFICIENCY"))
     {
         if (atof(strValue) < 0 || 100 < atof(strValue))
         {
@@ -51,7 +51,7 @@ HS_BOOL8 CHSSysCloak::SetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "ENGAGED"))
+    else if (!_stricmp(pcAttrName, "ENGAGED"))
     {
         m_engaged = atoi(strValue);
         return true;
@@ -145,7 +145,7 @@ HS_BOOL8
                                    HS_BOOL8 bAdjusted, HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "EFFICIENCY"))
+    if (!_stricmp(pcAttrName, "EFFICIENCY"))
     {
         if (m_efficiency)
         {
@@ -161,7 +161,7 @@ HS_BOOL8
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "ENGAGED"))
+    else if (!_stricmp(pcAttrName, "ENGAGED"))
     {
         rvarValue = m_engaged;
         return true;

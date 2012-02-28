@@ -507,7 +507,7 @@ HS_BOOL8 CHSUniverse::SetAttributeValue(const char *pcKey,
                                         const char *pcValue)
 {
     // Try to match the attribute name
-    if (!strcasecmp(pcKey, "NAME"))
+    if (!_stricmp(pcKey, "NAME"))
     {
         if (pcValue)
         {
@@ -519,7 +519,7 @@ HS_BOOL8 CHSUniverse::SetAttributeValue(const char *pcKey,
         }
         return true;
     }
-    else if (!strcasecmp(pcKey, "OBJNUM"))
+    else if (!_stricmp(pcKey, "OBJNUM"))
     {
         m_uiID = strtodbref(pcValue);
         return true;

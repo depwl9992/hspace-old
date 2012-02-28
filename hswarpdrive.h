@@ -9,6 +9,7 @@
 #include "hsconf.h"
 #include "hsengines.h"
 
+static const HS_FLOAT32 MAX_WARP = 9.9999;
 class CHSWarpDrive : public CHSEngSystem
 {
   public:
@@ -54,7 +55,7 @@ class CHSWarpDrive : public CHSEngSystem
     HS_FLOAT32 CalculateSpeed();
 
     //! Maximum warp value 
-    static const HS_FLOAT32 MAX_WARP = 9.9999;
+    
   protected:
 
     //! A simple enum to flag what messages to issue

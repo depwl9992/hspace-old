@@ -93,7 +93,7 @@ HSS_TYPE hsGetEngSystemType(const char *name)
 
     for (int idx = 0; hs_system_list[idx].name; idx++)
     {
-        if (!strncasecmp(name, hs_system_list[idx].name, len))
+        if (!_strnicmp(name, hs_system_list[idx].name, len))
         {
             return hs_system_list[idx].type;
         }
@@ -342,7 +342,7 @@ CHSEngSystem *CHSSystemArray::GetSystemByName(const HS_INT8 * strName)
 
     for (ptr = m_SystemHead; ptr; ptr = ptr->GetNext())
     {
-        if (!strncasecmp(strName, ptr->GetName(), len))
+        if (!_strnicmp(strName, ptr->GetName(), len))
         {
             return ptr;
         }
@@ -666,7 +666,7 @@ void CHSEngSystem::DoCycle()
                         {
                             CHSShip *cShip;
                             cShip = (CHSShip *) m_ownerObj;
-                            sprintf(tbuf,
+                            sprintf_s(tbuf,
                                     "%s%s-%s A warning light flashes, indicating that the %s system has taken damage.",
                                     ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL,
                                     GetName());
@@ -981,7 +981,7 @@ HS_BOOL8 CHSEngSystem::SetAttributeValue(const HS_INT8 * pcAttrName,
     float fVal;
 
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "CURRENT POWER"))
+    if (!_stricmp(pcAttrName, "CURRENT POWER"))
     {
         iVal = atoi(strValue);
         if (iVal < 0)
@@ -990,18 +990,18 @@ HS_BOOL8 CHSEngSystem::SetAttributeValue(const HS_INT8 * pcAttrName,
         SetCurrentPower(iVal);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "NAME"))
+    else if (!_stricmp(pcAttrName, "NAME"))
     {
         SetName(strValue);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "DAMAGE"))
+    else if (!_stricmp(pcAttrName, "DAMAGE"))
     {
         iVal = atoi(strValue);
         SetDamage((HS_DAMAGE) iVal);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "OPTIMAL POWER"))
+    else if (!_stricmp(pcAttrName, "OPTIMAL POWER"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -1023,7 +1023,7 @@ HS_BOOL8 CHSEngSystem::SetAttributeValue(const HS_INT8 * pcAttrName,
         SetOptimalPower(iVal);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "TOLERANCE"))
+    else if (!_stricmp(pcAttrName, "TOLERANCE"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -1044,7 +1044,7 @@ HS_BOOL8 CHSEngSystem::SetAttributeValue(const HS_INT8 * pcAttrName,
         SetTolerance(iVal);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "STRESS"))
+    else if (!_stricmp(pcAttrName, "STRESS"))
     {
         fVal = (float) atof(strValue);
         if ((fVal < 0) || (fVal > 100))
@@ -1053,12 +1053,12 @@ HS_BOOL8 CHSEngSystem::SetAttributeValue(const HS_INT8 * pcAttrName,
         SetStress(fVal);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "VISIBLE"))
+    else if (!_stricmp(pcAttrName, "VISIBLE"))
     {
         SetVisible(atoi(strValue) == 0 ? false : true);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "PRIORITY"))
+    else if (!_stricmp(pcAttrName, "PRIORITY"))
     {
         // If we get here, do nothing.
         return true;
@@ -1075,17 +1075,17 @@ HS_BOOL8
                                     HS_BOOL8 bAdjusted, HS_BOOL8 bLocalOnly)
 {
     // Determine the attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "CURRENT POWER"))
+    if (!_stricmp(pcAttrName, "CURRENT POWER"))
     {
         rvarReturnVal = m_uiCurrentPower;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "DAMAGE"))
+    else if (!_stricmp(pcAttrName, "DAMAGE"))
     {
         rvarReturnVal = (HS_INT8) m_eDamageLevel;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "NAME"))
+    else if (!_stricmp(pcAttrName, "NAME"))
     {
         if (m_pcName)
         {
@@ -1101,7 +1101,7 @@ HS_BOOL8
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "OPTIMAL POWER"))
+    else if (!_stricmp(pcAttrName, "OPTIMAL POWER"))
     {
         if (m_puiOptimalPower)
         {
@@ -1117,12 +1117,12 @@ HS_BOOL8
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "STRESS"))
+    else if (!_stricmp(pcAttrName, "STRESS"))
     {
         rvarReturnVal = m_fStress;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "TOLERANCE"))
+    else if (!_stricmp(pcAttrName, "TOLERANCE"))
     {
         if (m_puiTolerance)
         {
@@ -1138,7 +1138,7 @@ HS_BOOL8
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "VISIBLE"))
+    else if (!_stricmp(pcAttrName, "VISIBLE"))
     {
         rvarReturnVal = m_bVisible;
         return true;

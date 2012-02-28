@@ -44,17 +44,17 @@ HS_BOOL8 CHSFuelSystem::SetAttributeValue(const HS_INT8 * pcAttrName,
 {
     HS_INT32 iVal;
 
-    if (!strcasecmp(pcAttrName, "BURNABLE FUEL"))
+    if (!_stricmp(pcAttrName, "BURNABLE FUEL"))
     {
         m_fBurnableFuel = (float) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "REACTABLE FUEL"))
+    else if (!_stricmp(pcAttrName, "REACTABLE FUEL"))
     {
         m_fReactableFuel = (float) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "MAX REACTABLE FUEL"))
+    else if (!_stricmp(pcAttrName, "MAX REACTABLE FUEL"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -86,7 +86,7 @@ HS_BOOL8 CHSFuelSystem::SetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "MAX BURNABLE FUEL"))
+    else if (!_stricmp(pcAttrName, "MAX BURNABLE FUEL"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -138,7 +138,7 @@ HS_BOOL8 CHSFuelSystem::GetAttributeValue(const HS_INT8 * pcAttrName,
                                           HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "MAX BURNABLE FUEL"))
+    if (!_stricmp(pcAttrName, "MAX BURNABLE FUEL"))
     {
         if (m_puiMaxBurnableFuel)
         {
@@ -154,7 +154,7 @@ HS_BOOL8 CHSFuelSystem::GetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "MAX REACTABLE FUEL"))
+    else if (!_stricmp(pcAttrName, "MAX REACTABLE FUEL"))
     {
         if (m_puiMaxReactableFuel)
         {
@@ -170,12 +170,12 @@ HS_BOOL8 CHSFuelSystem::GetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "REACTABLE FUEL"))
+    else if (!_stricmp(pcAttrName, "REACTABLE FUEL"))
     {
         rvarValue = m_fReactableFuel;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "BURNABLE FUEL"))
+    else if (!_stricmp(pcAttrName, "BURNABLE FUEL"))
     {
         rvarValue = m_fBurnableFuel;
         return true;

@@ -655,7 +655,7 @@ HS_BOOL8 CHSSysSensors::SetAttributeValue(const HS_INT8 * pcAttrName,
     int iVal;
 
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "SENSOR RATING"))
+    if (!_stricmp(pcAttrName, "SENSOR RATING"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -701,7 +701,7 @@ HS_BOOL8
                                      HS_BOOL8 bAdjusted, HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "SENSOR RATING"))
+    if (!_stricmp(pcAttrName, "SENSOR RATING"))
     {
         if (m_puiSensorRating)
         {

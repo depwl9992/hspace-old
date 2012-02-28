@@ -49,7 +49,7 @@ HS_BOOL8 CHSDamCon::GetAttributeValue(const HS_INT8 * pcAttrName,
                                       HS_BOOL8 bAdjusted, HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "NUMCREWS"))
+    if (!_stricmp(pcAttrName, "NUMCREWS"))
     {
         if (m_puiNumCrews)
         {
@@ -114,7 +114,7 @@ HS_BOOL8 CHSDamCon::SetAttributeValue(const HS_INT8 * pcAttrName,
                                       const HS_INT8 * strValue)
 {
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "NUMCREWS"))
+    if (!_stricmp(pcAttrName, "NUMCREWS"))
     {
         if (atoi(strValue) < 0)
         {

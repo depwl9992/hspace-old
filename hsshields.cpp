@@ -285,7 +285,7 @@ HS_BOOL8 CHSSysShield::SetAttributeValue(const HS_INT8 * pcAttrName,
     double dVal;
 
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "REGEN RATE"))
+    if (!_stricmp(pcAttrName, "REGEN RATE"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -313,7 +313,7 @@ HS_BOOL8 CHSSysShield::SetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "STRENGTH"))
+    else if (!_stricmp(pcAttrName, "STRENGTH"))
     {
         dVal = atof(strValue);
         if (dVal < 0)
@@ -324,7 +324,7 @@ HS_BOOL8 CHSSysShield::SetAttributeValue(const HS_INT8 * pcAttrName,
         m_fStrength = dVal;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "SHIELD TYPE"))
+    else if (!_stricmp(pcAttrName, "SHIELD TYPE"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -352,7 +352,7 @@ HS_BOOL8 CHSSysShield::SetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "MAX STRENGTH"))
+    else if (!_stricmp(pcAttrName, "MAX STRENGTH"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -405,7 +405,7 @@ HS_BOOL8
                                     HS_BOOL8 bAdjusted, HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "REGEN RATE"))
+    if (!_stricmp(pcAttrName, "REGEN RATE"))
     {
         if (m_pfRegenRate)
         {
@@ -422,17 +422,17 @@ HS_BOOL8
 
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "STRENGTH"))
+    else if (!_stricmp(pcAttrName, "STRENGTH"))
     {
         rvarValue = m_fStrength;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "SHIELD TYPE"))
+    else if (!_stricmp(pcAttrName, "SHIELD TYPE"))
     {
         rvarValue = (HS_INT8) GetShieldType();
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "MAX STRENGTH"))
+    else if (!_stricmp(pcAttrName, "MAX STRENGTH"))
     {
         if (m_puiMaxStrength)
         {

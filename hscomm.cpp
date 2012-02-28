@@ -45,8 +45,8 @@ void CHSCommRelay::RelayCommlinks(HSCOMM * commdata)
     char strDbref[16];
 
     // Setup some strings to pass into the COMM_HANDLER.
-    sprintf(strDbref, "#%d", commdata->dbSource);
-    sprintf(strFrq, "%.2f", commdata->frq);
+    sprintf_s(strDbref, "#%d", commdata->dbSource);
+    sprintf_s(strFrq, "%.2f", commdata->frq);
 
     for (idx = 0; idx < hsInterface.MaxObjects(); idx++)
     {

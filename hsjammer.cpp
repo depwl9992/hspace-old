@@ -30,7 +30,7 @@ HS_BOOL8 CHSSysJammer::SetAttributeValue(const HS_INT8 * pcAttrName,
                                          const HS_INT8 * strValue)
 {
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "RANGE"))
+    if (!_stricmp(pcAttrName, "RANGE"))
     {
         if (!*strValue)
         {
@@ -128,7 +128,7 @@ HS_BOOL8 CHSSysJammer::GetAttributeValue(const HS_INT8 * pcAttrName,
                                          HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "RANGE"))
+    if (!_stricmp(pcAttrName, "RANGE"))
     {
         if (NULL != m_puiRange)
         {

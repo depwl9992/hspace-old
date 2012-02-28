@@ -48,33 +48,33 @@ const HS_INT8 *CHSWeaponData::GetAttributeValue(const HS_INT8 *
     static char rval[HS_BUF_64];
 
     *rval = '\0';
-    if (!strncasecmp(pcAttributeName, "NAME", strlen(pcAttributeName)))
+    if (!_strnicmp(pcAttributeName, "NAME", strlen(pcAttributeName)))
     {
         return m_strName.c_str();
     }
-    else if (!strncasecmp(pcAttributeName, "TYPE", strlen(pcAttributeName)))
+    else if (!_strnicmp(pcAttributeName, "TYPE", strlen(pcAttributeName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_uiWeaponTypeID);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_uiWeaponTypeID);
     }
-    else if (!strncasecmp(pcAttributeName, "WEAPON CLASS",
+    else if (!_strnicmp(pcAttributeName, "WEAPON CLASS",
                           strlen(pcAttributeName)))
     {
-        strncpy(rval, GetWeaponClassName(), HS_BUF_64_CPY);
+        strncpy_s(rval, GetWeaponClassName(), HS_BUF_64_CPY);
     }
-    else if (!strncasecmp(pcAttributeName, "MIN TARGET SIZE",
+    else if (!_strnicmp(pcAttributeName, "MIN TARGET SIZE",
                           strlen(pcAttributeName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_mintargetsize);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_mintargetsize);
     }
-    else if (!strncasecmp(pcAttributeName, "SHIELD PERCENTAGE",
+    else if (!_strnicmp(pcAttributeName, "SHIELD PERCENTAGE",
                           strlen(pcAttributeName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%f", m_shield_percentage);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%f", m_shield_percentage);
     }
-    else if (!strncasecmp(pcAttributeName, "HULL PERCENTAGE",
+    else if (!_strnicmp(pcAttributeName, "HULL PERCENTAGE",
                           strlen(pcAttributeName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%f", m_hull_percentage);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%f", m_hull_percentage);
     }
     else
     {
@@ -109,28 +109,28 @@ void CHSWeaponData::GetAttributeList(CHSAttributeList & rlistAttributes)
     rlistAttributes.push_back("HULL PERCENTAGE");
 }
 
-// Attempts to set the value of the given attribute.  If successful,true 
+// Attempts to set the value of the given attribute.  If successful,true
 // is returned, else false.
 HS_BOOL8 CHSWeaponData::SetAttributeValue(const HS_INT8 * strName,
                                           const HS_INT8 * strValue)
 {
     // Try to match the name
-    if (!strncasecmp(strName, "NAME", strlen(strName)))
+    if (!_strnicmp(strName, "NAME", strlen(strName)))
     {
         m_strName = strValue;
         return true;
     }
-    else if (!strncasecmp(strName, "MIN TARGET SIZE", strlen(strName)))
+    else if (!_strnicmp(strName, "MIN TARGET SIZE", strlen(strName)))
     {
         m_mintargetsize = atoi(strValue);
         return true;
     }
-    else if (!strncasecmp(strName, "SHIELD PERCENTAGE", strlen(strName)))
+    else if (!_strnicmp(strName, "SHIELD PERCENTAGE", strlen(strName)))
     {
         m_shield_percentage = strtod(strValue, NULL);
         return true;
     }
-    else if (!strncasecmp(strName, "HULL PERCENTAGE", strlen(strName)))
+    else if (!_strnicmp(strName, "HULL PERCENTAGE", strlen(strName)))
     {
         m_hull_percentage = strtod(strValue, NULL);
         return true;
@@ -160,29 +160,29 @@ const HS_INT8 *CHSLaserData::GetAttributeValue(const HS_INT8 * strName)
     static char rval[HS_BUF_64];
 
     *rval = '\0';
-    if (!strncasecmp(strName, "REGEN TIME", strlen(strName)))
+    if (!_strnicmp(strName, "REGEN TIME", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_regen_time);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_regen_time);
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_range);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_range);
     }
-    else if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    else if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_strength);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_strength);
     }
-    else if (!strncasecmp(strName, "ACCURACY", strlen(strName)))
+    else if (!_strnicmp(strName, "ACCURACY", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_accuracy);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_accuracy);
     }
-    else if (!strncasecmp(strName, "POWER", strlen(strName)))
+    else if (!_strnicmp(strName, "POWER", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_powerusage);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_powerusage);
     }
-    else if (!strncasecmp(strName, "NOHULL", strlen(strName)))
+    else if (!_strnicmp(strName, "NOHULL", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_nohull);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_nohull);
     }
     else
     {
@@ -199,22 +199,22 @@ HS_BOOL8 CHSLaserData::WriteToDatabase(CHSFileDatabase * pDatabase)
 
     CHSWeaponData::WriteToDatabase(pDatabase);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_regen_time);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_regen_time);
     pDatabase->AddSectionAttribute("REGEN TIME", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_range);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_range);
     pDatabase->AddSectionAttribute("RANGE", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_strength);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_strength);
     pDatabase->AddSectionAttribute("STRENGTH", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_accuracy);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_accuracy);
     pDatabase->AddSectionAttribute("ACCURACY", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_powerusage);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_powerusage);
     pDatabase->AddSectionAttribute("POWER", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_nohull);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_nohull);
     pDatabase->AddSectionAttribute("NOHULL", cBuffer);
 
     return true;
@@ -246,7 +246,7 @@ void CHSLaserData::GetAttributeList(CHSAttributeList & rlistAttributes)
     rlistAttributes.push_back("NOHULL");
 }
 
-// Attempts to set the value of the given attribute.  If successful,true 
+// Attempts to set the value of the given attribute.  If successful,true
 // is returned, else false.
 HS_BOOL8 CHSLaserData::SetAttributeValue(const HS_INT8 * strName,
                                          const HS_INT8 * strValue)
@@ -254,7 +254,7 @@ HS_BOOL8 CHSLaserData::SetAttributeValue(const HS_INT8 * strName,
     int iVal = -1;
 
     // Try to match the name
-    if (!strncasecmp(strName, "REGEN TIME", strlen(strName)))
+    if (!_strnicmp(strName, "REGEN TIME", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 0)
@@ -263,7 +263,7 @@ HS_BOOL8 CHSLaserData::SetAttributeValue(const HS_INT8 * strName,
         m_regen_time = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -272,7 +272,7 @@ HS_BOOL8 CHSLaserData::SetAttributeValue(const HS_INT8 * strName,
         m_range = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    else if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -281,7 +281,7 @@ HS_BOOL8 CHSLaserData::SetAttributeValue(const HS_INT8 * strName,
         m_strength = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "ACCURACY", strlen(strName)))
+    else if (!_strnicmp(strName, "ACCURACY", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -290,7 +290,7 @@ HS_BOOL8 CHSLaserData::SetAttributeValue(const HS_INT8 * strName,
         m_accuracy = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "POWER", strlen(strName)))
+    else if (!_strnicmp(strName, "POWER", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 0)
@@ -299,7 +299,7 @@ HS_BOOL8 CHSLaserData::SetAttributeValue(const HS_INT8 * strName,
         m_powerusage = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "NOHULL", strlen(strName)))
+    else if (!_strnicmp(strName, "NOHULL", strlen(strName)))
     {
         iVal = atoi(strValue);
         m_nohull = iVal == 0 ? false : true;
@@ -328,25 +328,25 @@ const HS_INT8 *CHSMissileData::GetAttributeValue(const HS_INT8 * strName)
     static char rval[HS_BUF_64];
 
     *rval = '\0';
-    if (!strncasecmp(strName, "RELOAD TIME", strlen(strName)))
+    if (!_strnicmp(strName, "RELOAD TIME", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_reload_time);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_reload_time);
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_range);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_range);
     }
-    else if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    else if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_strength);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_strength);
     }
-    else if (!strncasecmp(strName, "TURN RATE", strlen(strName)))
+    else if (!_strnicmp(strName, "TURN RATE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_turnrate);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_turnrate);
     }
-    else if (!strncasecmp(strName, "SPEED", strlen(strName)))
+    else if (!_strnicmp(strName, "SPEED", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_speed);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_speed);
     }
     else
     {
@@ -373,19 +373,19 @@ HS_BOOL8 CHSMissileData::WriteToDatabase(CHSFileDatabase * pDatabase)
 
     CHSWeaponData::WriteToDatabase(pDatabase);
 
-    snprintf(cBuffer, 31, "%d", m_reload_time);
+    _snprintf_s(cBuffer, 31, "%d", m_reload_time);
     pDatabase->AddSectionAttribute("RELOAD TIME", cBuffer);
 
-    snprintf(cBuffer, 31, "%d", m_range);
+    _snprintf_s(cBuffer, 31, "%d", m_range);
     pDatabase->AddSectionAttribute("RANGE", cBuffer);
 
-    snprintf(cBuffer, 31, "%d", m_strength);
+    _snprintf_s(cBuffer, 31, "%d", m_strength);
     pDatabase->AddSectionAttribute("STRENGTH", cBuffer);
 
-    snprintf(cBuffer, 31, "%d", m_turnrate);
+    _snprintf_s(cBuffer, 31, "%d", m_turnrate);
     pDatabase->AddSectionAttribute("TURN RATE", cBuffer);
 
-    snprintf(cBuffer, 31, "%d", m_speed);
+    _snprintf_s(cBuffer, 31, "%d", m_speed);
     pDatabase->AddSectionAttribute("SPEED", cBuffer);
 
     return true;
@@ -405,7 +405,7 @@ HS_BOOL8 CHSMissileData::ReadFromDatabase(CHSFileDatabase * pDatabase)
 }
 
 
-// Attempts to set the value of the given attribute.  If successful,true 
+// Attempts to set the value of the given attribute.  If successful,true
 // is returned, else false.
 HS_BOOL8 CHSMissileData::SetAttributeValue(const HS_INT8 * strName,
                                            const HS_INT8 * strValue)
@@ -413,7 +413,7 @@ HS_BOOL8 CHSMissileData::SetAttributeValue(const HS_INT8 * strName,
     int iVal = -1;
 
     // Try to match the name
-    if (!strncasecmp(strName, "RELOAD TIME", strlen(strName)))
+    if (!_strnicmp(strName, "RELOAD TIME", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 0)
@@ -422,7 +422,7 @@ HS_BOOL8 CHSMissileData::SetAttributeValue(const HS_INT8 * strName,
         m_reload_time = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -431,7 +431,7 @@ HS_BOOL8 CHSMissileData::SetAttributeValue(const HS_INT8 * strName,
         m_range = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    else if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -440,13 +440,13 @@ HS_BOOL8 CHSMissileData::SetAttributeValue(const HS_INT8 * strName,
         m_strength = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "TURN RATE", strlen(strName)))
+    else if (!_strnicmp(strName, "TURN RATE", strlen(strName)))
     {
         iVal = atoi(strValue);
         m_turnrate = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "SPEED", strlen(strName)))
+    else if (!_strnicmp(strName, "SPEED", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -521,7 +521,7 @@ HS_UINT32 CHSWeaponDB::GetNextWeaponID()
         }
     }
 
-    // There are no more free weapon IDs in our array.  
+    // There are no more free weapon IDs in our array.
     // Double it, and get the next ID.
     HS_UINT32 uiNewSize = 1 + (m_uiMaxWeaponID * 2) / 8;
     HS_UINT32 uiPrevSize = (m_uiMaxWeaponID + 1) / 8;
@@ -546,7 +546,7 @@ void CHSWeaponDB::LockWeaponID(HS_UINT32 uiWeaponID)
             (std::max(uiWeaponID, HSCONST_DEFAULT_MAX_WEAPONIDS) / 8);
 #else
         HS_UINT32 uiSize = 1 +
-            (_cpp_max(uiWeaponID, HSCONST_DEFAULT_MAX_WEAPONIDS) / 8);
+            ((std::max)(uiWeaponID, HSCONST_DEFAULT_MAX_WEAPONIDS) / 8);
 #endif
 
         HS_UINT8 *pucNewArray;
@@ -633,13 +633,13 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
     FILE *fp;
     char tbuf[HS_BUF_256];
 
-    snprintf(tbuf, HS_BUF_256_CPY, "LOADING: %s", lpstrPath);
+    _snprintf_s(tbuf, HS_BUF_256_CPY, "LOADING: %s", lpstrPath);
     hs_log(tbuf);
 
-    fp = fopen(lpstrPath, "r");
+    fopen_s(&fp, lpstrPath, "r");
     if (!fp)
     {
-        snprintf(tbuf, HS_BUF_256_CPY, "ERROR: Couldn't open %s for reading.",
+        _snprintf_s(tbuf, HS_BUF_256_CPY, "ERROR: Couldn't open %s for reading.",
                  lpstrPath);
         hs_log(tbuf);
         return false;
@@ -662,7 +662,7 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
                 *ptr = '\0';
 
             // Check for the end of the file.
-            if (!strncasecmp(tbuf, "*END*", 5))
+            if (!_strnicmp(tbuf, "*END*", 5))
                 break;
 
             // Create the weapon specified by the first character.
@@ -672,7 +672,7 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
                 CHSWeaponData::CreateFromClass(eClass);
             if (!pWeaponData)
             {
-                snprintf(tbuf, HS_BUF_256_CPY,
+                _snprintf_s(tbuf, HS_BUF_256_CPY,
                          "ERROR: Invalid weapon specification at line %d.\n",
                          idx);
                 hs_log(tbuf);
@@ -682,7 +682,7 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
                 // Have the weapon parse the data from the buffer.
                 if (!pWeaponData->LoadFromBuffer(tbuf + 1))
                 {
-                    snprintf(tbuf, HS_BUF_256_CPY,
+                    _snprintf_s(tbuf, HS_BUF_256_CPY,
                              "ERROR: Invalid weapon specification at line %d.\n",
                              idx);
                     hs_log(tbuf);
@@ -709,7 +709,7 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
         if (pLoader->OpenFile(lpstrPath, CHSFileDatabase::OPENMODE_READ) !=
             CHSFileDatabase::DB_OK)
         {
-            snprintf(tbuf, HS_BUF_256_CPY,
+            _snprintf_s(tbuf, HS_BUF_256_CPY,
                      "ERROR: Couldn't open %s for reading.", lpstrPath);
             hs_log(tbuf);
         }
@@ -731,7 +731,7 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
 
                     if (!pLoader->GetNextAttribute(tEntry))
                     {
-                        snprintf(tbuf, HS_BUF_256_CPY,
+                        _snprintf_s(tbuf, HS_BUF_256_CPY,
                                  "ERROR: Corrupt weapon database entry at section %d.",
                                  uiSection);
                         hs_log(tbuf);
@@ -744,7 +744,7 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
                             CHSWeaponData::CreateFromClass(eClass);
                         if (!pData)
                         {
-                            snprintf(tbuf, HS_BUF_256_CPY,
+                            _snprintf_s(tbuf, HS_BUF_256_CPY,
                                      "ERROR: Invalid weapon class entry at section %d.",
                                      uiSection);
                             hs_log(tbuf);
@@ -755,7 +755,7 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
 
                             if (!pData->ReadFromDatabase(pLoader))
                             {
-                                snprintf(tbuf, HS_BUF_256_CPY,
+                                _snprintf_s(tbuf, HS_BUF_256_CPY,
                                          "ERROR: Invalid weapon data at section %d.",
                                          uiSection);
                                 hs_log(tbuf);
@@ -771,7 +771,7 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
                 }
                 else
                 {
-                    snprintf(tbuf, HS_BUF_256_CPY,
+                    _snprintf_s(tbuf, HS_BUF_256_CPY,
                              "ERROR: Corrupt weapon database entry at section %d.",
                              uiSection);
                     hs_log(tbuf);
@@ -783,7 +783,7 @@ HS_BOOL8 CHSWeaponDB::LoadFromFile(char *lpstrPath)
     }
 
 
-    snprintf(tbuf, HS_BUF_256_CPY, "LOADING: %s - %d %s loaded (done)",
+    _snprintf_s(tbuf, HS_BUF_256_CPY, "LOADING: %s - %d %s loaded (done)",
              lpstrPath,
              m_mapWeaponData.size(), m_mapWeaponData.size() == 1
              ? "weapon" : "weapons");
@@ -814,7 +814,7 @@ void CHSWeaponDB::SaveToFile(char *lpstrPath)
     if (pDatabase->OpenFile(lpstrPath, CHSFileDatabase::OPENMODE_WRITE)
         != CHSFileDatabase::DB_OK)
     {
-        snprintf(tbuf, HS_BUF_512_CPY,
+        _snprintf_s(tbuf, HS_BUF_512_CPY,
                  "ERROR: Unable to write weapons to %s.", lpstrPath);
         hs_log(tbuf);
         return;
@@ -830,10 +830,10 @@ void CHSWeaponDB::SaveToFile(char *lpstrPath)
 
         char cBuffer[HS_BUF_64];
 
-        snprintf(cBuffer, HS_BUF_64_CPY, "%d", pWeaponData->WeaponClass());
+        _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", pWeaponData->WeaponClass());
         pDatabase->AddSectionAttribute("WEAPON CLASS", cBuffer);
 
-        snprintf(cBuffer, HS_BUF_64_CPY, "%d", pWeaponData->TypeID());
+        _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", pWeaponData->TypeID());
         pDatabase->AddSectionAttribute("TYPE", cBuffer);
 
         pWeaponData->WriteToDatabase(pDatabase);
@@ -1272,7 +1272,7 @@ const char *CHSWeapon::GetAttrInfo(void)
 }
 
 // Override this function in your derived weapon class
-// to return custom status info such as time left to 
+// to return custom status info such as time left to
 // recharge, etc.
 const char *CHSWeapon::GetStatus(void)
 {
@@ -1320,7 +1320,7 @@ HS_BOOL8 CHSWeapon::Unload(void)
     return false;
 }
 
-// Returns the number of seconds until reload, or 0 if 
+// Returns the number of seconds until reload, or 0 if
 // not reloading.
 int CHSWeapon::Reloading(void)
 {
@@ -1351,21 +1351,21 @@ const HS_INT8 *CHSWeapon::GetAttributeValue(const HS_INT8 * strName)
     static char rval[HS_BUF_64];
 
     *rval = '\0';
-    if (!strncasecmp(strName, "SHIELD PERCENTAGE", strlen(strName)))
+    if (!_strnicmp(strName, "SHIELD PERCENTAGE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%.2f", m_shield_percentage);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%.2f", m_shield_percentage);
     }
-    else if (!strncasecmp(strName, "HULL PERCENTAGE", strlen(strName)))
+    else if (!_strnicmp(strName, "HULL PERCENTAGE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%.2f", m_hull_percentage);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%.2f", m_hull_percentage);
     }
-    else if (!strncasecmp(strName, "MIN TARGET SIZE", strlen(strName)))
+    else if (!_strnicmp(strName, "MIN TARGET SIZE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_mintargetsize);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_mintargetsize);
     }
-    else if (!strncasecmp(strName, "NAME", strlen(strName)))
+    else if (!_strnicmp(strName, "NAME", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%s", m_strName.c_str());
+        _snprintf_s(rval, HS_BUF_64_CPY, "%s", m_strName.c_str());
     }
     else
     {
@@ -1382,10 +1382,10 @@ HS_BOOL8 CHSWeapon::WriteToDatabase(CHSFileDatabase * pDatabase)
 
     m_pWeaponData->WriteToDatabase(pDatabase);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%3.0f", m_shield_percentage);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%3.0f", m_shield_percentage);
     pDatabase->AddSectionAttribute("SHIELD PERCENTAGE", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%3.0f", m_hull_percentage);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%3.0f", m_hull_percentage);
     pDatabase->AddSectionAttribute("HULL PERCENTAGE", cBuffer);
 
     return true;
@@ -1405,27 +1405,27 @@ HS_BOOL8 CHSWeapon::ReadFromDatabase(CHSFileDatabase * pDatabase)
 }
 
 
-// Attempts to set the value of the given attribute.  If successful,true 
+// Attempts to set the value of the given attribute.  If successful,true
 // is returned, else false.
 HS_BOOL8 CHSWeapon::SetAttributeValue(const HS_INT8 * strName,
                                       const HS_INT8 * strValue)
 {
-    if (!strncasecmp(strName, "SHIELD PERCENTAGE", strlen(strName)))
+    if (!_strnicmp(strName, "SHIELD PERCENTAGE", strlen(strName)))
     {
         m_shield_percentage = strtod(strValue, NULL);
         return true;
     }
-    else if (!strncasecmp(strName, "HULL PERCENTAGE", strlen(strName)))
+    else if (!_strnicmp(strName, "HULL PERCENTAGE", strlen(strName)))
     {
         m_hull_percentage = strtod(strValue, NULL);
         return true;
     }
-    else if (!strncasecmp(strName, "MIN TARGET SIZE", strlen(strName)))
+    else if (!_strnicmp(strName, "MIN TARGET SIZE", strlen(strName)))
     {
         m_mintargetsize = strtol(strValue, NULL, 10);
         return true;
     }
-    else if (!strncasecmp(strName, "NAME", strlen(strName)))
+    else if (!_strnicmp(strName, "NAME", strlen(strName)))
     {
         m_strName = strValue;
         return true;
@@ -1480,29 +1480,29 @@ const HS_INT8 *CHSLaser::GetAttributeValue(const HS_INT8 * strName)
     static char rval[HS_BUF_64];
 
     *rval = '\0';
-    if (!strncasecmp(strName, "REGEN TIME", strlen(strName)))
+    if (!_strnicmp(strName, "REGEN TIME", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_regen_time);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_regen_time);
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_range);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_range);
     }
-    else if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    else if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_strength);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_strength);
     }
-    else if (!strncasecmp(strName, "ACCURACY", strlen(strName)))
+    else if (!_strnicmp(strName, "ACCURACY", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_accuracy);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_accuracy);
     }
-    else if (!strncasecmp(strName, "POWER", strlen(strName)))
+    else if (!_strnicmp(strName, "POWER", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_power);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_power);
     }
-    else if (!strncasecmp(strName, "NOHULL", strlen(strName)))
+    else if (!_strnicmp(strName, "NOHULL", strlen(strName)))
     {
-        snprintf(rval, HS_BUF_64_CPY, "%d", m_nohull);
+        _snprintf_s(rval, HS_BUF_64_CPY, "%d", m_nohull);
     }
     else
     {
@@ -1519,28 +1519,28 @@ HS_BOOL8 CHSLaser::WriteToDatabase(CHSFileDatabase * pDatabase)
 
     m_pWeaponData->WriteToDatabase(pDatabase);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_regen_time);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_regen_time);
     pDatabase->AddSectionAttribute("REGEN TIME", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_range);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_range);
     pDatabase->AddSectionAttribute("RANGE", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_strength);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_strength);
     pDatabase->AddSectionAttribute("STRENGTH", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_accuracy);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_accuracy);
     pDatabase->AddSectionAttribute("ACCURACY", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_power);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_power);
     pDatabase->AddSectionAttribute("POWER", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%d", m_nohull);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%d", m_nohull);
     pDatabase->AddSectionAttribute("NOHULL", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%3.0f", m_shield_percentage);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%3.0f", m_shield_percentage);
     pDatabase->AddSectionAttribute("SHIELD PERCENTAGE", cBuffer);
 
-    snprintf(cBuffer, HS_BUF_64_CPY, "%3.0f", m_hull_percentage);
+    _snprintf_s(cBuffer, HS_BUF_64_CPY, "%3.0f", m_hull_percentage);
     pDatabase->AddSectionAttribute("HULL PERCENTAGE", cBuffer);
 
     return true;
@@ -1560,7 +1560,7 @@ HS_BOOL8 CHSLaser::ReadFromDatabase(CHSFileDatabase * pDatabase)
 }
 
 
-// Attempts to set the value of the given attribute.  If successful,true 
+// Attempts to set the value of the given attribute.  If successful,true
 // is returned, else false.
 HS_BOOL8 CHSLaser::SetAttributeValue(const HS_INT8 * strName,
                                      const HS_INT8 * strValue)
@@ -1568,7 +1568,7 @@ HS_BOOL8 CHSLaser::SetAttributeValue(const HS_INT8 * strName,
     int iVal = -1;
 
     // Try to match the name
-    if (!strncasecmp(strName, "REGEN TIME", strlen(strName)))
+    if (!_strnicmp(strName, "REGEN TIME", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 0)
@@ -1577,7 +1577,7 @@ HS_BOOL8 CHSLaser::SetAttributeValue(const HS_INT8 * strName,
         m_regen_time = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "RANGE", strlen(strName)))
+    else if (!_strnicmp(strName, "RANGE", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -1586,7 +1586,7 @@ HS_BOOL8 CHSLaser::SetAttributeValue(const HS_INT8 * strName,
         m_range = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "STRENGTH", strlen(strName)))
+    else if (!_strnicmp(strName, "STRENGTH", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -1595,7 +1595,7 @@ HS_BOOL8 CHSLaser::SetAttributeValue(const HS_INT8 * strName,
         m_strength = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "ACCURACY", strlen(strName)))
+    else if (!_strnicmp(strName, "ACCURACY", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 1)
@@ -1604,7 +1604,7 @@ HS_BOOL8 CHSLaser::SetAttributeValue(const HS_INT8 * strName,
         m_accuracy = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "POWER", strlen(strName)))
+    else if (!_strnicmp(strName, "POWER", strlen(strName)))
     {
         iVal = atoi(strValue);
         if (iVal < 0)
@@ -1613,7 +1613,7 @@ HS_BOOL8 CHSLaser::SetAttributeValue(const HS_INT8 * strName,
         m_power = iVal;
         return true;
     }
-    else if (!strncasecmp(strName, "NOHULL", strlen(strName)))
+    else if (!_strnicmp(strName, "NOHULL", strlen(strName)))
     {
         iVal = atoi(strValue);
         m_nohull = iVal == 0 ? false : true;
@@ -1713,7 +1713,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
     // to get the angle of a right triangle.
     dAngle *= 2;
 
-    // We now have the viewing angle consumed by the 
+    // We now have the viewing angle consumed by the
     // target.  There's a maximum possible value of 180,
     // so divide by that to determine how much of the viewing
     // angle is taken up by the target.
@@ -1816,16 +1816,16 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
 
     if (dDistance >= range || iDefendRoll > iAttackRoll || hit_flag == 0)
     {
-        snprintf(fstat1, HS_BUF_128_CPY,
+        _snprintf_s(fstat1, HS_BUF_128_CPY,
                  "%s%smisses%s", ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
-        snprintf(fstat2, HS_BUF_128_CPY,
+        _snprintf_s(fstat2, HS_BUF_128_CPY,
                  "%s%smissed%s", ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
     }
     else
     {
-        snprintf(fstat1, HS_BUF_128_CPY,
+        _snprintf_s(fstat1, HS_BUF_128_CPY,
                  "%s%shits%s", ANSI_HILITE, ANSI_RED, ANSI_NORMAL);
-        snprintf(fstat2, HS_BUF_128_CPY,
+        _snprintf_s(fstat2, HS_BUF_128_CPY,
                  "%s%shit%s", ANSI_HILITE, ANSI_RED, ANSI_NORMAL);
     }
 
@@ -1862,7 +1862,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
         {
             if (cContactD->status == DETECTED)
             {
-                snprintf(tbuf, HS_BUF_256_CPY,
+                _snprintf_s(tbuf, HS_BUF_256_CPY,
                          "%s[%s%s%d%s%s]%s - Unknown contact is being fired upon and %s",
                          cTarget->GetObjectColor(),
                          ANSI_NORMAL, ANSI_HILITE,
@@ -1872,7 +1872,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
             }
             else if (cContactD->status == IDENTIFIED)
             {
-                snprintf(tbuf, HS_BUF_256_CPY,
+                _snprintf_s(tbuf, HS_BUF_256_CPY,
                          "%s[%s%s%d%s%s]%s - The %s is being fired upon and %s",
                          cTarget->GetObjectColor(),
                          ANSI_NORMAL, ANSI_HILITE,
@@ -1889,7 +1889,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
         {
             if (cContactS->status == DETECTED)
             {
-                snprintf(tbuf, HS_BUF_256_CPY,
+                _snprintf_s(tbuf, HS_BUF_256_CPY,
                          "%s[%s%s%d%s%s]%s - Unknown contact is firing upon something",
                          cSource->GetObjectColor(),
                          ANSI_NORMAL, ANSI_HILITE,
@@ -1899,7 +1899,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
             }
             else if (cContactS->status == IDENTIFIED)
             {
-                snprintf(tbuf, HS_BUF_256_CPY,
+                _snprintf_s(tbuf, HS_BUF_256_CPY,
                          "%s[%s%s%d%s%s]%s - The %s is firing upon something",
                          cSource->GetObjectColor(),
                          ANSI_NORMAL, ANSI_HILITE,
@@ -1915,7 +1915,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
             if (cContactS->status == DETECTED
                 && cContactD->status == DETECTED)
             {
-                snprintf(tbuf, HS_BUF_256_CPY,
+                _snprintf_s(tbuf, HS_BUF_256_CPY,
                          "%s[%s%s%d%s%s]%s - Unknown contact fires and %s unknown contact %s[%s%s%d%s%s]%s",
                          cSource->GetObjectColor(),
                          ANSI_NORMAL, ANSI_HILITE,
@@ -1930,7 +1930,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
             else if (cContactS->status == IDENTIFIED &&
                      cContactD->status == IDENTIFIED)
             {
-                snprintf(tbuf, HS_BUF_256_CPY,
+                _snprintf_s(tbuf, HS_BUF_256_CPY,
                          "%s[%s%s%d%s%s]%s - The %s fires and %s the %s",
                          cSource->GetObjectColor(),
                          ANSI_NORMAL, ANSI_HILITE,
@@ -1943,7 +1943,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
             else if (cContactS->status == IDENTIFIED &&
                      cContactD->status == DETECTED)
             {
-                snprintf(tbuf, HS_BUF_256_CPY,
+                _snprintf_s(tbuf, HS_BUF_256_CPY,
                          "%s[%s%s%d%s%s]%s - The %s fires and %s unknown contact %s[%s%s%d%s%s]%s",
                          cSource->GetObjectColor(),
                          ANSI_NORMAL, ANSI_HILITE,
@@ -1958,7 +1958,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
             else if (cContactS->status == DETECTED &&
                      cContactD->status == IDENTIFIED)
             {
-                snprintf(tbuf, HS_BUF_256_CPY,
+                _snprintf_s(tbuf, HS_BUF_256_CPY,
                          "%s[%s%s%d%s%s]%s - Unknown contact fires and %s the %s",
                          cSource->GetObjectColor(), ANSI_NORMAL, ANSI_HILITE,
                          cContactS->m_id, ANSI_NORMAL,
@@ -1977,7 +1977,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
             hsStdError(dbUser, "Your shot dissipates short of its target.");
         }
 
-        strncpy(tbuf, "An incoming energy shot has missed us.",
+        strncpy_s(tbuf, "An incoming energy shot has missed us.",
                 HS_BUF_256_CPY);
         cTarget->HandleMessage(tbuf, MSG_COMBAT, (long *) cSource);
     }
@@ -1990,7 +1990,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
                        "Your shot skims past your target and out into space.");
         }
 
-        strncpy(tbuf, "An incoming energy shot has missed us.",
+        strncpy_s(tbuf, "An incoming energy shot has missed us.",
                 HS_BUF_256_CPY);
         cTarget->HandleMessage(tbuf, MSG_COMBAT, (long *) cSource);
     }
@@ -2038,7 +2038,7 @@ void CHSLaser::AttackObject(CHS3DObject * cSource,
                        "Your shot skims past your target and out into space.");
         }
 
-        strncpy(tbuf, "An incoming energy shot has missed us.",
+        strncpy_s(tbuf, "An incoming energy shot has missed us.",
                 HS_BUF_256_CPY);
         cTarget->HandleMessage(tbuf, MSG_COMBAT, (long *) cSource);
     }
@@ -2080,7 +2080,7 @@ const char *CHSLaser::GetAttrInfo(void)
 {
     static char rval[HS_BUF_128];
 
-    snprintf(rval, HS_BUF_128_CPY, "R: %-5d S: %-3d Rt: %d",
+    _snprintf_s(rval, HS_BUF_128_CPY, "R: %-5d S: %-3d Rt: %d",
              GetRange(), GetStrength(), GetRegenTime());
     return rval;
 }
@@ -2129,7 +2129,7 @@ HS_BOOL8 CHSLaser::CheckTargetSize(CHS3DObject * cObj)
 // of space object.
 HS_BOOL8 CHSLaser::CanAttackObject(CHS3DObject * cObj)
 {
-    // Lasers can attack ships or missiles but can 
+    // Lasers can attack ships or missiles but can
     // only attack missiles if they cause hull damage
     if (cObj->GetType() == HST_SHIP ||
         (cObj->GetType() == HST_MISSILE && false == NoHull()))
@@ -2161,7 +2161,7 @@ const char *CHSLaser::GetStatus(void)
 
     if (m_regenerating)
     {
-        snprintf(tbuf, HS_BUF_64_CPY, "(%d) Charging", m_time_to_regen);
+        _snprintf_s(tbuf, HS_BUF_64_CPY, "(%d) Charging", m_time_to_regen);
         return tbuf;
     }
 

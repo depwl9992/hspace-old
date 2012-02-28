@@ -118,7 +118,7 @@ HS_BOOL8 CHSSysEngines::SetAttributeValue(const HS_INT8 * pcAttrName,
     HS_INT32 iVal;
 
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "MAX VELOCITY"))
+    if (!_stricmp(pcAttrName, "MAX VELOCITY"))
     {
         // If strValue contains a null, clear our local setting 
         if (!*strValue)
@@ -146,7 +146,7 @@ HS_BOOL8 CHSSysEngines::SetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "ACCELERATION"))
+    else if (!_stricmp(pcAttrName, "ACCELERATION"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -174,17 +174,17 @@ HS_BOOL8 CHSSysEngines::SetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "DESIRED SPEED"))
+    else if (!_stricmp(pcAttrName, "DESIRED SPEED"))
     {
         m_desired_speed = (float) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "CURRENT SPEED"))
+    else if (!_stricmp(pcAttrName, "CURRENT SPEED"))
     {
         m_current_speed = (float) atof(strValue);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "CAN AFTERBURN"))
+    else if (!_stricmp(pcAttrName, "CAN AFTERBURN"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -204,17 +204,17 @@ HS_BOOL8 CHSSysEngines::SetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "AFTERBURNING"))
+    else if (!_stricmp(pcAttrName, "AFTERBURNING"))
     {
         m_afterburning = atoi(strValue) == 0 ? false : true;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "AFTERBURN RATIO"))
+    else if (!_stricmp(pcAttrName, "AFTERBURN RATIO"))
     {
         m_iAfterburnRatio = atoi(strValue);
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "EFFICIENCY"))
+    else if (!_stricmp(pcAttrName, "EFFICIENCY"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -268,7 +268,7 @@ HS_BOOL8 CHSSysEngines::GetAttributeValue(const HS_INT8 * pcAttrName,
         CHSVariant & rvarValue, HS_BOOL8 bAdjusted, HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "EFFICIENCY"))
+    if (!_stricmp(pcAttrName, "EFFICIENCY"))
     {
         if (m_puiEfficiency)
         {
@@ -284,7 +284,7 @@ HS_BOOL8 CHSSysEngines::GetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "MAX VELOCITY"))
+    else if (!_stricmp(pcAttrName, "MAX VELOCITY"))
     {
         if (m_puiMaxVelocity)
         {
@@ -300,7 +300,7 @@ HS_BOOL8 CHSSysEngines::GetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "ACCELERATION"))
+    else if (!_stricmp(pcAttrName, "ACCELERATION"))
     {
         if (m_puiAcceleration)
         {
@@ -317,17 +317,17 @@ HS_BOOL8 CHSSysEngines::GetAttributeValue(const HS_INT8 * pcAttrName,
 
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "DESIRED SPEED"))
+    else if (!_stricmp(pcAttrName, "DESIRED SPEED"))
     {
         rvarValue = m_desired_speed;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "CURRENT SPEED"))
+    else if (!_stricmp(pcAttrName, "CURRENT SPEED"))
     {
         rvarValue = m_current_speed;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "CAN AFTERBURN"))
+    else if (!_stricmp(pcAttrName, "CAN AFTERBURN"))
     {
         if (m_pbCanAfterburn)
         {
@@ -344,12 +344,12 @@ HS_BOOL8 CHSSysEngines::GetAttributeValue(const HS_INT8 * pcAttrName,
 
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "AFTERBURNING"))
+    else if (!_stricmp(pcAttrName, "AFTERBURNING"))
     {
         rvarValue = m_afterburning;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "AFTERBURN RATIO"))
+    else if (!_stricmp(pcAttrName, "AFTERBURN RATIO"))
     {
         rvarValue = m_iAfterburnRatio;
         return true;
@@ -521,7 +521,7 @@ void CHSSysEngines::ConsumeFuelBySpeed(HS_INT32 speed)
         // Out of gas.  Set desired speed to 0.
         m_desired_speed = 0;
         HS_INT8 tbuf[128];
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s-%s A warning light flashing, indicating engines have run \
 			out of fuel.",
                 ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL);

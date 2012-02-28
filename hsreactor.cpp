@@ -107,7 +107,7 @@ HS_BOOL8 CHSReactor::SetAttributeValue(const HS_INT8 * pcAttrName,
     int iVal;
 
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "MAX OUTPUT"))
+    if (!_stricmp(pcAttrName, "MAX OUTPUT"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -131,19 +131,19 @@ HS_BOOL8 CHSReactor::SetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "DESIRED OUTPUT"))
+    else if (!_stricmp(pcAttrName, "DESIRED OUTPUT"))
     {
         iVal = atoi(strValue);
         m_uiDesiredOutput = iVal;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "CURRENT OUTPUT"))
+    else if (!_stricmp(pcAttrName, "CURRENT OUTPUT"))
     {
         iVal = atoi(strValue);
         m_uiCurrentOutput = iVal;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "EFFICIENCY"))
+    else if (!_stricmp(pcAttrName, "EFFICIENCY"))
     {
         // If strValue contains a null, clear our local setting
         if (!*strValue)
@@ -197,7 +197,7 @@ HS_BOOL8
                                   HS_BOOL8 bAdjusted, HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "EFFICIENCY"))
+    if (!_stricmp(pcAttrName, "EFFICIENCY"))
     {
         if (m_puiEfficiency)
         {
@@ -213,7 +213,7 @@ HS_BOOL8
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "MAX OUTPUT"))
+    else if (!_stricmp(pcAttrName, "MAX OUTPUT"))
     {
         if (m_puiMaximumOutput)
         {
@@ -229,12 +229,12 @@ HS_BOOL8
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "CURRENT OUTPUT"))
+    else if (!_stricmp(pcAttrName, "CURRENT OUTPUT"))
     {
         rvarValue = m_uiCurrentOutput;
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "DESIRED OUTPUT"))
+    else if (!_stricmp(pcAttrName, "DESIRED OUTPUT"))
     {
         rvarValue = m_uiDesiredOutput;
         return true;
@@ -459,7 +459,7 @@ void CHSReactor::DoCycle()
             {
                 char tbuf[128];
 
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "%s%s-%s A warning light flashes, indicating that reactable \
 					fuel supplies are depleted.",
                         ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL);

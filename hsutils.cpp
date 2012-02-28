@@ -148,7 +148,7 @@ void hs_log(const char *str)
     tt = time(NULL);
     ttm = localtime(&tt);
 
-    sprintf(timebuf, "%d%d/%d%d %d%d:%d%d:%d%d",
+    sprintf_s(timebuf, "%d%d/%d%d %d%d:%d%d:%d%d",
             (((ttm->tm_mon) + 1) / 10), (((ttm->tm_mon) + 1) % 10),
             (ttm->tm_mday / 10), (ttm->tm_mday % 10),
             (ttm->tm_hour / 10), (ttm->tm_hour % 10),
@@ -236,7 +236,7 @@ HS_DBKEY HSFindKey(char *strKeyName)
         middle = ((top - bottom) / 2) + bottom;
 
         // Check to see if the middle is the match
-        ival = strcasecmp(hsdbkeypairs[middle].name, strKeyName);
+        ival = _stricmp(hsdbkeypairs[middle].name, strKeyName);
         if (!ival)
             return (hsdbkeypairs[middle].key);
 
@@ -289,7 +289,7 @@ int ZAngle(double fx, double fy, double fz, double sx, double sy, double sz)
     angle = RADTODEG * atan2
         ((sz - fz), sqrt(((sx - fx) * (sx - fx)) + ((sy - fy) * (sy - fy))));
 
-    snprintf(tbuf, 7, "%0.f", angle);
+    _snprintf_s(tbuf, 7, "%0.f", angle);
 
     return atoi(tbuf);
 }
@@ -305,7 +305,7 @@ int XYAngle(double fx, double fy, double sx, double sy)
     // the axes, as well as removing format inconsistencies in some 
     // edge cases
 
-    snprintf(tbuf, 7, "%.0f", 360 + (RADTODEG * atan2(sx - fx, sy - fy)));
+    _snprintf_s(tbuf, 7, "%.0f", 360 + (RADTODEG * atan2(sx - fx, sy - fy)));
     return (atoi(tbuf) % 360);
 }
 

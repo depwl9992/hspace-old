@@ -50,10 +50,10 @@ void CHSpace::InitSpace(int reboot)
     rename("space/space.log", "space/space.log.old");
 
     // Open our space log.
-    spacelog_fp = fopen("space/space.log", "w");
+    fopen_s(&spacelog_fp, "space/space.log", "w");
     if(NULL == spacelog_fp)
     {
-        spacelog_fp = fopen("space.log", "w");
+        fopen_s(&spacelog_fp, "space.log", "w");
 
         if(NULL == spacelog_fp)
         {
@@ -203,19 +203,19 @@ void CHSpace::DoCommand(char *cmd, const char *switches, char *arg_left,
 
     hsEnterMutex();
 
-    if(!strcasecmp(cmd, "@space"))
+    if(!_stricmp(cmd, "@space"))
     {
         hCmd = hsFindCommand(switches, hsSpaceCommandArray);
     }
-    else if(!strcasecmp(cmd, "@nav"))
+    else if(!_stricmp(cmd, "@nav"))
     {
         hCmd = hsFindCommand(switches, hsNavCommandArray);
     }
-    else if(!strcasecmp(cmd, "@console"))
+    else if(!_stricmp(cmd, "@console"))
     {
         hCmd = hsFindCommand(switches, hsConCommandArray);
     }
-    else if(!strcasecmp(cmd, "@eng"))
+    else if(!_stricmp(cmd, "@eng"))
     {
         hCmd = hsFindCommand(switches, hsEngCommandArray);
     }

@@ -34,7 +34,7 @@ HS_BOOL8 CHSSysTractor::SetAttributeValue(const HS_INT8 * pcAttrName,
                                           const HS_INT8 * strValue)
 {
     // Match the name .. set the value
-    if (!strcasecmp(pcAttrName, "STRENGTH"))
+    if (!_stricmp(pcAttrName, "STRENGTH"))
     {
         if (!*strValue)
         {
@@ -50,7 +50,7 @@ HS_BOOL8 CHSSysTractor::SetAttributeValue(const HS_INT8 * pcAttrName,
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "MODE"))
+    else if (!_stricmp(pcAttrName, "MODE"))
     {
         if (!*strValue)
         {
@@ -86,7 +86,7 @@ HS_BOOL8
                                      HS_BOOL8 bAdjusted, HS_BOOL8 bLocalOnly)
 {
     // Determine attribute, and return the value.
-    if (!strcasecmp(pcAttrName, "STRENGTH"))
+    if (!_stricmp(pcAttrName, "STRENGTH"))
     {
         if (m_strength)
         {
@@ -102,7 +102,7 @@ HS_BOOL8
         }
         return true;
     }
-    else if (!strcasecmp(pcAttrName, "MODE"))
+    else if (!_stricmp(pcAttrName, "MODE"))
     {
         rvarValue = (HS_INT8) m_mode;
         return true;
@@ -343,11 +343,11 @@ void CHSSysTractor::SetMode(int mode)
     {
         char tbuf[128];
         if (mode == 0)
-            sprintf(tbuf, "tractor");
+            sprintf_s(tbuf, "tractor");
         else if (mode == 1)
-            sprintf(tbuf, "repulse");
+            sprintf_s(tbuf, "repulse");
         else if (mode == 2)
-            sprintf(tbuf, "hold");
+            sprintf_s(tbuf, "hold");
         cShip->NotifyConsoles(hsInterface.
                               HSPrintf("%s%s-%s Tractor beam mode set to %s.",
                                        ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
@@ -565,11 +565,11 @@ void CHSSysTractor::DockShip(HS_DBREF player, int id, int loc)
 
     char tbuf[256];
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "Through the bay doors, the %s is tractored in and docks.",
             tShip->GetName());
     cLocation->HandleMessage(tbuf, MSG_GENERAL);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "The %s pushes forward as it is tractored in and docks.",
             tShip->GetName());
     tShip->NotifyConsoles(tbuf, MSG_GENERAL);

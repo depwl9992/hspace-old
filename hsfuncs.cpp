@@ -58,7 +58,7 @@ HSFUNC *hsFindFunction(char *name)
     for (ptr = hs_func_list; ptr->name; ptr++)
     {
         // Straight comparison of names
-        if (!strcasecmp(name, ptr->name))
+        if (!_stricmp(name, ptr->name))
             return ptr;
     }
 
@@ -88,19 +88,19 @@ HSPACE_FUNC_HDR(hsfWeaponAttr)
         // Split args[1] in half at the colon.  Copy the left
         // side into arg_left and the right side into .. arg_right.
         *ptr = '\0';
-        strncpy(arg_left, args[1], 31);
+        strncpy_s(arg_left, args[1], 31);
         arg_left[31] = '\0';
 
         // Increment ptr and copy arg_right stuff.
         ptr++;
-        strncpy(arg_right, ptr, 31);
+        strncpy_s(arg_right, ptr, 31);
         arg_right[31] = '\0';
     }
     else
     {
         // This is a GET operation.  Args[1] is an attrname and
         // no more.
-        strncpy(arg_left, args[1], 31);
+        strncpy_s(arg_left, args[1], 31);
         arg_left[31] = '\0';
     }
 
@@ -190,19 +190,19 @@ HSPACE_FUNC_HDR(hsfConsoleWeaponAttr)
         // Split args[1] in half at the colon.  Copy the left
         // side into arg_left and the right side into .. arg_right.
         *ptr = '\0';
-        strncpy(arg_left, args[1], 31);
+        strncpy_s(arg_left, args[1], 31);
         arg_left[31] = '\0';
 
         // Increment ptr and copy arg_right stuff.
         ptr++;
-        strncpy(arg_right, ptr, 31);
+        strncpy_s(arg_right, ptr, 31);
         arg_right[31] = '\0';
     }
     else
     {
         // This is a GET operation.  Args[1] is an attrname and
         // no more.
-        strncpy(arg_left, args[1], 31);
+        strncpy_s(arg_left, args[1], 31);
         arg_left[31] = '\0';
     }
 
@@ -342,7 +342,7 @@ HSPACE_FUNC_HDR(hsfDecayMessage)
             word[i++] = ' ';
             word[i] = '\0';
             if (hsInterface.GetRandom(100) < decay)
-                strcpy(word, "... ");
+                strcpy_s(word, "... ");
             for (i = 0; word[i]; i++)
             {
                 *ptr2 = word[i];
@@ -362,7 +362,7 @@ HSPACE_FUNC_HDR(hsfDecayMessage)
         word[i++] = ' ';
         word[i] = '\0';
         if (hsInterface.GetRandom(100) < decay)
-            strcpy(word, "...");
+            strcpy_s(word, "...");
         for (i = 0; word[i]; i++)
         {
             *ptr2 = word[i];
@@ -387,7 +387,7 @@ HSPACE_FUNC_HDR(hsfCalcXYAngle)
 
     static char rval[8];
 
-    sprintf(rval, "%d", XYAngle(x1, y1, x2, y2));
+    sprintf_s(rval, "%d", XYAngle(x1, y1, x2, y2));
     return rval;
 }
 
@@ -406,7 +406,7 @@ HSPACE_FUNC_HDR(hsfCalcZAngle)
 
     static char rval[8];
 
-    sprintf(rval, "%d", ZAngle(x1, y1, z1, x2, y2, z2));
+    sprintf_s(rval, "%d", ZAngle(x1, y1, z1, x2, y2, z2));
     return rval;
 }
 
@@ -456,7 +456,7 @@ HSPACE_FUNC_HDR(hsfGetMissile)
     iClass = atoi(args[1]);
     max = mBay->GetMaxMissiles(iClass);
     left = mBay->GetMissilesLeft(iClass);
-    sprintf(rval, "%d/%d", left, max);
+    sprintf_s(rval, "%d/%d", left, max);
     return rval;
 }
 
@@ -488,7 +488,7 @@ HSPACE_FUNC_HDR(hsfGetAttr)
             return "#-1 Invalid HSpace object.";
 
         // Disable access to some attrs
-        if (!strcasecmp(args[1], "BOARDING CODE") &&
+        if (!_stricmp(args[1], "BOARDING CODE") &&
             !hsInterface.CanSeeAll(executor)
             && !hsInterface.ControlsObject(executor, dbObj))
         {
@@ -505,7 +505,7 @@ HSPACE_FUNC_HDR(hsfGetAttr)
             return "#-1 Invalid HSpace console.";
 
         // Disable access to some attrs
-        if (!strcasecmp(args[1], "BOARDING CODE") &&
+        if (!_stricmp(args[1], "BOARDING CODE") &&
             !hsInterface.CanSeeAll(executor)
             && !hsInterface.ControlsObject(executor, dbObj))
         {
@@ -671,7 +671,7 @@ HSPACE_FUNC_HDR(hsfSetAttr)
                 if (cObj->SetAttributeValue(strAttr, args[1]))
                 {
                     static char rbuf[32];
-                    sprintf(rbuf, "%s Attribute - set.", cObj->GetName());
+                    sprintf_s(rbuf, "%s Attribute - set.", cObj->GetName());
                     return rbuf;
                 }
                 else
@@ -903,11 +903,11 @@ HSPACE_FUNC_HDR(hsfGetEngSystems)
             ptr = cSys->GetName();
 
         if (!*rbuf)
-            sprintf(tbuf, "%s", ptr ? ptr : "Unknown");
+            sprintf_s(tbuf, "%s", ptr ? ptr : "Unknown");
         else
-            sprintf(tbuf, ",%s", ptr ? ptr : "Unknown");
+            sprintf_s(tbuf, ",%s", ptr ? ptr : "Unknown");
 
-        strcat(rbuf, tbuf);
+        strcat_s(rbuf, tbuf);
     }
     return rbuf;
 }
@@ -982,7 +982,7 @@ HSPACE_FUNC_HDR(hsfGetSensorContacts)
         if (!*rbuf)
         {
             if (!cShip)
-                sprintf(tbuf, "%d:#%d:%d:%d:%s:%d:%d:%.4f",
+                sprintf_s(tbuf, "%d:#%d:%d:%d:%s:%d:%d:%.4f",
                         cContact->m_id,
                         cTarget->GetDbref(),
                         cTarget->GetType(),
@@ -995,7 +995,7 @@ HSPACE_FUNC_HDR(hsfGetSensorContacts)
                         ZAngle(sX, sY, sZ, tX, tY, tZ), Dist3D(sX, sY, sZ, tX,
                                                                tY, tZ));
             else
-                sprintf(tbuf, "%d:#%d:%d:%d:%s:%d:%d:%.4f:%d:%d:%d",
+                sprintf_s(tbuf, "%d:#%d:%d:%d:%s:%d:%d:%.4f:%d:%d:%d",
                         cContact->m_id,
                         cTarget->GetDbref(),
                         cTarget->GetType(),
@@ -1013,7 +1013,7 @@ HSPACE_FUNC_HDR(hsfGetSensorContacts)
         else
         {
             if (!cShip)
-                sprintf(tbuf, "|%d:#%d:%d:%d:%s:%d:%d:%.4f",
+                sprintf_s(tbuf, "|%d:#%d:%d:%d:%s:%d:%d:%.4f",
                         cContact->m_id,
                         cTarget->GetDbref(),
                         cTarget->GetType(),
@@ -1026,7 +1026,7 @@ HSPACE_FUNC_HDR(hsfGetSensorContacts)
                         ZAngle(sX, sY, sZ, tX, tY, tZ), Dist3D(sX, sY, sZ, tX,
                                                                tY, tZ));
             else
-                sprintf(tbuf, "|%d:#%d:%d:%d:%s:%d:%d:%.4f:%d:%d:%d",
+                sprintf_s(tbuf, "|%d:#%d:%d:%d:%s:%d:%d:%.4f:%d:%d:%d",
                         cContact->m_id,
                         cTarget->GetDbref(),
                         cTarget->GetType(),
@@ -1042,7 +1042,7 @@ HSPACE_FUNC_HDR(hsfGetSensorContacts)
                         cShip->GetSpeed());
         }
 
-        strcat(rbuf, tbuf);
+        strcat_s(rbuf, tbuf);
     }
     return rbuf;
 }
@@ -1089,7 +1089,7 @@ HSPACE_FUNC_HDR(hsfSysAttr)
     // The rest of the string (after the /) should be
     // the attribute name.
     ptr++;
-    strncpy(lpstrAttr, ptr, 31);
+    strncpy_s(lpstrAttr, ptr, 31);
     lpstrAttr[31] = '\0';
 
     // Determine what type of system is being queried.
@@ -1129,7 +1129,7 @@ HSPACE_FUNC_HDR(hsfSysAttr)
         switch (varValue.GetType())
         {
         case CHSVariant::VT_BOOL:
-            sprintf(cBuffer, "%s", varValue.GetBool() == true ? "1" : "0");
+            sprintf_s(cBuffer, "%s", varValue.GetBool() == true ? "1" : "0");
             break;
 
         case CHSVariant::VT_INT16:
@@ -1138,19 +1138,19 @@ HSPACE_FUNC_HDR(hsfSysAttr)
         case CHSVariant::VT_UINT16:
         case CHSVariant::VT_UINT32:
         case CHSVariant::VT_UINT8:
-            sprintf(cBuffer, "%d", varValue.GetUInt());
+            sprintf_s(cBuffer, "%d", varValue.GetUInt());
             break;
 
         case CHSVariant::VT_FLOAT:
-            sprintf(cBuffer, "%.2f", varValue.GetFloat());
+            sprintf_s(cBuffer, "%.2f", varValue.GetFloat());
             break;
 
         case CHSVariant::VT_DOUBLE:
-            sprintf(cBuffer, "%.2f", varValue.GetDouble());
+            sprintf_s(cBuffer, "%.2f", varValue.GetDouble());
             break;
 
         case CHSVariant::VT_STRING:
-            strcpy(cBuffer, varValue.GetString());
+            strcpy_s(cBuffer, varValue.GetString());
             break;
 
         default:
@@ -1207,7 +1207,7 @@ HSPACE_FUNC_HDR(hsfSysSet)
     // The rest of the string (after the /) should be
     // the system name.
     ptr++;
-    strncpy(strSysName, ptr, 31);
+    strncpy_s(strSysName, ptr, 31);
     strSysName[31] = '\0';
 
     // Determine what type of system is being queried.
@@ -1242,18 +1242,18 @@ HSPACE_FUNC_HDR(hsfSysSet)
     ptr = strchr(args[1], ':');
     if (!ptr)
     {
-        strncpy(strAttr, args[1], 31);
+        strncpy_s(strAttr, args[1], 31);
         strAttr[31] = '\0';
         strValue[0] = '\0';
     }
     else
     {
         *ptr = '\0';
-        strncpy(strAttr, args[1], 31);
+        strncpy_s(strAttr, args[1], 31);
         strAttr[31] = '\0';
 
         ptr++;
-        strncpy(strValue, ptr, 31);
+        strncpy_s(strValue, ptr, 31);
         strValue[31] = '\0';
     }
 
@@ -1385,7 +1385,7 @@ HSPACE_FUNC_HDR(hsfClone)
     dbObj = cShip->Clone();
 
     static char tbuf[64];
-    sprintf(tbuf, "#%d", dbObj);
+    sprintf_s(tbuf, "#%d", dbObj);
     return tbuf;
 }
 
@@ -1456,7 +1456,7 @@ HSPACE_FUNC_HDR(hsfDelSys)
 
 
     char tmp[64];
-    sprintf(tmp, "%s", cSys->GetName());
+    sprintf_s(tmp, "%s", cSys->GetName());
 
     // Delete the system
     if (pShip->GetSystems().DelSystem(cSys))
@@ -1764,11 +1764,11 @@ HSPACE_FUNC_HDR(hsfConsoleCommand)
         return "#-1 PERMISSION DENIED";
     }
 
-    if (!strcasecmp(args[0], "nav"))
+    if (!_stricmp(args[0], "nav"))
         hCmdArray = hsNavCommandArray;
-    else if (!strcasecmp(args[0], "eng"))
+    else if (!_stricmp(args[0], "eng"))
         hCmdArray = hsEngCommandArray;
-    else if (!strcasecmp(args[0], "con"))
+    else if (!_stricmp(args[0], "con"))
         hCmdArray = hsConCommandArray;
     else
     {

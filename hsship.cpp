@@ -136,7 +136,7 @@ HS_BOOL8 CHSShip::SetClassInfo(HS_UINT32 uClass)
     hsClass = CHSClassDB::GetInstance().GetClass(uClass);
     if (!hsClass)
     {
-        sprintf(tbuf, "Class info for class #%d not found.", uClass);
+        sprintf_s(tbuf, "Class info for class #%d not found.", uClass);
         hs_log(tbuf);
         return false;
     }
@@ -239,7 +239,7 @@ HS_BOOL8 CHSShip::AddConsole(HS_DBREF objnum)
     if (slot == MAX_SHIP_CONSOLES)
     {
         char tbuf[256];
-        sprintf(tbuf, "WARNING: Maximum consoles for ship #%d reached.",
+        sprintf_s(tbuf, "WARNING: Maximum consoles for ship #%d reached.",
                 m_objnum);
         hs_log(tbuf);
         return false;
@@ -290,7 +290,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
 {
     int iVal;
 
-    if (!strcasecmp(strName, "IDENT"))
+    if (!_stricmp(strName, "IDENT"))
     {
         if (m_ident)
             delete[]m_ident;
@@ -302,7 +302,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
         }
         return true;
     }
-    else if (!strcasecmp(strName, "ZHEADING"))
+    else if (!_stricmp(strName, "ZHEADING"))
     {
         iVal = atoi(strValue);
         if (iVal < -90 || iVal > 90)
@@ -312,7 +312,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
 
         return true;
     }
-    else if (!strcasecmp(strName, "XYHEADING"))
+    else if (!_stricmp(strName, "XYHEADING"))
     {
         iVal = atoi(strValue);
         if (iVal < 0 || iVal > 359)
@@ -322,7 +322,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
 
         return true;
     }
-    else if (!strcasecmp(strName, "DESTROYED"))
+    else if (!_stricmp(strName, "DESTROYED"))
     {
         iVal = atoi(strValue);
 
@@ -333,7 +333,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
 
         return true;
     }
-    else if (!strcasecmp(strName, "BOARDING CODE"))
+    else if (!_stricmp(strName, "BOARDING CODE"))
     {
         if (m_boarding_code)
         {
@@ -348,7 +348,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
         }
         return true;
     }
-    else if (!strcasecmp(strName, "CARGO SIZE"))
+    else if (!_stricmp(strName, "CARGO SIZE"))
     {
         if (!strValue || !*strValue)
         {
@@ -367,7 +367,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
         *m_cargo_size = atoi(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "CAN DROP"))
+    else if (!_stricmp(strName, "CAN DROP"))
     {
         if (!strValue || !*strValue)
         {
@@ -386,7 +386,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
         *m_can_drop = atoi(strValue) == 0 ? false : true;
         return true;
     }
-    else if (!strcasecmp(strName, "SPACEDOCK"))
+    else if (!_stricmp(strName, "SPACEDOCK"))
     {
         if (!strValue || !*strValue)
         {
@@ -405,7 +405,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
         *m_spacedock = atoi(strValue) == 0 ? false : true;
         return true;
     }
-    else if (!strcasecmp(strName, "HULL"))
+    else if (!_stricmp(strName, "HULL"))
     {
         iVal = atoi(strValue);
 
@@ -417,7 +417,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
         }
         return true;
     }
-    else if (!strcasecmp(strName, "MAXHULL"))
+    else if (!_stricmp(strName, "MAXHULL"))
     {
         if (!strValue || !*strValue)
         {
@@ -444,7 +444,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
             return false;
         }
     }
-    else if (!strcasecmp(strName, "MINMANNED"))
+    else if (!_stricmp(strName, "MINMANNED"))
     {
         if (!strValue || !*strValue)
         {
@@ -463,7 +463,7 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
         *m_minmanned = atoi(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "AGE"))
+    else if (!_stricmp(strName, "AGE"))
     {
         if (!strValue || !*strValue)
         {
@@ -473,8 +473,8 @@ HS_BOOL8 CHSShip::SetAttributeValue(char *strName, char *strValue)
         m_age = atoi(strValue);
         return true;
     }
-    else if (!strcasecmp(strName, "DOCKLOC")
-             || !strcasecmp(strName, "DROPLOC"))
+    else if (!_stricmp(strName, "DOCKLOC")
+             || !_stricmp(strName, "DROPLOC"))
     {
         CHSUniverse *uDest;
 
@@ -606,117 +606,117 @@ char *CHSShip::GetAttributeValue(char *strName)
     unsigned int idx;
 
     *rval = 0;
-    if (!strcasecmp(strName, "IDENT"))
+    if (!_stricmp(strName, "IDENT"))
     {
         if (m_ident)
-            strcpy(rval, m_ident);
+            strcpy_s(rval, m_ident);
     }
-    else if (!strcasecmp(strName, "HATCHES"))
+    else if (!_stricmp(strName, "HATCHES"))
     {
         for (idx = 0; idx < m_hatches.size(); idx++)
         {
-            sprintf(tmp, "#%d ", m_hatches.at(idx)->Object());
-            strcat(rval, tmp);
+            sprintf_s(tmp, "#%d ", m_hatches.at(idx)->Object());
+            strcat_s(rval, tmp);
         }
     }
-    else if (!strcasecmp(strName, "SROOMS"))
+    else if (!_stricmp(strName, "SROOMS"))
     {
         CHSShipRoomSet::iterator iter;
         for (iter = m_setRooms.begin(); iter != m_setRooms.end(); iter++)
         {
             if (!*rval)
-                sprintf(tmp, "#%d", *iter);
+                sprintf_s(tmp, "#%d", *iter);
             else
-                sprintf(tmp, " #%d", *iter);
+                sprintf_s(tmp, " #%d", *iter);
 
-            strcat(rval, tmp);
+            strcat_s(rval, tmp);
         }
     }
-    else if (!strcasecmp(strName, "CONSOLES"))
+    else if (!_stricmp(strName, "CONSOLES"))
     {
         for (idx = 0; idx < MAX_SHIP_CONSOLES; idx++)
         {
             if (m_console_array[idx])
             {
                 if (!*rval)
-                    sprintf(tmp, "#%d", m_console_array[idx]->m_objnum);
+                    sprintf_s(tmp, "#%d", m_console_array[idx]->m_objnum);
                 else
-                    sprintf(tmp, " #%d", m_console_array[idx]->m_objnum);
+                    sprintf_s(tmp, " #%d", m_console_array[idx]->m_objnum);
 
-                strcat(rval, tmp);
+                strcat_s(rval, tmp);
             }
         }
     }
-    else if (!strcasecmp(strName, "DESTROYED"))
+    else if (!_stricmp(strName, "DESTROYED"))
     {
-        sprintf(rval, "%d", m_destroyed ? 1 : 0);
+        sprintf_s(rval, "%d", m_destroyed ? 1 : 0);
     }
-    else if (!strcasecmp(strName, "BOARDING CODE"))
+    else if (!_stricmp(strName, "BOARDING CODE"))
     {
         if (m_boarding_code)
-            strcpy(rval, m_boarding_code);
+            strcpy_s(rval, m_boarding_code);
     }
-    else if (!strcasecmp(strName, "CAN DROP"))
+    else if (!_stricmp(strName, "CAN DROP"))
     {
-        sprintf(rval, "%d", CanDrop());
+        sprintf_s(rval, "%d", CanDrop());
     }
-    else if (!strcasecmp(strName, "SPACEDOCK"))
+    else if (!_stricmp(strName, "SPACEDOCK"))
     {
-        sprintf(rval, "%d", IsSpacedock());
+        sprintf_s(rval, "%d", IsSpacedock());
     }
-    else if (!strcasecmp(strName, "OBJLOC"))
+    else if (!_stricmp(strName, "OBJLOC"))
     {
-        sprintf(rval, "#%d", m_objlocation);
+        sprintf_s(rval, "#%d", m_objlocation);
     }
-    else if (!strcasecmp(strName, "MAXHULL"))
+    else if (!_stricmp(strName, "MAXHULL"))
     {
-        sprintf(rval, "%d", GetMaxHullPoints());
+        sprintf_s(rval, "%d", GetMaxHullPoints());
     }
-    else if (!strcasecmp(strName, "HULL"))
+    else if (!_stricmp(strName, "HULL"))
     {
-        sprintf(rval, "%d", GetHullPoints());
+        sprintf_s(rval, "%d", GetHullPoints());
     }
-    else if (!strcasecmp(strName, "AGE"))
+    else if (!_stricmp(strName, "AGE"))
     {
-        sprintf(rval, "%d", m_age);
+        sprintf_s(rval, "%d", m_age);
     }
-    else if (!strcasecmp(strName, "DOCKLOC"))
+    else if (!_stricmp(strName, "DOCKLOC"))
     {
-        sprintf(rval, "#%d", m_docked ?
+        sprintf_s(rval, "#%d", m_docked ?
                 hsInterface.GetLocation(m_objnum) : -1);
     }
-    else if (!strcasecmp(strName, "DXYHEADING"))
-        sprintf(rval, "%d", m_desired_xyheading);
-    else if (!strcasecmp(strName, "DZHEADING"))
-        sprintf(rval, "%d", m_desired_zheading);
-    else if (!strcasecmp(strName, "DROLL"))
-        sprintf(rval, "%d", m_desired_roll);
-    else if (!strcasecmp(strName, "XYHEADING"))
-        sprintf(rval, "%d", m_current_xyheading);
-    else if (!strcasecmp(strName, "ZHEADING"))
-        sprintf(rval, "%d", m_current_zheading);
-    else if (!strcasecmp(strName, "ROLL"))
-        sprintf(rval, "%d", m_current_roll);
-    else if (!strcasecmp(strName, "CARGO SIZE"))
+    else if (!_stricmp(strName, "DXYHEADING"))
+        sprintf_s(rval, "%d", m_desired_xyheading);
+    else if (!_stricmp(strName, "DZHEADING"))
+        sprintf_s(rval, "%d", m_desired_zheading);
+    else if (!_stricmp(strName, "DROLL"))
+        sprintf_s(rval, "%d", m_desired_roll);
+    else if (!_stricmp(strName, "XYHEADING"))
+        sprintf_s(rval, "%d", m_current_xyheading);
+    else if (!_stricmp(strName, "ZHEADING"))
+        sprintf_s(rval, "%d", m_current_zheading);
+    else if (!_stricmp(strName, "ROLL"))
+        sprintf_s(rval, "%d", m_current_roll);
+    else if (!_stricmp(strName, "CARGO SIZE"))
     {
-        sprintf(rval, "%d", CargoSize());
+        sprintf_s(rval, "%d", CargoSize());
     }
-    else if (!strcasecmp(strName, "CLASS"))
-        sprintf(rval, "%d", m_class);
-    else if (!strcasecmp(strName, "CLASS NAME"))
+    else if (!_stricmp(strName, "CLASS"))
+        sprintf_s(rval, "%d", m_class);
+    else if (!_stricmp(strName, "CLASS NAME"))
     {
-        strcpy(rval, m_classinfo != NULL ?
+        strcpy_s(rval, m_classinfo != NULL ?
                m_classinfo->ClassName() : "Unknown Class");
     }
-    else if (!strcasecmp(strName, "CLASSNAME"))
+    else if (!_stricmp(strName, "CLASSNAME"))
     {
-        strcpy(rval, m_classinfo != NULL ?
+        strcpy_s(rval, m_classinfo != NULL ?
                m_classinfo->ClassName() : "Unknown Class");
     }
-    else if (!strcasecmp(strName, "MCONSOLES"))
-        sprintf(rval, "%d", GetMannedConsoles());
-    else if (!strcasecmp(strName, "MINMANNED"))
-        sprintf(rval, "%d", GetMinManned());
+    else if (!_stricmp(strName, "MCONSOLES"))
+        sprintf_s(rval, "%d", GetMannedConsoles());
+    else if (!_stricmp(strName, "MINMANNED"))
+        sprintf_s(rval, "%d", GetMinManned());
     else
         return CHS3DObject::GetAttributeValue(strName);
 
@@ -1329,7 +1329,7 @@ HS_BOOL8 CHSShip::LoadSystem(FILE * fp)
                 {
                     if (!cSys->SetAttributeValue(strKey, strValue))
                     {
-                        sprintf(tbuf, "WARNING: Failed to set supported \
+                        sprintf_s(tbuf, "WARNING: Failed to set supported \
 									attribute \"%s\" on system type %d.", strKey, type);
                         hs_log(tbuf);
                     }
@@ -1478,7 +1478,7 @@ void CHSShip::HandleSystems()
         if (!bReactorOnline && bStat)
         {
             bReactorOnline = true;
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-%s A light flashes on your console, indicating that the main reactor is now online.",
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
             NotifyConsoles(tbuf, MSG_ENGINEERING);
@@ -1513,7 +1513,7 @@ void CHSShip::HandleSystems()
                 else
                 {
                     char tbuf[128];
-                    sprintf(tbuf,
+                    sprintf_s(tbuf,
                             "Lights flicker on the %s as its reactor comes online.",
                             GetName());
                     hsInterface.NotifyContents(loc, tbuf);
@@ -1552,7 +1552,7 @@ void CHSShip::HandleSystems()
                     iPowerDeficit -= cSys->GetCurrentPower();
                     cSys->SetCurrentPower(iSysPower);
 
-                    sprintf(tbuf,
+                    sprintf_s(tbuf,
                             "%s%s-%s A warning light flashes, indicating that the %s system has lost power.",
                             ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL,
                             cSys->GetName());
@@ -1564,7 +1564,7 @@ void CHSShip::HandleSystems()
                     iPowerDeficit -= iSysPower;
                     cSys->SetCurrentPower(0);
 
-                    sprintf(tbuf,
+                    sprintf_s(tbuf,
                             "%s%s-%s A warning light flashes, indicating that the %s system has lost power.",
                             ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL,
                             cSys->GetName());
@@ -1759,19 +1759,19 @@ void CHSShip::HandleSensors()
             strcpy(name, cContact->m_obj->GetName());
 
         if (cContact->status == DETECTED)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s[%s%s%d%s%s]%s - Unidentified contact has appeared on sensors.",
                     cContact->m_obj->GetObjectColor(), ANSI_NORMAL,
                     ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
                     cContact->m_obj->GetObjectColor(), ANSI_NORMAL);
         else if (cContact->status == UPDATED)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s[%s%s%d%s%s]%s - Contact identified as %s.",
                     cContact->m_obj->GetObjectColor(), ANSI_NORMAL,
                     ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
                     cContact->m_obj->GetObjectColor(), ANSI_NORMAL, name);
         else
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s[%s%s%d%s%s]%s - New contact identified as %s.",
                     cContact->m_obj->GetObjectColor(), ANSI_NORMAL,
                     ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
@@ -1789,15 +1789,15 @@ void CHSShip::HandleSensors()
     {
         // Special name handling for ships.
         if (cContact->m_obj->GetType() == HST_SHIP)
-            sprintf(name, "The %s", cContact->m_obj->GetName());
+            sprintf_s(name, "The %s", cContact->m_obj->GetName());
         else
         {
-            strncpy(name, cContact->m_obj->GetName(), 63);
+            strncpy_s(name, cContact->m_obj->GetName(), 63);
             name[63] = '\0';
         }
         if (cContact->status == DETECTED)
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s[%s%s%d%s%s]%s - Unidentified contact has been lost from sensors.",
                     cContact->m_obj->GetObjectColor(), ANSI_NORMAL,
                     ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
@@ -1805,7 +1805,7 @@ void CHSShip::HandleSensors()
         }
         else
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s[%s%s%d%s%s]%s - %s has been lost from sensors.",
                     cContact->m_obj->GetObjectColor(), ANSI_NORMAL,
                     ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
@@ -1859,7 +1859,7 @@ char *CHSShip::GetObjectColor()
 {
     static char tbuf[32];
 
-    sprintf(tbuf, "%s%s", ANSI_HILITE, ANSI_RED);
+    sprintf_s(tbuf, "%s%s", ANSI_HILITE, ANSI_RED);
     return tbuf;
 }
 
@@ -1981,20 +1981,20 @@ void CHSShip::GiveSensorReport(HS_DBREF player, HS_TYPE tType)
         if (!bHeaderGiven)
         {
             if (tType != HST_NOTYPE)
-                sprintf(tbuf, "%sSensor Contacts:%s %d", cObj->GetObjectColor(), ANSI_NORMAL, numcontacts);     //cSensors->NumContacts());
+                sprintf_s(tbuf, "%sSensor Contacts:%s %d", cObj->GetObjectColor(), ANSI_NORMAL, numcontacts);     //cSensors->NumContacts());
             else
-                sprintf(tbuf, "%sContacts:%s %d", ANSI_HILITE, ANSI_NORMAL, numcontacts);       //cSensors->NumContacts());
+                sprintf_s(tbuf, "%sContacts:%s %d", ANSI_HILITE, ANSI_NORMAL, numcontacts);       //cSensors->NumContacts());
 
             hsInterface.Notify(player, tbuf);
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-------------------------------------------------------------------------------%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
             hsInterface.Notify(player, tbuf);
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%sC   ####  Name                     Bearing Range      Heading Speed  Type      %s",
                     ANSI_YELLOW, ANSI_NORMAL);
             hsInterface.Notify(player, tbuf);
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s-  ------ ------------------------ --- --- ---------- --- --- ------ ----------%s",
                     ANSI_BLUE, ANSI_NORMAL);
             hsInterface.Notify(player, tbuf);
@@ -2010,12 +2010,12 @@ void CHSShip::GiveSensorReport(HS_DBREF player, HS_TYPE tType)
         // Distance
         dDistance = Dist3D(m_x, m_y, m_z, dX, dY, dZ);
         if (dDistance < 1000000)
-          sprintf(dDistanceS, "%.2f", dDistance);
+          sprintf_s(dDistanceS, "%.2f", dDistance);
         else
           if (dDistance > 999999999)
-            sprintf(dDistanceS, "#########");
+            sprintf_s(dDistanceS, "#########");
           else
-            sprintf(dDistanceS, "%.0f", dDistance);
+            sprintf_s(dDistanceS, "%.0f", dDistance);
 
 
         // Bearing
@@ -2099,29 +2099,29 @@ void CHSShip::GiveSensorReport(HS_DBREF player, HS_TYPE tType)
                 WarpEngaged = cWarp->GetEngaged();
                 WarpLevel = cWarp->GetCurrentWarp();
             }
-            sprintf(dXYHeading, "%d", cShip->GetXYHeading());
-            sprintf(dZHeading, "%d", cShip->GetZHeading());
+            sprintf_s(dXYHeading, "%d", cShip->GetXYHeading());
+            sprintf_s(dZHeading, "%d", cShip->GetZHeading());
         }
         else if (cObj->GetType() == HST_MISSILE)
         {
             CHSMissile *pMissile = static_cast < CHSMissile * >(cObj);
-            sprintf(dXYHeading, "%d", pMissile->GetXYHeading());
-            sprintf(dZHeading, "%d", pMissile->GetZHeading());
+            sprintf_s(dXYHeading, "%d", pMissile->GetXYHeading());
+            sprintf_s(dZHeading, "%d", pMissile->GetZHeading());
         }
         else
         {
             cShip = NULL;
-            sprintf(dXYHeading, "--");
-            sprintf(dZHeading, "--");
+            sprintf_s(dXYHeading, "--");
+            sprintf_s(dZHeading, "--");
         }
 
-        sprintf(dSpeed, "%d", cObj->GetSpeed());
+        sprintf_s(dSpeed, "%d", cObj->GetSpeed());
 
         std::string oName = cObj->GetTypeName();
 
         if (oName.size() > 0)
         {
-            sprintf(dType, "%s", oName.c_str());
+            sprintf_s(dType, "%s", oName.c_str());
         }
         else                    // handle default information
         {
@@ -2130,37 +2130,37 @@ void CHSShip::GiveSensorReport(HS_DBREF player, HS_TYPE tType)
             {
             case HST_SHIP:
                 if (NoEngines)
-                    sprintf(dType, "Base");
+                    sprintf_s(dType, "Base");
                 else
-                    sprintf(dType, "Ship");
+                    sprintf_s(dType, "Ship");
                 break;
 
             case HST_PLANET:
-                sprintf(dType, "Planet");
+                sprintf_s(dType, "Planet");
                 break;
 
             case HST_BLACKHOLE:
-                sprintf(dType, "Black Hole");
+                sprintf_s(dType, "Black Hole");
                 break;
 
             case HST_WORMHOLE:
-                sprintf(dType, "Wormhole");
+                sprintf_s(dType, "Wormhole");
                 break;
 
             case HST_MISSILE:
-                sprintf(dType, "Missile");
+                sprintf_s(dType, "Missile");
                 break;
 
             case HST_NEBULA:
-                sprintf(dType, "Nebula");
+                sprintf_s(dType, "Nebula");
                 break;
 
             case HST_ASTEROID:
-                sprintf(dType, "Asteroids");
+                sprintf_s(dType, "Asteroids");
                 break;
 
             default:
-                sprintf(dType, "Unknown");
+                sprintf_s(dType, "Unknown");
                 break;
             }
         }
@@ -2219,7 +2219,7 @@ void CHSShip::GiveSensorReport(HS_DBREF player, HS_TYPE tType)
     }
 
     // Print the closing line
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s-------------------------------------------------------------------------------%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -2249,7 +2249,7 @@ void CHSShip::HandleLifeSupport()
 
         // Kill people on the ship.
         bGhosted = true;
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s%s*%s LIFE SUPPORT SYSTEMS FAILURE %s%s%s*%s",
                 ANSI_HILITE, ANSI_BLINK, ANSI_RED, ANSI_NORMAL,
                 ANSI_HILITE, ANSI_BLINK, ANSI_RED, ANSI_NORMAL);
@@ -2274,7 +2274,7 @@ void CHSShip::HandleLifeSupport()
         // so the remainder will never be exactly 0.
         if (remainder < .001)
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s%s*%s %s%sWARNING%s %s%s%s*%s Life support systems are failing.",
                     ANSI_HILITE, ANSI_BLINK, ANSI_YELLOW, ANSI_NORMAL,
                     ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL,
@@ -2433,13 +2433,13 @@ void CHSShip::HandleMessage(const HS_INT8 * lpstrMsg,
 
             if (cContact)
             {
-                sprintf(tbuf, "%s[%s%s%4d%s%s]%s - %s",
+                sprintf_s(tbuf, "%s[%s%s%4d%s%s]%s - %s",
                         pFromObject->GetObjectColor(), ANSI_NORMAL,
                         ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
                         pFromObject->GetObjectColor(), ANSI_NORMAL, lpstrMsg);
             }
             else
-                strcpy(tbuf, lpstrMsg);
+                strcpy_s(tbuf, lpstrMsg);
 
             NotifyConsoles(tbuf, msgType);
 
@@ -2547,7 +2547,7 @@ void CHSShip::ConfirmHatches()
 
             char tbuf[256];
 
-            sprintf(tbuf, "Docking couplings on hatch %d disengaged.",
+            sprintf_s(tbuf, "Docking couplings on hatch %d disengaged.",
                     port + 1);
             cShip->NotifyConsoles(tbuf, MSG_GENERAL);
 
@@ -2671,24 +2671,24 @@ void CHSShip::HandleLock(CHS3DObject * cLocker, HS_BOOL8 bStat)
     if (!cContact)
     {
         if (bStat)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-%s An unknown contact has locked weapons!",
                     ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL);
         else
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-%s An unknown contact has released weapons lock.",
                     ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL);
     }
     else if (cContact->status == DETECTED)
     {
         if (bStat)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s[%s%s%d%s%s]%s - Contact has locked weapons!",
                     cLocker->GetObjectColor(), ANSI_NORMAL,
                     ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
                     cLocker->GetObjectColor(), ANSI_NORMAL);
         else
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s[%s%s%d%s%s]%s - Contact has released weapons lock.",
                     cLocker->GetObjectColor(), ANSI_NORMAL,
                     ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
@@ -2698,18 +2698,18 @@ void CHSShip::HandleLock(CHS3DObject * cLocker, HS_BOOL8 bStat)
     {
         char name[64];
         if (cLocker->GetType() == HST_SHIP)
-            sprintf(name, "The %s", cLocker->GetName());
+            sprintf_s(name, "The %s", cLocker->GetName());
         else
-            strcpy(name, cLocker->GetName());
+            strcpy_s(name, cLocker->GetName());
 
         if (bStat)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s[%s%s%d%s%s]%s - %s has locked weapons!",
                     cLocker->GetObjectColor(), ANSI_NORMAL,
                     ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
                     cLocker->GetObjectColor(), ANSI_NORMAL, name);
         else
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s[%s%s%d%s%s]%s - %s has released weapons lock.",
                     cLocker->GetObjectColor(), ANSI_NORMAL,
                     ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
@@ -2763,9 +2763,9 @@ void CHSShip::HandleDamage(CHS3DObject * cSource,
         int shieldtype = cShield->GetShieldType();
 
         if (shieldtype == ST_DEFLECTOR)
-            strcpy(strShieldType, "deflected");
+            strcpy_s(strShieldType, "deflected");
         else
-            strcpy(strShieldType, "absorbed");
+            strcpy_s(strShieldType, "absorbed");
     }
     if (cShield && strength <= 0)
     {
@@ -2775,19 +2775,19 @@ void CHSShip::HandleDamage(CHS3DObject * cSource,
         switch (pWeaponData->WeaponClass())
         {
         case WC_LASER:
-            sprintf(msgUs,
+            sprintf_s(msgUs,
                     "%s have %s an incoming energy blast.",
                     cShield->GetName(), strShieldType);
-            sprintf(msgThem,
+            sprintf_s(msgThem,
                     "Your energy blast has been %s by the enemy's shields.",
                     strShieldType);
             break;
 
         case WC_MISSILE:
-            sprintf(msgUs,
+            sprintf_s(msgUs,
                     "Our shields have %s the impact from an inbound missile.",
                     strShieldType);
-            sprintf(msgThem,
+            sprintf_s(msgThem,
                     "The impact of your missile has been %s by the enemy's shields.",
                     strShieldType);
             break;
@@ -2890,24 +2890,24 @@ void CHSShip::HandleDamage(CHS3DObject * cSource,
                         if (static_cast <
                             CHSLaserData * >(pWeaponData)->NoHull())
                         {
-                            strcpy(msgUs,
+                            strcpy_s(msgUs,
                                    "An incoming energy blast has not damaged any systems.");
-                            strcpy(msgThem,
+                            strcpy_s(msgThem,
                                    "Your energy blast has not damaged any systems.");
                         }
                         else
                         {
-                            strcpy(msgUs,
+                            strcpy_s(msgUs,
                                    "An incoming energy blast has damaged the hull.");
-                            strcpy(msgThem,
+                            strcpy_s(msgThem,
                                    "Your energy blast has landed damage to the enemy's hull.");
                         }
                         break;
 
                     case WC_MISSILE:
-                        strcpy(msgUs,
+                        strcpy_s(msgUs,
                                "An inbound missile has landed damage to our hull.");
-                        strcpy(msgThem,
+                        strcpy_s(msgThem,
                                "Your missile has landed damage to the enemy's hull.");
                         break;
                     }
@@ -2918,19 +2918,19 @@ void CHSShip::HandleDamage(CHS3DObject * cSource,
                     switch (pWeaponData->WeaponClass())
                     {
                     case WC_LASER:
-                        sprintf(msgUs,
+                        sprintf_s(msgUs,
                                 "An incoming energy blast has damaged the %s.",
                                 cSys->GetName());
-                        sprintf(msgThem,
+                        sprintf_s(msgThem,
                                 "Your energy blast has landed damage to the enemy's %s.",
                                 cSys->GetName());
                         break;
 
                     case WC_MISSILE:
-                        sprintf(msgUs,
+                        sprintf_s(msgUs,
                                 "An inbound missile has landed damage to our %s.",
                                 cSys->GetName());
-                        sprintf(msgThem,
+                        sprintf_s(msgThem,
                                 "Your missile has landed damage to the enemy's %s.",
                                 cSys->GetName());
                         break;
@@ -2953,24 +2953,24 @@ void CHSShip::HandleDamage(CHS3DObject * cSource,
                 case WC_LASER:
                     if (static_cast < CHSLaserData * >(pWeaponData)->NoHull())
                     {
-                        strcpy(msgUs,
+                        strcpy_s(msgUs,
                                "An incoming energy blast has not damaged any systems.");
-                        strcpy(msgThem,
+                        strcpy_s(msgThem,
                                "Your energy blast has not damaged any systems.");
                     }
                     else
                     {
-                        strcpy(msgUs,
+                        strcpy_s(msgUs,
                                "An incoming energy blast has damaged the hull.");
-                        strcpy(msgThem,
+                        strcpy_s(msgThem,
                                "Your energy blast has landed damage to the enemy's hull.");
                     }
                     break;
 
                 case WC_MISSILE:
-                    strcpy(msgUs,
+                    strcpy_s(msgUs,
                            "An inbound missile has landed damage to our hull.");
-                    strcpy(msgThem,
+                    strcpy_s(msgThem,
                            "Your missile has landed damage to the enemy's hull.");
                     break;
                 }
@@ -3018,15 +3018,15 @@ void CHSShip::HandleDamage(HS_FLOAT64 x, HS_FLOAT64 y, HS_FLOAT64 z,
         int shieldtype = cShield->GetShieldType();
 
         if (shieldtype == ST_DEFLECTOR)
-            strcpy(strShieldType, "deflected");
+            strcpy_s(strShieldType, "deflected");
         else
-            strcpy(strShieldType, "absorbed");
+            strcpy_s(strShieldType, "absorbed");
     }
 
     // does damage get past shields?
     if (cShield && strength <= 0)
     {
-        sprintf(msgUs, "%s have %s an explosive blast.",
+        sprintf_s(msgUs, "%s have %s an explosive blast.",
                 cShield->GetName(), strShieldType);
         HandleMessage(msgUs, MSG_COMBAT, NULL);
     }
@@ -3053,7 +3053,7 @@ void CHSShip::HandleDamage(HS_FLOAT64 x, HS_FLOAT64 y, HS_FLOAT64 z,
                 CHSEngSystem *cSys = m_systems.GetRandomSystem();
                 if (cSys)
                 {
-                    sprintf(msgUs, "A explosive blast damages the %s.",
+                    sprintf_s(msgUs, "A explosive blast damages the %s.",
                             cSys->GetName());
                     cSys->DoDamage();
                 }
@@ -3061,7 +3061,7 @@ void CHSShip::HandleDamage(HS_FLOAT64 x, HS_FLOAT64 y, HS_FLOAT64 z,
             else
             {
                 // Default message for non-damaged system
-                strcpy(msgUs,
+                strcpy_s(msgUs,
                        "An explosive blast has damaged the ship's hull.");
             }
             HandleMessage(msgUs, MSG_COMBAT, NULL);
@@ -3081,7 +3081,7 @@ void CHSShip::ExplodeMe()
     if (uSource)
     {
         // Give out a message
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "You gaze in awe as the %s explodes before your eyes.",
                 GetName());
 
@@ -3156,27 +3156,27 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
     cEngines = (CHSSysEngines *) m_systems.GetSystem(HSS_ENGINES);
 
     // Give the header info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.-----------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
     char tbuf2[256];
     if (id)
-        sprintf(tbuf2, "%s(%s)", GetName(), m_ident ? m_ident : "--");
+        sprintf_s(tbuf2, "%s(%s)", GetName(), m_ident ? m_ident : "--");
     else
-        sprintf(tbuf2, "Unknown");
-    sprintf(tbuf,
+        sprintf_s(tbuf2, "Unknown");
+    sprintf_s(tbuf,
             "%s%s|%s Vessel Scan Report %31s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             tbuf2, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >---------------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
     // Give the vessel class
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s %-40s            %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             id ? m_classinfo->ClassName() : "Vessel Class Unknown",
@@ -3184,7 +3184,7 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
     hsInterface.Notify(player, tbuf);
 
     // Give coordinate and heading information.
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sX:%s %9.0f%23s%s%sSize:%s %-3d        %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetX(), " ",
@@ -3192,7 +3192,7 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
             GetSize(), ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sY:%s %9.0f%23s%s%sHeading:%s %3d/%-3d %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetY(), " ",
@@ -3201,7 +3201,7 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sZ:%s %9.0f%23s%s%sVelocity:%s %-6.0f %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             GetZ(), " ",
@@ -3220,7 +3220,7 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
         CHSSysShield *cStar;
         CHSSysShield *cPort;
 
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s >---------------------------------------------------<%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
@@ -3232,7 +3232,7 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
         cPort = (CHSSysShield *) m_systems.GetSystem(HSS_PORT_SHIELD);
 
         // Give hull, shield info
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s| %sHull Status               Shield Status             %s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_BLUE, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
@@ -3244,35 +3244,35 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
 
         if (cFore)
         {
-            sprintf(strFore, "%.0f%%", cFore->GetShieldPerc());
+            sprintf_s(strFore, "%.0f%%", cFore->GetShieldPerc());
         }
         else
-            strcpy(strFore, "N/A");
+            strcpy_s(strFore, "N/A");
 
         if (cAft)
         {
-            sprintf(strAft, "%.0f%%", cAft->GetShieldPerc());
+            sprintf_s(strAft, "%.0f%%", cAft->GetShieldPerc());
         }
         else
-            strcpy(strAft, "N/A");
+            strcpy_s(strAft, "N/A");
 
         if (cPort)
         {
-            sprintf(strPort, "%.0f%%", cPort->GetShieldPerc());
+            sprintf_s(strPort, "%.0f%%", cPort->GetShieldPerc());
         }
         else
-            strcpy(strPort, "N/A");
+            strcpy_s(strPort, "N/A");
 
         if (cStar)
         {
-            sprintf(strStar, "%.0f%%", cStar->GetShieldPerc());
+            sprintf_s(strStar, "%.0f%%", cStar->GetShieldPerc());
         }
         else
-            strcpy(strStar, "N/A");
+            strcpy_s(strStar, "N/A");
 
         int hullperc;
         hullperc = (int) (100 * GetHullPoints() / (float) GetMaxHullPoints());
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%s    %3d%%       %s%sF:%s %-4s  %s%sA:%s %-4s  %s%sP:%s %-4s  %s%sS:%s %-4s    %s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                 hullperc,
@@ -3287,11 +3287,11 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
 
 
         // print systems header
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%53s|%s", ANSI_HILITE, ANSI_BLUE, " ", ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
 
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s| %sSystem Name          Status       Damage    %8s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, " ", ANSI_BLUE,
                 ANSI_NORMAL);
@@ -3307,33 +3307,33 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
                 switch (cSys->GetDamageLevel())
                 {
                 case DMG_LIGHT:
-                    sprintf(strDamage,
+                    sprintf_s(strDamage,
                             "%s%s  LIGHT   %s",
                             ANSI_HILITE, ANSI_BGREEN, ANSI_NORMAL);
                     break;
 
                 case DMG_MEDIUM:
-                    sprintf(strDamage,
+                    sprintf_s(strDamage,
                             "%s%s  MEDIUM  %s",
                             ANSI_HILITE, ANSI_BYELLOW, ANSI_NORMAL);
                     break;
 
                 case DMG_HEAVY:
-                    sprintf(strDamage,
+                    sprintf_s(strDamage,
                             "%s%s  HEAVY   %s",
                             ANSI_HILITE, ANSI_BRED, ANSI_NORMAL);
                     break;
 
                 case DMG_INOPERABLE:
-                    sprintf(strDamage,
+                    sprintf_s(strDamage,
                             "%s%sINOPERABLE%s",
                             ANSI_HILITE, ANSI_BBLACK, ANSI_NORMAL);
                     break;
 
                 default:
-                    strcpy(strDamage, "None   ");
+                    strcpy_s(strDamage, "None   ");
                 }
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "%s%s|%s %-20s %-12s %-10s        %s%s|%s",
                         ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                         cSys->GetName(),
@@ -3351,13 +3351,13 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
                                hsInterface.HSPrintf("%s%s|%53s|%s",
                                                     ANSI_HILITE, ANSI_BLUE,
                                                     " ", ANSI_NORMAL));
-            sprintf(tbuf, "%s%s| %sLanding Locations:%s %-2d%31s%s%s|%s",
+            sprintf_s(tbuf, "%s%s| %sLanding Locations:%s %-2d%31s%s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
                     m_listLandingLocs.size(), " ", ANSI_HILITE, ANSI_BLUE,
                     ANSI_NORMAL);
             hsInterface.Notify(player, tbuf);
 
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %s[%s##%s] Name                          Doors   Code     %s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_WHITE,
                     ANSI_GREEN, ANSI_BLUE, ANSI_NORMAL);
@@ -3379,7 +3379,7 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
 
                 strncpy(strPadName, hsInterface.GetName(pLoc->Object()), 32);
                 strPadName[23] = '\0';
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "%s%s|%s  %2d  %-29s %-6s  %3s      %s%s|%s",
                         ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                         idx + 1,
@@ -3398,7 +3398,7 @@ void CHSShip::GiveScanReport(CHS3DObject * cScanner,
 
 
     // Finish the report
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`-----------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -3649,7 +3649,7 @@ HS_DBREF CHSShip::CloneRoom(HS_DBREF room,
     char tbuf[32];
     if (hsInterface.AtrGet(dbNewRoom, "SHIP"))
     {
-        sprintf(tbuf, "#%d", dbShipObj);
+        sprintf_s(tbuf, "#%d", dbShipObj);
         hsInterface.AtrAdd(dbNewRoom, "SHIP", tbuf,
                            hsInterface.GetGodDbref());
     }
@@ -3664,7 +3664,7 @@ HS_DBREF CHSShip::CloneRoom(HS_DBREF room,
         {
             // Set the bay attr on the new ship obj to this
             // new room.
-            sprintf(tbuf, "#%d", dbNewRoom);
+            sprintf_s(tbuf, "#%d", dbNewRoom);
             hsInterface.AtrAdd(dbShipObj, "BAY", tbuf,
                                hsInterface.GetGodDbref());
         }
@@ -3811,7 +3811,7 @@ void CHSShip::HandleCommMsg(const char *msg, long *data)
 
     // Find the source object on sensors, if applicable.
     if (!hsComm->cObj)
-        strcpy(strName, "Unknown");
+        strcpy_s(strName, "Unknown");
     else
     {
         // Are we the source object?
@@ -3821,24 +3821,24 @@ void CHSShip::HandleCommMsg(const char *msg, long *data)
         // Find our sensors.
         cSensors = (CHSSysSensors *) m_systems.GetSystem(HSS_SENSORS);
         if (!cSensors)
-            strcpy(strName, "Unknown");
+            strcpy_s(strName, "Unknown");
         else
         {
             SENSOR_CONTACT *cContact;
             cContact = cSensors->GetContact(hsComm->cObj);
             if (!cContact)
-                strcpy(strName, "Unknown");
+                strcpy_s(strName, "Unknown");
             else
             {
                 // Determine if contact is id'd or not.
                 if (cContact->status == IDENTIFIED)
                     strcpy(strName, hsComm->cObj->GetName());
                 else
-                    sprintf(strName, "%d", cContact->m_id);
+                    sprintf_s(strName, "%d", cContact->m_id);
             }
         }
     }
-    sprintf(tbuf, "%s[COMM Frq:%s %.2f  %sSource:%s %s%s]%s\n%s\n%s*EOT*%s",
+    sprintf_s(tbuf, "%s[COMM Frq:%s %.2f  %sSource:%s %s%s]%s\n%s\n%s*EOT*%s",
             ANSI_CYAN, ANSI_NORMAL,
             hsComm->frq,
             ANSI_CYAN, ANSI_NORMAL,

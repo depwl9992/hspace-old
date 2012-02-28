@@ -154,56 +154,56 @@ HCONF hspace_conflist[] = {
 CHSConf::CHSConf(void):m_bConfigLoaded(false)
 {
     // Defaults for string parameters
-    strcpy(afterburn_disengage,
+    strcpy_s(afterburn_disengage,
            "The ship shakes as the afterburners are disengaged.");
-    strcpy(afterburn_engage,
+    strcpy_s(afterburn_engage,
            "The ship shudders as the afterburners are engaged.");
-    strcpy(begin_descent, "The ship shudders as the drop rockets engage.");
-    strcpy(classdb, "space/classdb");
-    strcpy(computer_activating,
+    strcpy_s(begin_descent, "The ship shudders as the drop rockets engage.");
+    strcpy_s(classdb, "space/classdb");
+    strcpy_s(computer_activating,
            "Computer terminals all around power up as the systems is powered.");
-    strcpy(end_jump, "The ship reverberates as it drops out of hyperspace.");
-    strcpy(engines_activating,
+    strcpy_s(end_jump, "The ship reverberates as it drops out of hyperspace.");
+    strcpy_s(engines_activating,
            "You feel a sudden rumble as the engines activate.");
-    strcpy(engines_cut,
+    strcpy_s(engines_cut,
            "The incessant hum from the ship's engines suddenly fades away.");
-    strcpy(engine_forward,
+    strcpy_s(engine_forward,
            "You feel a sudden force as the main engines engage.");
-    strcpy(engines_offline, "Engines are currently offline.");
-    strcpy(engine_reverse,
+    strcpy_s(engines_offline, "Engines are currently offline.");
+    strcpy_s(engine_reverse,
            "You feel a sudden force as the reverse thrusters engage.");
-    strcpy(jumpers_cut,
+    strcpy_s(jumpers_cut,
            "You hear a large powerdrop as the jump drives power down.");
-    strcpy(landing_msg,
+    strcpy_s(landing_msg,
            "The ship sways and bumps as it makes contact with the ground.");
-    strcpy(life_activating,
+    strcpy_s(life_activating,
            "A gentle hum can be heard as life support is activated.");
-    strcpy(life_cut,
+    strcpy_s(life_cut,
            "The air suddenly becomes stale as life support loses power.");
-    strcpy(lift_off,
+    strcpy_s(lift_off,
            "The ship sways and bumps as it lifts from the surface.");
-    strcpy(objectdb, "space/objectdb");
-    strcpy(picture_dir, "space/pics");
-    strcpy(reactor_activating,
+    strcpy_s(objectdb, "space/objectdb");
+    strcpy_s(picture_dir, "space/pics");
+    strcpy_s(reactor_activating,
            "Lights around you flicker on as the main reactor powers up.");
-    strcpy(reactor_offline, "Main reactor is currently offline.");
-    strcpy(sensors_cut, "");
-    strcpy(speed_decrease, "You feel the ship begin to slow.");
-    strcpy(speed_halt,
+    strcpy_s(reactor_offline, "Main reactor is currently offline.");
+    strcpy_s(sensors_cut, "");
+    strcpy_s(speed_decrease, "You feel the ship begin to slow.");
+    strcpy_s(speed_halt,
            "You feel a slight force as the ship glides to a halt ...");
-    strcpy(speed_increase, "You feel a sudden jerk as the ship speeds up.");
-    strcpy(ship_is_docked, "Ship is currently docked.");
-    strcpy(ship_is_docking,
+    strcpy_s(speed_increase, "You feel a sudden jerk as the ship speeds up.");
+    strcpy_s(ship_is_docked, "Ship is currently docked.");
+    strcpy_s(ship_is_docking,
            "The ship is currently in docking procedures ...");
-    strcpy(ship_is_jumping,
+    strcpy_s(ship_is_jumping,
            "The ship is currently travelling in hyperspace.");
-    strcpy(ship_is_undocking, "The ship is currently undocking ...");
-    strcpy(ship_jumps, "The ship hums loudly as it enters into hyperspace.");
-    strcpy(territorydb, "space/territorydb");
-    strcpy(thrusters_activating,
+    strcpy_s(ship_is_undocking, "The ship is currently undocking ...");
+    strcpy_s(ship_jumps, "The ship hums loudly as it enters into hyperspace.");
+    strcpy_s(territorydb, "space/territorydb");
+    strcpy_s(thrusters_activating,
            "A loud roar is heard as the steering thrusters activate.");
-    strcpy(unit_name, "hm");
-    strcpy(univdb, "space/univdb");
+    strcpy_s(unit_name, "hm");
+    strcpy_s(univdb, "space/univdb");
 
 
     // Setup defaults for non-string parameters
@@ -280,7 +280,7 @@ HS_BOOL8 CHSConf::InputOption(HS_INT8 * option, HS_INT8 * value)
 
     for (cfptr = hspace_conflist; cfptr->name; cfptr++)
     {
-        if (!strcasecmp(option, cfptr->name))
+        if (!_stricmp(option, cfptr->name))
         {
             cfptr->func(cfptr->des, value);
             return true;
@@ -307,7 +307,7 @@ HS_BOOL8 CHSConf::LoadConfigFile(HS_INT8 * lpstrPath)
     /*
      * Open the configuration file for reading
      */
-    fp = fopen(lpstrPath, "r");
+    fopen_s(&fp, lpstrPath, "r");
     if (!fp)
     {
         hs_log((HS_INT8 *)
@@ -354,7 +354,7 @@ HS_BOOL8 CHSConf::LoadConfigFile(HS_INT8 * lpstrPath)
         *ptr2 = '\0';
         if (!*ptr)
         {
-            sprintf(tbuf2, "ERROR: Invalid configuration at option: %s",
+            sprintf_s(tbuf2, "ERROR: Invalid configuration at option: %s",
                     option);
             hs_log(tbuf2);
             continue;
@@ -370,7 +370,7 @@ HS_BOOL8 CHSConf::LoadConfigFile(HS_INT8 * lpstrPath)
         *ptr2 = '\0';
         if (!InputOption(option, value))
         {
-            sprintf(tbuf2, "ERROR: Invalid config option \"%s\"", option);
+            sprintf_s(tbuf2, "ERROR: Invalid config option \"%s\"", option);
             hs_log(tbuf2);
         }
     }

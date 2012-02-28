@@ -145,7 +145,7 @@ void CHSConsole::ClearObjectAttrs()
     {
         HS_INT8 tbuf[32];
 
-        sprintf(tbuf, "HSDB_MSGTYPE_%d", idx);
+        sprintf_s(tbuf, "HSDB_MSGTYPE_%d", idx);
         hsInterface.AtrAdd(m_objnum, tbuf, NULL, hsInterface.GetGodDbref());
     }
 
@@ -207,7 +207,7 @@ HS_BOOL8 CHSConsole::LoadFromObject(HS_DBREF objnum)
     {
         HS_INT8 tbuf[32];
 
-        sprintf(tbuf, "HSDB_MSGTYPE_%d", idx);
+        sprintf_s(tbuf, "HSDB_MSGTYPE_%d", idx);
 
         if (hsInterface.AtrGet(m_objnum, tbuf))
             AddMessage(atoi(hsInterface.m_buffer));
@@ -301,23 +301,23 @@ HS_INT8 *CHSConsole::GetAttributeValue(HS_INT8 * strName)
     HS_INT32 idx;
 
     *rval = '\0';
-    if (!strcasecmp(strName, "CXYHEADING"))
+    if (!_stricmp(strName, "CXYHEADING"))
     {
-        sprintf(rval, "%d", m_xyheading);
+        sprintf_s(rval, "%d", m_xyheading);
     }
-    else if (!strcasecmp(strName, "CZHEADING"))
+    else if (!_stricmp(strName, "CZHEADING"))
     {
-        sprintf(rval, "%d", m_zheading);
+        sprintf_s(rval, "%d", m_zheading);
     }
-    else if (!strcasecmp(strName, "USER"))
+    else if (!_stricmp(strName, "USER"))
     {
-        sprintf(rval, "#%d", hsInterface.ConsoleUser(m_objnum));
+        sprintf_s(rval, "#%d", hsInterface.ConsoleUser(m_objnum));
     }
-    else if (!strcasecmp(strName, "FIRING ARC"))
+    else if (!_stricmp(strName, "FIRING ARC"))
     {
-        sprintf(rval, "%d", m_arc);
+        sprintf_s(rval, "%d", m_arc);
     }
-    else if (!strcasecmp(strName, "WEAPONS"))
+    else if (!_stricmp(strName, "WEAPONS"))
     {
 
         // If we have a weapons array, run through
@@ -331,15 +331,15 @@ HS_INT8 *CHSConsole::GetAttributeValue(HS_INT8 * strName)
             {
                 // Add the class of the weapon to the list
                 if (!*rval)
-                    sprintf(tmp, "%d", pWeapon->GetData()->TypeID());
+                    sprintf_s(tmp, "%d", pWeapon->GetData()->TypeID());
                 else
-                    sprintf(tmp, " %d", pWeapon->GetData()->TypeID());
+                    sprintf_s(tmp, " %d", pWeapon->GetData()->TypeID());
 
-                strcat(rval, tmp);
+                strcat_s(rval, tmp);
             }
         }
     }
-    else if (!strcasecmp(strName, "MESSAGES"))
+    else if (!_stricmp(strName, "MESSAGES"))
     {
         for (idx = 0; idx < NUM_MESSAGE_TYPES; idx++)
         {
@@ -348,26 +348,26 @@ HS_INT8 *CHSConsole::GetAttributeValue(HS_INT8 * strName)
 
             // Add the class of the message to the list
             if (!*rval)
-                sprintf(tmp, "%d", m_msgtypes[idx]);
+                sprintf_s(tmp, "%d", m_msgtypes[idx]);
             else
-                sprintf(tmp, " %d", m_msgtypes[idx]);
+                sprintf_s(tmp, " %d", m_msgtypes[idx]);
 
-            strcat(rval, tmp);
+            strcat_s(rval, tmp);
         }
     }
-    else if (!strcasecmp(strName, "XYOFFSET"))
+    else if (!_stricmp(strName, "XYOFFSET"))
     {
-        sprintf(rval, "%d", m_xyoffset);
+        sprintf_s(rval, "%d", m_xyoffset);
     }
-    else if (!strcasecmp(strName, "ZOFFSET"))
+    else if (!_stricmp(strName, "ZOFFSET"))
     {
-        sprintf(rval, "%d", m_zoffset);
+        sprintf_s(rval, "%d", m_zoffset);
     }
-    else if (!strcasecmp(strName, "CAN ROTATE"))
+    else if (!_stricmp(strName, "CAN ROTATE"))
     {
-        sprintf(rval, "%d", m_can_rotate ? 1 : 0);
+        sprintf_s(rval, "%d", m_can_rotate ? 1 : 0);
     }
-    else if (!strcasecmp(strName, "LOCK"))
+    else if (!_stricmp(strName, "LOCK"))
     {
         // Are we locked?
         if (!m_target_lock)
@@ -385,11 +385,11 @@ HS_INT8 *CHSConsole::GetAttributeValue(HS_INT8 * strName)
         if (!cContact)
             return "";
 
-        sprintf(rval, "%d", cContact->m_id);
+        sprintf_s(rval, "%d", cContact->m_id);
     }
-    else if (!strcasecmp(strName, "ISPOWERED"))
+    else if (!_stricmp(strName, "ISPOWERED"))
     {
-        sprintf(rval, "%d", IsOnline());
+        sprintf_s(rval, "%d", IsOnline());
     }
     else
         return NULL;
@@ -404,7 +404,7 @@ HS_BOOL8 CHSConsole::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
     HS_INT32 iVal;
 
     // Find the attribute name, set the value.
-    if (!strcasecmp(strName, "XYHEADING"))
+    if (!_stricmp(strName, "XYHEADING"))
     {
         iVal = atoi(strValue);
         if (iVal < 0 || iVal > 359)
@@ -413,7 +413,7 @@ HS_BOOL8 CHSConsole::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
         WriteXYHeadingAttr();
         return true;
     }
-    else if (!strcasecmp(strName, "ZHEADING"))
+    else if (!_stricmp(strName, "ZHEADING"))
     {
         iVal = atoi(strValue);
         if (iVal > 90 || iVal < -90)
@@ -422,7 +422,7 @@ HS_BOOL8 CHSConsole::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
         WriteZHeadingAttr();
         return true;
     }
-    else if (!strcasecmp(strName, "XYOFFSET"))
+    else if (!_stricmp(strName, "XYOFFSET"))
     {
         iVal = atoi(strValue);
         if (iVal < 0 || iVal > 359)
@@ -431,7 +431,7 @@ HS_BOOL8 CHSConsole::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
         WriteOffsetAttr();
         return true;
     }
-    else if (!strcasecmp(strName, "ZOFFSET"))
+    else if (!_stricmp(strName, "ZOFFSET"))
     {
         iVal = atoi(strValue);
         if (iVal > 90 || iVal < -90)
@@ -441,13 +441,13 @@ HS_BOOL8 CHSConsole::SetAttributeValue(HS_INT8 * strName, HS_INT8 * strValue)
         WriteOffsetAttr();
         return true;
     }
-    else if (!strcasecmp(strName, "CAN ROTATE"))
+    else if (!_stricmp(strName, "CAN ROTATE"))
     {
         m_can_rotate = atoi(strValue) == 0 ? false : true;
         WriteCanRotateAttr();
         return true;
     }
-    else if (!strcasecmp(strName, "FIRING ARC"))
+    else if (!_stricmp(strName, "FIRING ARC"))
     {
         iVal = atoi(strValue);
         if (iVal < 0 || iVal > 180)
@@ -683,22 +683,22 @@ void CHSConsole::GiveGunneryReport(HS_DBREF player)
     }
 
     // Print out the header.
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.-----------------------------------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Console Weaponry Report            %39s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             m_ownerObj->GetName(), ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >---------------------------------------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
     // Print weapon info header
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %s[%s%sID%s] Name                         Status         Weapon Attributes          %s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             ANSI_HILITE, ANSI_GREEN, ANSI_BLUE, ANSI_NORMAL);
@@ -712,13 +712,13 @@ void CHSConsole::GiveGunneryReport(HS_DBREF player)
          pWeapon = m_weapon_array->GetNextWeapon(), idx++)
     {
         // Copy in the weapon name, and truncate it
-        strcpy(lpstrName, pWeapon->GetName());
+        strcpy_s(lpstrName, pWeapon->GetName());
         lpstrName[28] = '\0';
 
         // Print weapon info.  It's up to the weapon to
         // give us most of the info.  The ID of the weapon
         // is array notation + 1.
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%s [%2d] %-29s%-15s%-27s%s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                 idx + 1, lpstrName, pWeapon->GetStatus(),
@@ -727,10 +727,10 @@ void CHSConsole::GiveGunneryReport(HS_DBREF player)
     }
 
     // Give autoload status
-    sprintf(tbuf, "%s%s| %75s |%s", ANSI_HILITE, ANSI_BLUE, " ", ANSI_NORMAL);
+    sprintf_s(tbuf, "%s%s| %75s |%s", ANSI_HILITE, ANSI_BLUE, " ", ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sAutoloading:%s %-3s    %s%sAutorotate:%s %-3s %40s%s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             m_autoload ? "ON" : "OFF",
@@ -755,21 +755,21 @@ void CHSConsole::GiveGunneryReport(HS_DBREF player)
             {
                 bHeaderPrinted = true;
                 // Print missile bay header info
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "%s%s >---------------------------------------------------------------------------<%s",
                         ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
                 hsInterface.Notify(player, tbuf);
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "%s%s|%s                       %s+%s- Munitions Storage -%s%s+                               %s|%s",
                         ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                         ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
                         ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
                 hsInterface.Notify(player, tbuf);
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "%s%s|%77s|%s",
                         ANSI_HILITE, ANSI_BLUE, " ", ANSI_NORMAL);
                 hsInterface.Notify(player, tbuf);
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "%s%s| %s[%s%sID%s] Munitions Type                    Max      Remaining%19s%s|%s",
                         ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
                         ANSI_HILITE, ANSI_GREEN, " ", ANSI_BLUE, ANSI_NORMAL);
@@ -784,7 +784,7 @@ void CHSConsole::GiveGunneryReport(HS_DBREF player)
             if (pMissileData)
             {
                 // Give the information
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "%s%s|%s [%2d] %-34s%2d          %2d%23s%s%s|%s",
                         ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                         pMissileData->TypeID(), pMissileData->Name(),
@@ -798,7 +798,7 @@ void CHSConsole::GiveGunneryReport(HS_DBREF player)
     }
 
     // Finish off the report.
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`-----------------------------------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -1124,12 +1124,12 @@ void CHSConsole::DoCycle()
                 if (pWeapon->GetStatusChange() == STAT_READY)
                 {
                     if (pWeapon->Loadable())
-                        sprintf(tbuf, "%s%s[%s%s%d%s]%s - Weapon loaded.",
+                        sprintf_s(tbuf, "%s%s[%s%s%d%s]%s - Weapon loaded.",
                                 ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
                                 ANSI_HILITE, idx + 1, ANSI_GREEN,
                                 ANSI_NORMAL);
                     else
-                        sprintf(tbuf, "%s%s[%s%s%d%s]%s - Weapon ready.",
+                        sprintf_s(tbuf, "%s%s[%s%s%d%s]%s - Weapon ready.",
                                 ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
                                 ANSI_HILITE, idx + 1, ANSI_GREEN,
                                 ANSI_NORMAL);
@@ -1283,7 +1283,7 @@ void CHSConsole::ChangeHeading(HS_DBREF player, HS_INT32 iXY, HS_INT32 iZ)
     }
 
     HS_INT8 tbuf[128];
-    sprintf(tbuf, "Console heading changed to %d mark %d.", iXY, iZ);
+    sprintf_s(tbuf, "Console heading changed to %d mark %d.", iXY, iZ);
     hsStdError(player, tbuf);
 }
 
@@ -1556,7 +1556,7 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
     dDistance = Dist3D(sX, sY, sZ, tX, tY, tZ);
 
     // Print the header info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.----------------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -1567,13 +1567,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         id = cContact->m_id;
     }
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Target Info Report                              ID: %-4d %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, id,
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >--------------------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -1581,17 +1581,17 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
     // Is the target in the firing cone?
     if (IsInCone(m_target_lock))
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s|%s                       %s%s* IN CONE *                        %s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
                 ANSI_HILITE, ANSI_RED, ANSI_BLUE, ANSI_NORMAL);
     }
     else
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s| %56s |%s", ANSI_HILITE, ANSI_BLUE, " ", ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|                  ______________________                  |%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -1644,18 +1644,18 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
 
     HS_INT8 tbuf2[32];          // Used for printing out the target
 
-    strcpy(tbuf2, "                        ");
+    strcpy_s(tbuf2, "                        ");
     if (iVertLine == 0)
         tbuf2[iHorzSlot - 3] = 'X';
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|                /%s%s%s\\                |%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_RED, tbuf2, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    strcpy(tbuf2, "                            ");
+    strcpy_s(tbuf2, "                            ");
     if (iVertLine == 1)
         tbuf2[iHorzSlot - 1] = 'X';
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|              /%s%s%s\\              |%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_RED, tbuf2, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -1665,13 +1665,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
 
     if (iVertLine == 2)
     {
-        strcpy(tbuf2, "               -              ");
+        strcpy_s(tbuf2, "               -              ");
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
         {
             // Just print everything in red
             tbuf2[iHorzSlot] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sYou:        %s|%s%s%s| %sTarget:     %s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_GREEN,
                     ANSI_BLUE, ANSI_RED,
@@ -1681,13 +1681,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         {
             // Target red, crosshairs white.  We have
             // to split the line up into three pieces
-            strcpy(lbuf, "           ");
-            strcpy(rbuf, "          ");
+            strcpy_s(lbuf, "           ");
+            strcpy_s(rbuf, "          ");
             if (iHorzSlot < 11)
                 lbuf[iHorzSlot] = 'X';
             else
                 rbuf[iHorzSlot - 20] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sYou:        %s|%s%s%s    -    %s%s%s| %sTarget:     %s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_GREEN,
                     ANSI_BLUE, ANSI_RED,
@@ -1701,13 +1701,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         // Print all in red or all in white
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sYou:        %s|%s               -              %s| %sTarget:     %s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_GREEN,
                     ANSI_BLUE, ANSI_RED,
                     ANSI_BLUE, ANSI_GREEN, ANSI_BLUE, ANSI_NORMAL);
         else
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sYou:        %s|%s               -              %s| %sTarget:     %s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_GREEN,
                     ANSI_BLUE, ANSI_WHITE,
@@ -1724,13 +1724,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
 
     if (iVertLine == 3)
     {
-        strcpy(tbuf2, "              ---             ");
+        strcpy_s(tbuf2, "              ---             ");
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
         {
             // Just print everything in red
             tbuf2[iHorzSlot] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sH:%s %3dm%-3d  %s%s|%s%s%s| %sH:%s %3dm%-3d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     m_xyheading, m_zheading,
@@ -1744,13 +1744,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         {
             // Target red, crosshairs white.  We have
             // to split the line up into three pieces
-            strcpy(lbuf, "           ");
-            strcpy(rbuf, "          ");
+            strcpy_s(lbuf, "           ");
+            strcpy_s(rbuf, "          ");
             if (iHorzSlot < 11)
                 lbuf[iHorzSlot] = 'X';
             else
                 rbuf[iHorzSlot - 20] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sH:%s %3dm%-3d  %s%s|%s%s%s   ---   %s%s%s| %sH:%s %3dm%-3d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     m_xyheading, m_zheading,
@@ -1767,7 +1767,7 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         // Print all in red or all in white
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sH:%s %3dm%-3d  %s%s|%s              ---             %s| %sH:%s %3dm%-3d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     m_xyheading, m_zheading,
@@ -1776,7 +1776,7 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
                     tXYHeading, tZHeading,
                     ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         else
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sH:%s %3dm%-3d  %s%s|%s              ---             %s| %sH:%s %3dm%-3d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     m_xyheading, m_zheading,
@@ -1789,13 +1789,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
 
     if (iVertLine == 4)
     {
-        strcpy(tbuf2, "           ( ( + ) )          ");
+        strcpy_s(tbuf2, "           ( ( + ) )          ");
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
         {
             // Just print everything in red
             tbuf2[iHorzSlot] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sV:%s %-7d  %s%s|%s%s%s| %sV:%s %-7d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     m_ownerObj->GetSpeed(),
@@ -1809,13 +1809,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         {
             // Target red, crosshairs white.  We have
             // to split the line up into three pieces
-            strcpy(lbuf, "           ");
-            strcpy(rbuf, "          ");
+            strcpy_s(lbuf, "           ");
+            strcpy_s(rbuf, "          ");
             if (iHorzSlot < 11)
                 lbuf[iHorzSlot] = 'X';
             else
                 rbuf[iHorzSlot - 20] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sV:%s %-7d  %s%s|%s%s%s( ( + ) )%s%s%s| %sV:%s %-7d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     m_ownerObj->GetSpeed(),
@@ -1832,7 +1832,7 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         // Print all in red or all in white
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sV:%s %-7d  %s%s|%s           ( ( + ) )          %s| %sV:%s %-7d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     m_ownerObj->GetSpeed(),
@@ -1841,7 +1841,7 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
                     m_target_lock->GetSpeed(),
                     ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         else
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s| %sV:%s %-7d  %s%s|%s           ( ( + ) )          %s| %sV:%s %-7d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     m_ownerObj->GetSpeed(),
@@ -1854,13 +1854,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
 
     if (iVertLine == 5)
     {
-        strcpy(tbuf2, "              ___             ");
+        strcpy_s(tbuf2, "              ___             ");
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
         {
             // Just print everything in red
             tbuf2[iHorzSlot] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|             |%s%s%s| %sR:%s %-5.0f    %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE,
                     ANSI_RED,
@@ -1872,13 +1872,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         {
             // Target red, crosshairs white.  We have
             // to split the line up into three pieces
-            strcpy(lbuf, "           ");
-            strcpy(rbuf, "          ");
+            strcpy_s(lbuf, "           ");
+            strcpy_s(rbuf, "          ");
             if (iHorzSlot < 11)
                 lbuf[iHorzSlot] = 'X';
             else
                 rbuf[iHorzSlot - 20] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|             |%s%s%s   ___   %s%s%s| %sR:%s %-5.0f    %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_RED,
                     lbuf,
@@ -1892,13 +1892,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         // Print all in red or all in white
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|             |%s              ___             %s| %sR:%s %-5.0f    %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_RED,
                     ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     dDistance, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         else
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|             |%s              ___             %s| %sR:%s %-5.0f    %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE,
                     ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
@@ -1908,13 +1908,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
 
     if (iVertLine == 6)
     {
-        strcpy(tbuf2, "               _              ");
+        strcpy_s(tbuf2, "               _              ");
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
         {
             // Just print everything in red
             tbuf2[iHorzSlot] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|             |%s%s%s| %sB:%s %3dm%-3d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE,
                     ANSI_RED,
@@ -1926,13 +1926,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         {
             // Target red, crosshairs white.  We have
             // to split the line up into three pieces
-            strcpy(lbuf, "           ");
-            strcpy(rbuf, "          ");
+            strcpy_s(lbuf, "           ");
+            strcpy_s(rbuf, "          ");
             if (iHorzSlot < 11)
                 lbuf[iHorzSlot] = 'X';
             else
                 rbuf[iHorzSlot - 20] = 'X';
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|             |%s%s%s    _    %s%s%s| %sB:%s %3dm%-3d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_RED,
                     lbuf,
@@ -1947,13 +1947,13 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
         // Print all in red or all in white
         if (iHorzSlot > 10 && iHorzSlot < 20 &&
             iVertLine > 1 && iVertLine < 7)
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|             |%s               _              %s| %sB:%s %3dm%-3d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_RED,
                     ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
                     iXYAngle, iZAngle, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         else
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s|             |%s               _              %s| %sB:%s %3dm%-3d  %s%s|%s",
                     ANSI_HILITE, ANSI_BLUE, ANSI_WHITE,
                     ANSI_BLUE, ANSI_WHITE, ANSI_NORMAL,
@@ -1961,23 +1961,23 @@ void CHSConsole::GiveTargetReport(HS_DBREF player)
     }
     hsInterface.Notify(player, tbuf);
 
-    strcpy(tbuf2, "                              ");
+    strcpy_s(tbuf2, "                              ");
     if (iVertLine == 7)
         tbuf2[iHorzSlot] = 'X';
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|             |%s%s%s|             |%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_RED, tbuf2, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    strcpy(tbuf2, "                            ");
+    strcpy_s(tbuf2, "                            ");
     if (iVertLine == 8)
         tbuf2[iHorzSlot - 1] = 'X';
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|              \\%s%s%s/              |%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_RED, tbuf2, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`---------------\\\\.______________________.//---------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
@@ -2257,7 +2257,7 @@ void CHSConsole::WriteMessageTypeAttrs()
     {
         if (m_msgtypes[idx] == HSNOTHING)
             continue;
-        snprintf(tbuf, 79, "HSDB_MSGTYPE_%d", idx);
+        _snprintf_s(tbuf, 79, "HSDB_MSGTYPE_%d", idx);
         hsInterface.AtrAdd(m_objnum, tbuf,
                            hsInterface.HSPrintf("%d", m_msgtypes[idx]),
                            hsInterface.GetGodDbref(), AF_MDARK | AF_WIZARD);
@@ -2298,11 +2298,11 @@ void CHSConsole::WriteWeaponAttr()
              pWeapon = m_weapon_array->GetNextWeapon())
         {
             if (!*tbuf)
-                sprintf(tbuf2, "%d", pWeapon->GetData()->TypeID());
+                sprintf_s(tbuf2, "%d", pWeapon->GetData()->TypeID());
             else
-                sprintf(tbuf2, " %d", pWeapon->GetData()->TypeID());
+                sprintf_s(tbuf2, " %d", pWeapon->GetData()->TypeID());
 
-            strcat(tbuf, tbuf2);
+            strcat_s(tbuf, tbuf2);
 
         }
         hsInterface.AtrAdd(m_objnum, "HSDB_WEAPONS",

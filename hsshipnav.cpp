@@ -95,7 +95,7 @@ void CHSShip::SetVelocity(HS_DBREF player, int iVel)
     iMaxVelocity = cEngines->GetMaxVelocity();
     if ((iVel > iMaxVelocity) || (iVel < (-1 * (iMaxVelocity / 2.0))))
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "Specified velocity must range from %d to %d.",
                 (int) (-1 * (iMaxVelocity / 2.0)), iMaxVelocity);
         hsStdError(player, tbuf);
@@ -104,7 +104,7 @@ void CHSShip::SetVelocity(HS_DBREF player, int iVel)
 
     if (cEngines->SetDesiredSpeed(iVel))
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "Desired velocity now set to %d %cph.", iVel,
                 HSCONF.unit_name[0]);
         hsStdError(player, tbuf);
@@ -127,7 +127,7 @@ void CHSShip::SetVelocity(HS_DBREF player, int iVel)
             cHatch = GetHatch(idx);
             if (cHatch != NULL)
             {
-                // break connection, idx must be 1 greater due to the 
+                // break connection, idx must be 1 greater due to the
                 // mechanism in DoBreakBoardLink
                 if (cHatch->TargetObject() != HSNOTHING)
                     DoBreakBoardLink(player, idx + 1);
@@ -136,7 +136,7 @@ void CHSShip::SetVelocity(HS_DBREF player, int iVel)
     }
 
     /*
-     * Give some effects messages 
+     * Give some effects messages
      */
     if ((iVel > 0) && (dCurrentSpeed < 0))
     {
@@ -258,7 +258,7 @@ void CHSShip::SetHeading(HS_DBREF player, int iXYAngle, int iZAngle)
 
     char tbuf[256];
 
-    sprintf(tbuf, "Course heading changed to %d mark %d.", iXYAngle, iZAngle);
+    sprintf_s(tbuf, "Course heading changed to %d mark %d.", iXYAngle, iZAngle);
     hsStdError(player, tbuf);
 
     //  increase_training(player, tship, .01);
@@ -585,7 +585,7 @@ void CHSShip::Travel(void)
     else
         dCurrentSpeed = cEngines->GetCurrentSpeed();
     /*
-     * Speed is measured in Hetramere per hour 
+     * Speed is measured in Hetramere per hour
      */
     if (dCurrentSpeed || m_warpengaged)
     {
@@ -596,13 +596,13 @@ void CHSShip::Travel(void)
         oldy = m_y;
         oldz = m_z;
 
-        // Bring speed down to the unit per second level 
+        // Bring speed down to the unit per second level
         // The .0002778 is actually 1/3600.0 precomputed
         // to save time.
         speed = (dCurrentSpeed) * (.0002778 * HSCONF.cyc_interval);
 
         /*
-         * If the ship is jumping, everything is accelerated 
+         * If the ship is jumping, everything is accelerated
          */
         if (m_hyperspace)
         {
@@ -621,10 +621,10 @@ void CHSShip::Travel(void)
 
         if(true == m_warpengaged)
         {
-            CHSWarpDrive* cWarp = (CHSWarpDrive*) 
+            CHSWarpDrive* cWarp = (CHSWarpDrive*)
                 m_systems.GetSystem(HSS_WARP_DRIVE);
 
-            HS_FLOAT32 warp_speed = cWarp->CalculateSpeed() * 
+            HS_FLOAT32 warp_speed = cWarp->CalculateSpeed() *
                 (.0002778 * HSCONF.cyc_interval);
 
             // If warp speed is less than the current sublight speed,
@@ -832,7 +832,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
                 charcolors[tdx][0] = filler;
 
                 charcolors[tdx][1] = '\0';
-                strcat(charcolors[tdx], cObj->GetObjectColor());
+                strcat_s(charcolors[tdx], cObj->GetObjectColor());
                 charcolors[tdx + 1][0] = '\0';
             }
 
@@ -902,13 +902,13 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
 
     // Now print the display.
     char tbuf2[256];
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.---------------------------------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf2, "%s (%s)", GetName(), m_ident ? m_ident : "--");
-    sprintf(tbuf, "%s%s|%s %-29s %s%s|%s %40s  %s%s|%s",
+    sprintf_s(tbuf2, "%s (%s)", GetName(), m_ident ? m_ident : "--");
+    sprintf_s(tbuf, "%s%s|%s %-29s %s%s|%s %40s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             tbuf2,
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
@@ -916,7 +916,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >---%sNavigation Status Report%s---%s+%s------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_WHITE, ANSI_BLUE,
             ANSI_WHITE, ANSI_BLUE, ANSI_NORMAL);
@@ -926,18 +926,18 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
     char tnum2[32];
     char tnum3[32];
     if (x1 < 10)
-        sprintf(tnum1, " %d ", x1);
+        sprintf_s(tnum1, " %d ", x1);
     else
-        sprintf(tnum1, "%-3d", x1);
+        sprintf_s(tnum1, "%-3d", x1);
     if (x2 < 10)
-        sprintf(tnum2, " %d ", x2);
+        sprintf_s(tnum2, " %d ", x2);
     else
-        sprintf(tnum2, "%3d", x2);
+        sprintf_s(tnum2, "%3d", x2);
     if (x3 < 10)
-        sprintf(tnum3, " %d ", x3);
+        sprintf_s(tnum3, " %d ", x3);
     else
-        sprintf(tnum3, "%3d", x3);
-    sprintf(tbuf,
+        sprintf_s(tnum3, "%3d", x3);
+    sprintf_s(tbuf,
             "%s%s|%s                   %s        %s        %s     %s%s| %sX:%s %10.0f           %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             tnum1, tnum2, tnum3,
@@ -945,7 +945,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
             m_x, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s %4d%s%s__             |____%s%s.%s_____|_____%s%s.%s____|      %s| %sY:%s %10.0f           %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             z1,
@@ -956,10 +956,10 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
     hsInterface.Notify(player, tbuf);
 
     if (m_current_xyheading < 10)
-        sprintf(tnum1, " %d ", m_current_xyheading);
+        sprintf_s(tnum1, " %d ", m_current_xyheading);
     else
-        sprintf(tnum1, "%3d", m_current_xyheading);
-    sprintf(tbuf,
+        sprintf_s(tnum1, "%3d", m_current_xyheading);
+    sprintf_s(tbuf,
             "%s%s|       %s|%s                    > %s <              %s%s| %sZ:%s %10.0f           %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             tnum1,
@@ -967,7 +967,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
             m_z, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s      %s-%s|          %s___________________________    |%s %s+%s- Course -%s%s+            %s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             ANSI_HILITE, ANSI_GREEN, ANSI_BLUE, ANSI_NORMAL,
@@ -996,16 +996,16 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
                 }
             }
             if (ptr)
-                sprintf(tbuf3, "%s%c%s", ptr, mLine1[idx], ANSI_NORMAL);
+                sprintf_s(tbuf3, "%s%c%s", ptr, mLine1[idx], ANSI_NORMAL);
             else
-                sprintf(tbuf3,
+                sprintf_s(tbuf3,
                         "%s%c%s", ANSI_HILITE, mLine1[idx], ANSI_NORMAL);
         }
         else
-            sprintf(tbuf3, " ");
-        strcat(tbuf2, tbuf3);
+            sprintf_s(tbuf3, " ");
+        strcat_s(tbuf2, tbuf3);
     }
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s %4d%s%s-->%s %-3d    %s%s/%s%s%s%s\\  | %sC:%s %3d/%-3d  %s%sD:%s %3d/%-3d  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             z2,
@@ -1039,18 +1039,18 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
                 }
             }
             if (ptr)
-                sprintf(tnum1, "%s%c%s", ptr, mLine2[idx], ANSI_NORMAL);
+                sprintf_s(tnum1, "%s%c%s", ptr, mLine2[idx], ANSI_NORMAL);
             else
-                sprintf(tnum1,
+                sprintf_s(tnum1,
                         "%s%c%s", ANSI_HILITE, mLine2[idx], ANSI_NORMAL);
         }
         else
-            sprintf(tnum1, " ");
-        strcat(tbuf3, tnum1);
+            sprintf_s(tnum1, " ");
+        strcat_s(tbuf3, tnum1);
     }
     if (cEngines && cEngines->CanBurn())
     {
-        sprintf(tbuf2, "%.0f/%s%.0f%s (%.0f)",
+        sprintf_s(tbuf2, "%.0f/%s%.0f%s (%.0f)",
                 cEngines ? cEngines->GetCurrentSpeed() : 0.0,
                 cEngines->GetAfterburning()? "*" : "",
                 cEngines ? cEngines->GetDesiredSpeed() : 0.0,
@@ -1059,7 +1059,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
     }
     else
     {
-        sprintf(tbuf2, "%.0f/%.0f (%.0f)",
+        sprintf_s(tbuf2, "%.0f/%.0f (%.0f)",
                 cEngines ? cEngines->GetCurrentSpeed() : 0.0,
                 cEngines ? cEngines->GetDesiredSpeed() : 0.0,
                 cEngines ? cEngines->GetMaxVelocity() : 0.0);
@@ -1069,9 +1069,9 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
     // change display if we are in warp
     if(m_warpengaged)
     {
-        CHSWarpDrive* cWarp = (CHSWarpDrive*) 
+        CHSWarpDrive* cWarp = (CHSWarpDrive*)
             m_systems.GetSystem(HSS_WARP_DRIVE);
-        sprintf(tbuf2, "%.2e %s%sW:%s %.1f/%.1f  ",
+        sprintf_s(tbuf2, "%.2e %s%sW:%s %.1f/%.1f  ",
                 cWarp->CalculateSpeed(),
                 ANSI_HILITE,ANSI_GREEN,ANSI_NORMAL,
                 cWarp->GetCurrentWarp(),
@@ -1090,7 +1090,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
         // if this ship has it's own jump engine
         if (cJumpers)
         {
-            sprintf(tbuf2, "%.2e %s%s-Hyperspace%s ",
+            sprintf_s(tbuf2, "%.2e %s%s-Hyperspace%s ",
             (speed *= cJumpers->GetJumpSpeedMultiplier()),
             ANSI_HILITE,ANSI_GREEN,ANSI_NORMAL
             );
@@ -1098,7 +1098,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
         else
         // ship used a jump beacon to get into hyperspace
         {
-            sprintf(tbuf2, "%.2e %s%s[Gate]%s      ",
+            sprintf_s(tbuf2, "%.2e %s%s[Gate]%s      ",
             (speed *= HSCONF.jump_speed_multiplier),
             ANSI_HILITE,ANSI_GREEN,ANSI_NORMAL
             );
@@ -1106,7 +1106,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
 
     }
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s      %s-%s|%s      %s%s/%s%s%s%s\\| %sV:%s %-21s%s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
@@ -1133,16 +1133,16 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
                 }
             }
             if (ptr)
-                sprintf(tnum1, "%s%c%s", ptr, mLine3[idx], ANSI_NORMAL);
+                sprintf_s(tnum1, "%s%c%s", ptr, mLine3[idx], ANSI_NORMAL);
             else
-                sprintf(tnum1,
+                sprintf_s(tnum1,
                         "%s%c%s", ANSI_HILITE, mLine3[idx], ANSI_NORMAL);
         }
         else
-            sprintf(tnum1, " ");
-        strcat(tbuf3, tnum1);
+            sprintf_s(tnum1, " ");
+        strcat_s(tbuf3, tnum1);
     }
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|     %s__|     %s|%s%s%s%s|                         |%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_BLUE, ANSI_NORMAL,
             tbuf3, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -1166,22 +1166,22 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
                 }
             }
             if (ptr)
-                sprintf(tnum1, "%s%c%s", ptr, mLine4[idx], ANSI_NORMAL);
+                sprintf_s(tnum1, "%s%c%s", ptr, mLine4[idx], ANSI_NORMAL);
             else
-                sprintf(tnum1,
+                sprintf_s(tnum1,
                         "%s%c%s", ANSI_HILITE, mLine4[idx], ANSI_NORMAL);
         }
         else
-            sprintf(tnum1, " ");
-        strcat(tbuf3, tnum1);
+            sprintf_s(tnum1, " ");
+        strcat_s(tbuf3, tnum1);
     }
 
     cShield = (CHSSysShield *) m_systems.GetSystem(HSS_FORE_SHIELD);
     if (!cShield)
-        strcpy(tnum1, "  * ");
+        strcpy_s(tnum1, "  * ");
     else
-        sprintf(tnum1, "%.0f%%", cShield->GetShieldPerc());
-    sprintf(tbuf,
+        sprintf_s(tnum1, "%.0f%%", cShield->GetShieldPerc());
+    sprintf_s(tbuf,
             "%s%s|%s %4d        %s%s|%s%s%s%s| %sShields%s  %4s           %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL,
             z3,
@@ -1196,7 +1196,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
     for (idx = 0; mLine5[idx]; idx++)
     {
         if (idx == 17)
-            sprintf(tnum1, "%s+%s", ANSI_HILITE, ANSI_NORMAL);
+            sprintf_s(tnum1, "%s+%s", ANSI_HILITE, ANSI_NORMAL);
         else if (mLine5[idx] != ' ')
         {
             // Find the character type and color
@@ -1211,16 +1211,16 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
                 }
             }
             if (ptr)
-                sprintf(tnum1, "%s%c%s", ptr, mLine5[idx], ANSI_NORMAL);
+                sprintf_s(tnum1, "%s%c%s", ptr, mLine5[idx], ANSI_NORMAL);
             else
-                sprintf(tnum1,
+                sprintf_s(tnum1,
                         "%s%c%s", ANSI_HILITE, mLine5[idx], ANSI_NORMAL);
         }
         else
-            sprintf(tnum1, " ");
-        strcat(tbuf3, tnum1);
+            sprintf_s(tnum1, " ");
+        strcat_s(tbuf3, tnum1);
     }
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|             |%s%s%s%s|%s            |            %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, tbuf3, ANSI_HILITE,
             ANSI_BLUE, ANSI_NORMAL, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
@@ -1244,32 +1244,32 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
                 }
             }
             if (ptr)
-                sprintf(tnum1, "%s%c%s", ptr, mLine6[idx], ANSI_NORMAL);
+                sprintf_s(tnum1, "%s%c%s", ptr, mLine6[idx], ANSI_NORMAL);
             else
-                sprintf(tnum1,
+                sprintf_s(tnum1,
                         "%s%c%s", ANSI_HILITE, mLine6[idx], ANSI_NORMAL);
         }
         else
-            sprintf(tnum1, " ");
-        strcat(tbuf3, tnum1);
+            sprintf_s(tnum1, " ");
+        strcat_s(tbuf3, tnum1);
     }
 
     cShield = (CHSSysShield *) m_systems.GetSystem(HSS_PORT_SHIELD);
     if (cShield)
-        sprintf(tnum1, "%.0f%%", cShield->GetShieldPerc());
+        sprintf_s(tnum1, "%.0f%%", cShield->GetShieldPerc());
     else
-        strcpy(tnum1, "   *");
+        strcpy_s(tnum1, "   *");
 
     cShield = (CHSSysShield *) m_systems.GetSystem(HSS_STARBOARD_SHIELD);
     if (cShield)
-        sprintf(tnum2, "%.0f%%", cShield->GetShieldPerc());
+        sprintf_s(tnum2, "%.0f%%", cShield->GetShieldPerc());
     else
-        strcpy(tnum2, "*   ");
+        strcpy_s(tnum2, "*   ");
 
     double perc;
     perc = GetMaxHullPoints();
     perc = 100 * (GetHullPoints() / perc);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sHP:%s %3.0f%%    %s%s|%s%s%s%s|%s      %4s -%s+%s- %-4s      %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             perc,
@@ -1298,17 +1298,17 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
                 }
             }
             if (ptr)
-                sprintf(tnum1, "%s%c%s", ptr, mLine7[idx], ANSI_NORMAL);
+                sprintf_s(tnum1, "%s%c%s", ptr, mLine7[idx], ANSI_NORMAL);
             else
-                sprintf(tnum1,
+                sprintf_s(tnum1,
                         "%s%c%s", ANSI_HILITE, mLine7[idx], ANSI_NORMAL);
         }
         else
-            sprintf(tnum1, " ");
-        strcat(tbuf3, tnum1);
+            sprintf_s(tnum1, " ");
+        strcat_s(tbuf3, tnum1);
     }
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s| %sMR:%s %-8d%s%s|%s%s%s%s|%s            |            %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL,
             m_map_range,
@@ -1336,22 +1336,22 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
                 }
             }
             if (ptr)
-                sprintf(tnum1, "%s%c%s", ptr, mLine8[idx], ANSI_NORMAL);
+                sprintf_s(tnum1, "%s%c%s", ptr, mLine8[idx], ANSI_NORMAL);
             else
-                sprintf(tnum1,
+                sprintf_s(tnum1,
                         "%s%c%s", ANSI_HILITE, mLine8[idx], ANSI_NORMAL);
         }
         else
-            sprintf(tnum1, " ");
-        strcat(tbuf3, tnum1);
+            sprintf_s(tnum1, " ");
+        strcat_s(tbuf3, tnum1);
     }
 
     cShield = (CHSSysShield *) m_systems.GetSystem(HSS_AFT_SHIELD);
     if (!cShield)
-        strcpy(tnum1, "  * ");
+        strcpy_s(tnum1, "  * ");
     else
-        sprintf(tnum1, "%.0f%%", cShield->GetShieldPerc());
-    sprintf(tbuf,
+        sprintf_s(tnum1, "%.0f%%", cShield->GetShieldPerc());
+    sprintf_s(tbuf,
             "%s%s| %s             %s\\%s%s%s%s/%s           %4s           %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN,
             ANSI_BLUE, ANSI_NORMAL,
@@ -1360,7 +1360,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
             tnum1, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`---------------\\\\.___________________________.//--------------------------`%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
 
@@ -1369,7 +1369,7 @@ void CHSShip::GiveNavigationStatus(HS_DBREF player)
 
 // Sets the map range of the ship to a given distance.
 // This distance is like a scale.  It specifies, basically,
-// a clipping region such that objects further than this 
+// a clipping region such that objects further than this
 // distance are not included in the map.  At the same time,
 // it maps objects within the clipping range to the map
 // on the navigation display.
@@ -1388,7 +1388,7 @@ HS_BOOL8 CHSShip::SetMapRange(HS_DBREF player, int range)
     return true;
 }
 
-// Attempts to land the ship in another ship or on a 
+// Attempts to land the ship in another ship or on a
 // celestial surface.
 void CHSShip::LandVessel(HS_DBREF player, int id,
                          const HS_INT8 * pcLocation, char *lpstrCode)
@@ -1427,7 +1427,7 @@ void CHSShip::LandVessel(HS_DBREF player, int id,
     cContact = cSensors->GetContactByID(id);
     if (!cContact)
     {
-        sprintf(tbuf, "%s%s[%s%4d%s%s]%s - No such contact on sensors.",
+        sprintf_s(tbuf, "%s%s[%s%4d%s%s]%s - No such contact on sensors.",
                 ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
                 id, ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
@@ -1454,7 +1454,7 @@ void CHSShip::LandVessel(HS_DBREF player, int id,
     tType = cObj->GetType();
     if (tType != HST_SHIP && tType != HST_PLANET)
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s[%s%4d%s%s]%s - Cannot land on that type of object.",
                 ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
                 id, ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
@@ -1490,7 +1490,7 @@ void CHSShip::LandVessel(HS_DBREF player, int id,
                        cObj->GetX(), cObj->GetY(), cObj->GetZ());
         if (dDist > HSCONF.max_dock_dist)
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "Location must be within %d %s to commence docking.",
                     HSCONF.max_dock_dist, HSCONF.unit_name);
             hsStdError(player, tbuf);
@@ -1536,7 +1536,7 @@ void CHSShip::LandVessel(HS_DBREF player, int id,
                        cObj->GetX(), cObj->GetY(), cObj->GetZ());
         if (dDist > HSCONF.max_drop_dist)
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "Location must be within %d %s to commence landing.",
                     HSCONF.max_drop_dist, HSCONF.unit_name);
             hsStdError(player, tbuf);
@@ -1546,7 +1546,7 @@ void CHSShip::LandVessel(HS_DBREF player, int id,
         // Are we too fast to land?
         if (cEngines && cEngines->GetCurrentSpeed() > HSCONF.max_land_speed)
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "Must be traveling at less than %d %s to commence landing.",
                     HSCONF.max_land_speed, HSCONF.unit_name);
             hsStdError(player, tbuf);
@@ -1565,7 +1565,7 @@ void CHSShip::LandVessel(HS_DBREF player, int id,
         else
         {
             cLocation = cPlanet->GetLandingLoc(atoi(pcLocation) - 1);
-            // If the location exists, but is not visible and was accessed by 
+            // If the location exists, but is not visible and was accessed by
             // number, just report that it doesn't exist.
             if (cLocation && !cLocation->IsVisible())
             {
@@ -1659,19 +1659,19 @@ void CHSShip::InitLanding(HS_DBREF player, SENSOR_CONTACT * cContact,
         cShip = (CHSShip *) cObj;
 
         // Give some messages
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s[%s%s%d%s%s]%s - Docking request accepted .. beginning docking procedures.",
                 cObj->GetObjectColor(), ANSI_NORMAL,
                 ANSI_HILITE, cContact->m_id, ANSI_NORMAL,
                 cObj->GetObjectColor(), ANSI_NORMAL);
         NotifyConsoles(tbuf, MSG_GENERAL);
 
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "The %s is beginning docking procedures at this location.",
                 GetName());
         cShip->HandleMessage(tbuf, MSG_SENSOR, (long *) this);
 
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "In the distance, the %s begins docking with the %s.",
                 GetName(), cShip->GetName());
 
@@ -1679,7 +1679,7 @@ void CHSShip::InitLanding(HS_DBREF player, SENSOR_CONTACT * cContact,
             uDest->SendContactMessage(tbuf, IDENTIFIED, this);
 
         // Set the dock status to 8, which is the number
-        // of seconds it takes to dock.  Undocking is a 
+        // of seconds it takes to dock.  Undocking is a
         // negative number, so sign matters!
         m_dock_status = 8;
         m_docked = false;
@@ -1688,7 +1688,7 @@ void CHSShip::InitLanding(HS_DBREF player, SENSOR_CONTACT * cContact,
 
     case HST_PLANET:
         // Give some messages
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s-%s Beginning descent to the surface of %s ...",
                 cObj->GetObjectColor(), ANSI_NORMAL, cObj->GetName());
         NotifyConsoles(tbuf, MSG_GENERAL);
@@ -1706,7 +1706,7 @@ void CHSShip::InitLanding(HS_DBREF player, SENSOR_CONTACT * cContact,
             NotifySrooms(HSCONF.begin_descent);
         }
 
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "In the distance, the %s begins its descent toward the surface of %s.",
                 GetName(), cObj->GetName());
 
@@ -1797,18 +1797,18 @@ void CHSShip::HandleLanding()
             }
             else
             {
-                sprintf(tbuf, "%s%s-%s Shield check ...", ANSI_HILITE,
+                sprintf_s(tbuf, "%s%s-%s Shield check ...", ANSI_HILITE,
                         ANSI_GREEN, ANSI_NORMAL);
                 NotifyConsoles(tbuf, MSG_GENERAL);
                 if (bShieldsUp)
                 {
-                    sprintf(tbuf, "  %s%s-%s lowering shields ...",
+                    sprintf_s(tbuf, "  %s%s-%s lowering shields ...",
                             ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
                     NotifyConsoles(tbuf, MSG_GENERAL);
                 }
                 else
                 {
-                    sprintf(tbuf, "  %s%s-%s shields down.", ANSI_HILITE,
+                    sprintf_s(tbuf, "  %s%s-%s shields down.", ANSI_HILITE,
                             ANSI_GREEN, ANSI_NORMAL);
                     NotifyConsoles(tbuf, MSG_GENERAL);
                 }
@@ -1825,13 +1825,13 @@ void CHSShip::HandleLanding()
             }
             else
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "Through the bay doors, the %s comes in and docks.",
                         GetName());
                 m_landing_target->HandleMessage(tbuf, MSG_GENERAL);
             }
 
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "The %s pushes forward as it glides in and docks.",
                     GetName());
             NotifyConsoles(tbuf, MSG_GENERAL);
@@ -1871,7 +1871,7 @@ void CHSShip::HandleLanding()
         {
             CHSSysSensors *cSensors;
 
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-%s Surface contact in %d seconds ...",
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL, iHalfMarker);
             NotifyConsoles(tbuf, MSG_GENERAL);
@@ -1886,7 +1886,7 @@ void CHSShip::HandleLanding()
             }
             else
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "In the sky above, a d)ropship comes into view as it descends toward the surface.");
                 m_landing_target->HandleMessage(tbuf, MSG_GENERAL);
 
@@ -1933,7 +1933,7 @@ void CHSShip::HandleLanding()
             else
             {
 
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "You take a step back as the %s fires its drop rockets and lands before you.",
                         GetName());
                 m_landing_target->HandleMessage(tbuf, MSG_GENERAL);
@@ -2056,13 +2056,13 @@ void CHSShip::UndockVessel(HS_DBREF player)
 
         cShip = (CHSShip *) cObj;
 
-        sprintf(tbuf, "The %s is undocking from this location.", GetName());
+        sprintf_s(tbuf, "The %s is undocking from this location.", GetName());
         cShip->HandleMessage(tbuf, MSG_SENSOR, (long *) this);
 
 
         // Takes 15 seconds to undock, so set that variable.
         m_dock_status = -15;
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s-%s Undocking .. systems check initiating ...",
                 ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
         NotifyConsoles(tbuf, MSG_GENERAL);
@@ -2071,14 +2071,14 @@ void CHSShip::UndockVessel(HS_DBREF player)
     {
         // Set the lift off time plus 5 seconds systems check
         m_drop_status = -(HSCONF.seconds_to_drop) - 5;
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s-%s Commencing lift off procedures ...",
                 ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
         NotifyConsoles(tbuf, MSG_GENERAL);
         // We don't really need 4 messages output to the location of
         // departure.  Skip this one.
         //
-        //sprintf(tbuf,
+        //sprintf_s(tbuf,
         //      "Smoke begins to trickle from the lift rockets of the %s ...",
         //      GetName());
         //hsInterface.NotifyContents(dbRoom, tbuf);
@@ -2113,7 +2113,7 @@ void CHSShip::HandleUndocking(void)
         case -13:              // Hull check
             dVal = GetMaxHullPoints();
             dVal = 100 * (GetHullPoints() / dVal);
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "  %s%s-%s Hull at %.0f%% integrity ...",
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL, dVal);
             NotifyConsoles(tbuf, MSG_GENERAL);
@@ -2123,14 +2123,14 @@ void CHSShip::HandleUndocking(void)
             CHSReactor * cReactor;
             cReactor = (CHSReactor *) m_systems.GetSystem(HSS_REACTOR);
             if (!cReactor)
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "  %s%s-%s Reactor not present .. ?",
                         ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
             else
             {
                 dVal = cReactor->GetMaximumOutput(false);
                 dVal = 100 * cReactor->GetOutput() / dVal;
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "  %s%s-%s Reactor online at %.0f%% power ...",
                         ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL, dVal);
             }
@@ -2143,13 +2143,13 @@ void CHSShip::HandleUndocking(void)
             cLife =
                 (CHSSysLifeSupport *) m_systems.GetSystem(HSS_LIFE_SUPPORT);
             if (!cLife || !cLife->GetCurrentPower())
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "  %s%s%s*%s %s%sWARNING%s %s%s%s*%s Life support systems are not online.",
                         ANSI_HILITE, ANSI_BLINK, ANSI_YELLOW, ANSI_NORMAL,
                         ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL,
                         ANSI_HILITE, ANSI_BLINK, ANSI_YELLOW, ANSI_NORMAL);
             else
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "  %s%s-%s Life support systems -- online.",
                         ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
             NotifyConsoles(tbuf, MSG_GENERAL);
@@ -2159,14 +2159,14 @@ void CHSShip::HandleUndocking(void)
             CHSSysEngines * cEngines;
             cEngines = (CHSSysEngines *) m_systems.GetSystem(HSS_ENGINES);
             if (!cEngines)
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "  %s%s-%s Engines not present .. ?",
                         ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
             else
             {
                 dVal = cEngines->GetOptimalPower(false);
                 dVal = 100 * cEngines->GetCurrentPower() / dVal;
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "  %s%s-%s Engines online at %.0f%% power ...",
                         ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL, dVal);
             }
@@ -2174,7 +2174,7 @@ void CHSShip::HandleUndocking(void)
             break;
 
         case -2:               // Bay doors open
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "\nThe bay doors begin to slide open as the %s prepares for departure ...\n",
                     GetName());
             NotifyConsoles(tbuf, MSG_GENERAL);
@@ -2187,7 +2187,7 @@ void CHSShip::HandleUndocking(void)
             }
             else
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "The bay doors begin to slide open as the %s prerares for departure ...",
                         GetName());
                 hsInterface.NotifyContents(m_landing_target->Object(), tbuf);
@@ -2195,7 +2195,7 @@ void CHSShip::HandleUndocking(void)
             break;
 
         case 0:
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "You feel a sudden lift as the %s glides forth from the docking bay.",
                     GetName());
             NotifySrooms(tbuf);
@@ -2208,7 +2208,7 @@ void CHSShip::HandleUndocking(void)
             }
             else
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "The %s fires its engines as it departs through the docking bay doors.",
                         GetName());
                 hsInterface.NotifyContents(m_landing_target->Object(), tbuf);
@@ -2225,7 +2225,7 @@ void CHSShip::HandleUndocking(void)
                 m_x = cUndockingFrom->GetX();
                 m_y = cUndockingFrom->GetY();
                 m_z = cUndockingFrom->GetZ();
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "In the distance, the %s undocks from the %s.",
                         GetName(), cUndockingFrom->GetName());
                 if (uDest)
@@ -2289,7 +2289,7 @@ void CHSShip::HandleUndocking(void)
                 (CHSSysLifeSupport *) m_systems.GetSystem(HSS_LIFE_SUPPORT);
             if (!cLife)
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "  %s%s%s*%s %s%sWARNING%s %s%s%s*%s Life support systems non-existant!",
                         ANSI_HILITE, ANSI_BLINK, ANSI_YELLOW, ANSI_NORMAL,
                         ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL,
@@ -2298,7 +2298,7 @@ void CHSShip::HandleUndocking(void)
             }
             else if (!cLife->GetCurrentPower())
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "  %s%s%s*%s %s%sWARNING%s %s%s%s*%s Life support systems are not online.",
                         ANSI_HILITE, ANSI_BLINK, ANSI_YELLOW, ANSI_NORMAL,
                         ANSI_HILITE, ANSI_YELLOW, ANSI_NORMAL,
@@ -2307,7 +2307,7 @@ void CHSShip::HandleUndocking(void)
             }
             else
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "  %s%s-%s Life support systems check - OK.",
                         ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
                 NotifyConsoles(tbuf, MSG_GENERAL);
@@ -2316,7 +2316,7 @@ void CHSShip::HandleUndocking(void)
         else if (m_drop_status == iTestLifters)
         {
             // Test lift rockets.
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "  %s%s-%s Testing lift rockets ...",
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
             NotifyConsoles(tbuf, MSG_GENERAL);
@@ -2330,7 +2330,7 @@ void CHSShip::HandleUndocking(void)
             }
             else
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "Flames spurt intermittently from the lift rockets of the %s ...",
                         GetName());
                 hsInterface.NotifyContents(m_landing_target->Object(), tbuf);
@@ -2339,7 +2339,7 @@ void CHSShip::HandleUndocking(void)
         else if (m_drop_status == -HSCONF.seconds_to_drop)
         {
             // LIFT OFF!
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-%s Lift off procedures complete .. %d seconds to orbit.",
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
                     HSCONF.seconds_to_drop);
@@ -2367,7 +2367,7 @@ void CHSShip::HandleUndocking(void)
             }
             else
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "The wind suddenly picks up as the %s fires its lift rockets and begins its climb upward.",
                         GetName());
                 hsInterface.NotifyContents(m_landing_target->Object(), tbuf);
@@ -2387,7 +2387,7 @@ void CHSShip::HandleUndocking(void)
         }
         else if (m_drop_status == iHalfWay)
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-%s Orbit in %d seconds ...",
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL, -iHalfWay);
             NotifyConsoles(tbuf, MSG_GENERAL);
@@ -2400,7 +2400,7 @@ void CHSShip::HandleUndocking(void)
             }
             else
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "The %s disappears in the sky above as it continues its climb into orbit.",
                         GetName());
                 hsInterface.NotifyContents(m_landing_target->Object(), tbuf);
@@ -2410,13 +2410,13 @@ void CHSShip::HandleUndocking(void)
         {
             int iSize;
 
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-%s Ship is now in orbit above the celestial surface.",
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
             NotifyConsoles(tbuf, MSG_GENERAL);
 
             // Find the object we're taking off from and use the current
-            // coordinates in case the "planet" has moved.  
+            // coordinates in case the "planet" has moved.
             CHS3DObject *cUndockingFrom;
             CHSUniverse *uDest;
             cUndockingFrom =
@@ -2442,7 +2442,7 @@ void CHSShip::HandleUndocking(void)
                 return;
             }
             uDest->AddActiveObject(this);
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "In the distance, the %s undocks from %s.",
                     GetName(), m_landing_target->GetOwnerObject()->GetName());
 
@@ -2545,7 +2545,7 @@ void CHSShip::EngageAfterburn(HS_DBREF player, HS_BOOL8 bStat)
             hsStdError(player, "Failed to engage afterburners.");
         else
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-%s Afterburners engaged.",
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
             NotifyConsoles(tbuf, MSG_ENGINEERING);
@@ -2565,7 +2565,7 @@ void CHSShip::EngageAfterburn(HS_DBREF player, HS_BOOL8 bStat)
             // Give some effects messages
             if (uDest)
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "Flames roar from the engines of the %s as it engages its afterburners.",
                         GetName());
                 uDest->SendContactMessage(tbuf, IDENTIFIED, this);
@@ -2579,7 +2579,7 @@ void CHSShip::EngageAfterburn(HS_DBREF player, HS_BOOL8 bStat)
             hsStdError(player, "Failed to disengage afterburners.");
         else
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "%s%s-%s Afterburners disengaged.",
                     ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
             NotifyConsoles(tbuf, MSG_ENGINEERING);
@@ -2599,7 +2599,7 @@ void CHSShip::EngageAfterburn(HS_DBREF player, HS_BOOL8 bStat)
             // Give some effects messages
             if (uDest)
             {
-                sprintf(tbuf,
+                sprintf_s(tbuf,
                         "The roaring flames from the engines of the %s cease as it disengages afterburners.",
                         GetName());
                 uDest->SendContactMessage(tbuf, IDENTIFIED, this);
@@ -2721,7 +2721,7 @@ void CHSShip::EngageJumpDrive(HS_DBREF player, HS_BOOL8 bStat)
 
         if (cEngines->GetCurrentSpeed() < cJumpers->GetMinJumpSpeed())
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "Minimum sublight speed of %d %s/hr required to engage jump drive.",
                     cJumpers->GetMinJumpSpeed(), HSCONF.unit_name);
             hsStdError(player, tbuf);
@@ -2761,7 +2761,7 @@ void CHSShip::EnterHyperspace(void)
     m_hyperspace = true;
 
     // Effects messages
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s-%s Jump drive engaged.",
             ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
     NotifyConsoles(tbuf, MSG_ENGINEERING);
@@ -2782,7 +2782,7 @@ void CHSShip::EnterHyperspace(void)
     uSource = GetUniverse();
     if (uSource)
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "You see a flash of blue light as the %s engages its jump drives.",
                 GetName());
         uSource->SendContactMessage(tbuf, IDENTIFIED, this);
@@ -2801,7 +2801,7 @@ void CHSShip::ExitHyperspace(void)
 
     m_hyperspace = false;
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s-%s Jump drive disengaged.",
             ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
     NotifyConsoles(tbuf, MSG_ENGINEERING);
@@ -2822,7 +2822,7 @@ void CHSShip::ExitHyperspace(void)
     uSource = GetUniverse();
     if (uSource)
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "You see a flash of blue light as a vessel comes out of hyperspace.");
         uSource->SendMessage(tbuf, 1000, this);
     }
@@ -2899,7 +2899,7 @@ void CHSShip::DoBreakBoardLink(HS_DBREF player, int slot)
                           MSG_GENERAL);
 
     char tbuf[256];
-    sprintf(tbuf, "The %s disengages docking couplings.", GetName());
+    sprintf_s(tbuf, "The %s disengages docking couplings.", GetName());
     cShip->NotifyConsoles(tbuf, MSG_GENERAL);
 
     hsStdError(player, "Docking couplings disengaged.");
@@ -2977,7 +2977,7 @@ void CHSShip::DoBoardLink(HS_DBREF player, int id, int lhatch, int dhatch)
                cObj->GetX(), cObj->GetY(), cObj->GetZ()) >
         HSCONF.max_board_dist)
     {
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "Vessel must be within %d %s to establish boarding link.",
                 HSCONF.max_board_dist, HSCONF.unit_name);
         hsStdError(player, tbuf);
@@ -3026,19 +3026,19 @@ void CHSShip::DoBoardLink(HS_DBREF player, int id, int lhatch, int dhatch)
     cHatch->TargetHatch(lhatch);
     lHatch->TargetHatch(dhatch);
     hsInterface.LinkExits(lHatch->Object(), cHatch->Object());
-    sprintf(tbuf, "%s connects with %s's %s.",
+    sprintf_s(tbuf, "%s connects with %s's %s.",
             hsInterface.GetName(lHatch->Object()), cShip->GetName(),
             hsInterface.GetName(cHatch->Object()));
     lHatch->HandleMessage(tbuf, MSG_GENERAL);
-    sprintf(tbuf, "%s connects with %s's %s.",
+    sprintf_s(tbuf, "%s connects with %s's %s.",
             hsInterface.GetName(cHatch->Object()),
             GetName(), hsInterface.GetName(lHatch->Object()));
     cHatch->HandleMessage(tbuf, MSG_GENERAL);
-    sprintf(tbuf, "A loud clang is heard as docking couplings are engaged.");
+    sprintf_s(tbuf, "A loud clang is heard as docking couplings are engaged.");
     NotifySrooms(tbuf);
     cShip->NotifySrooms(tbuf);
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "The %s has engaged docking couplings on our hatch %d.",
             GetName(), lhatch);
     cShip->NotifyConsoles(tbuf, MSG_GENERAL);
@@ -3046,7 +3046,7 @@ void CHSShip::DoBoardLink(HS_DBREF player, int id, int lhatch, int dhatch)
     hsStdError(player, "Hatches connected.");
 }
 
-// Scans a target ID on sensors and gives the player a 
+// Scans a target ID on sensors and gives the player a
 // scan report.
 void CHSShip::ScanObjectID(HS_DBREF player, int id)
 {
@@ -3284,7 +3284,7 @@ void CHSShip::EngageCloak(HS_DBREF player, HS_BOOL8 bStat)
         CHSUniverse *uSource;
         cCloak->SetEngaged(true);
 
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s-%s Cloaking Device engaged.",
                 ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
         NotifyConsoles(tbuf, MSG_ENGINEERING);
@@ -3293,7 +3293,7 @@ void CHSShip::EngageCloak(HS_DBREF player, HS_BOOL8 bStat)
         uSource = GetUniverse();
         if (uSource)
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "A vessel slowly shifts out of view as it engages its cloaking device.");
             uSource->SendMessage(tbuf, 1000, this);
         }
@@ -3302,7 +3302,7 @@ void CHSShip::EngageCloak(HS_DBREF player, HS_BOOL8 bStat)
     {
         CHSUniverse *uSource;
         cCloak->SetEngaged(false);
-        sprintf(tbuf,
+        sprintf_s(tbuf,
                 "%s%s-%s Cloaking Device disengaged.",
                 ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL);
         NotifyConsoles(tbuf, MSG_ENGINEERING);
@@ -3311,7 +3311,7 @@ void CHSShip::EngageCloak(HS_DBREF player, HS_BOOL8 bStat)
         uSource = GetUniverse();
         if (uSource)
         {
-            sprintf(tbuf,
+            sprintf_s(tbuf,
                     "A vessel slowly shifts into view as it disengages its cloaking device.");
             uSource->SendMessage(tbuf, 1000, this);
         }
@@ -3320,7 +3320,7 @@ void CHSShip::EngageCloak(HS_DBREF player, HS_BOOL8 bStat)
 
 void CHSShip::GiveHatchRep(HS_DBREF player)
 {
-    unsigned int idx; 
+    unsigned int idx;
     unsigned int hatches = 0;
 
     CHSHatch *cHatch;
@@ -3341,20 +3341,20 @@ void CHSShip::GiveHatchRep(HS_DBREF player)
 
     char tbuf[512];
     // Give the header info
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s.----------------------------------------------------------.%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s Hatch Status Report      %30s  %s%s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL, GetName(),
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s >--------------------------------------------------------<%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s|%s-%s#%s%s-       - %sShip Linked %s%s-                 - %sRemote Port %s%s- %s|%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL, ANSI_HILITE,
             ANSI_GREEN, ANSI_NORMAL, ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL,
@@ -3373,23 +3373,23 @@ void CHSShip::GiveHatchRep(HS_DBREF player)
         cShip = dbHSDB.FindShip(cHatch->TargetObject());
         if (cShip)
         {
-            sprintf(tbuf2, "%s", cShip->GetName());
-            sprintf(tbuf3, "%i", cHatch->TargetHatch() + 1);
+            sprintf_s(tbuf2, "%s", cShip->GetName());
+            sprintf_s(tbuf3, "%i", cHatch->TargetHatch() + 1);
         }
         else
         {
-            sprintf(tbuf2, "Unconnected");
-            sprintf(tbuf3, "Unconnected");
+            sprintf_s(tbuf2, "Unconnected");
+            sprintf_s(tbuf3, "Unconnected");
         }
 
-        sprintf(tbuf, "%s%s|%s[%s%i%s%s]%s  %-36s  %11s    %s%s|%s",
+        sprintf_s(tbuf, "%s%s|%s[%s%i%s%s]%s  %-36s  %11s    %s%s|%s",
                 ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL, idx,
                 ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL, tbuf2, tbuf3,
                 ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
         hsInterface.Notify(player, tbuf);
     }
 
-    sprintf(tbuf,
+    sprintf_s(tbuf,
             "%s%s`----------------------------------------------------------'%s",
             ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     hsInterface.Notify(player, tbuf);
