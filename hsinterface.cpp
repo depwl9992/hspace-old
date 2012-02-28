@@ -29,7 +29,7 @@ extern "C"
 #define __attribute__(_arg_)
 #endif
 
-#define restrict	__restrict__
+#define hsrestrict	__restrict__
 
 #include "conf.h"
 #include "externs.h"
@@ -45,6 +45,7 @@ extern "C"
 #include "parse.h"
 #include "function.h"
 #include "ptab.h"
+#include "svninfo.h"
 #include "version.h"            // necessary for NUMVERSION checking
 
     typedef enum look_type HS_LOOK_TYPE;
@@ -52,7 +53,7 @@ extern "C"
     void free_object(dbref thing); 
 
     extern int process_expression(char *, char **, char const **,
-                                  dbref, dbref, dbref, int, int, PE_Info *);
+                                  dbref, dbref, dbref, int, int, NEW_PE_INFO *pe_info);
 
     extern void clone_locks(dbref player, dbref orig, dbref clone);
 
@@ -105,9 +106,10 @@ extern "C"
 #if defined(TM3) || defined(MUX)
 char *wenv[10];
 #else
-// this will work only for Penn > 1.7.7p35
-//#if (NUMVERSION > 001007007035)
+// this will work only for Penn > 1.7.7p35 through 1.8.4p3
+#if (NUMVERSION > 1007007035) && (NUMVERSION < 1008004004)
 char **wenv = global_eval_context.wenv;
+#endif
 #endif
 
 
@@ -328,7 +330,7 @@ HS_BOOL8 CHSInterface::AtrGet(int obj, const char *atrname)
         return false;
     }
 
-    strcpy(m_buffer, atr_value(a));
+    strcpy_s(m_buffer, atr_value(a));
     return true;
 #endif
 
@@ -472,10 +474,10 @@ void CHSInterface::SetFlag(HS_DBREF dbObject,
     else
     {
         char buff[BUFFER_LEN];
-        strcpy(buff,
+        strcpy_s(buff,
                bits_to_string("FLAG", Flags(dbObject), dbObject, dbObject));
-        strcat(buff, " ");
-        strcat(buff, iFlag);
+        strcat_s(buff, " ");
+        strcat_s(buff, iFlag);
         Flags(dbObject) = string_to_bits("FLAG", buff);
     }
 }
@@ -588,7 +590,7 @@ void CHSInterface::SetLock(int objnum, int lockto, HS_LOCKTYPE lock)
 {
 #ifdef PENNMUSH                 // No change in code between versions
     char tmp[32];
-    sprintf(tmp, "#%d", lockto);
+    sprintf_s(tmp, "#%d", lockto);
 
     switch (lock)
     {
@@ -867,10 +869,10 @@ void CHSInterface::CHZone(HS_DBREF room, HS_DBREF zone)
 #endif
 
 #ifdef PENNMUSH                 // No change in code between versions
-    sprintf(zonename, "#%d", zone);
-    sprintf(roomname, "#%d", room);
-
-    do_chzone(GOD, roomname, zonename, 0);
+    sprintf_s(zonename, "#%d", zone);
+    sprintf_s(roomname, "#%d", room);
+	NEW_PE_INFO *pe_info = make_pe_info("pe_info-hspace_chzone");
+    do_chzone(GOD, roomname, zonename, 0, 0, pe_info);
 #endif
 
 #if defined(TM3)
@@ -970,6 +972,7 @@ HSPACE_COMMAND_PROTO(hscUnmanConsole)
 HSPACE_COMMAND_PROTO(hscBoardShip) HSPACE_COMMAND_PROTO(hscDisembark)
 #endif
 #ifdef PENNMUSH                 // No change in code between versions
+dbref player;
 COMMAND(cmd_hs_man)
 {
     hscManConsole(player, arg_left, arg_right);
@@ -1189,7 +1192,7 @@ HS_DBREF CHSInterface::GetLocation(HS_DBREF dbItem)
 void CHSInterface::MoveObject(HS_DBREF dbObject, HS_DBREF dbTo)
 {
 #ifdef PENNMUSH                 // No change in code between versions
-    moveto(dbObject, dbTo);
+    moveto(dbObject, dbTo, SYSEVENT, "HSpace MoveObject");
 #endif
 
 #if defined(TM3) || defined(MUX)
@@ -1240,17 +1243,17 @@ HS_BOOL8 CHSInterface::EvalCommand(const HS_INT8 * command, HS_DBREF dbPlayer,
                                    HS_DBREF dbCause)
 {
 #ifdef PENNMUSH                 //
-    char *rsaves[10];
+    //char *rsaves[10];
 
     if (!ValidObject(dbPlayer) || !ValidObject(dbCause) || !command
         || !*command)
         return false;
 
-    save_global_env("hsInterface::EvalCommand", rsaves);
-    restore_global_env("LocalContext", m_registers);
-    parse_que(dbPlayer, command, dbCause);
-    save_global_env("LocalContext", m_registers);
-    restore_global_env("hsInterface::EvalCommand", rsaves);
+	//save_env("hsInterface::EvalCommand", rsaves);
+	//restore_env("LocalContext", m_registers);
+    //parse_que(dbPlayer, command, dbCause, NULL);
+    //save_env("LocalContext", m_registers);
+    //restore_env("hsInterface::EvalCommand", rsaves);
 #endif //PENNMUSH
     return true;
 }
@@ -1259,7 +1262,8 @@ void CHSInterface::LookInRoom(HS_DBREF dbPlayer,
                               HS_DBREF dbRoom, HS_INT32 iHow)
 {
 #ifdef PENNMUSH
-    look_room(dbPlayer, dbRoom, (HS_LOOK_TYPE) iHow);
+	NEW_PE_INFO *pe_info = make_pe_info("pe_info-HSpace_look_in_room");
+    look_room(dbPlayer, dbRoom, (HS_LOOK_TYPE) iHow, pe_info);
 #endif
 
 #if defined(TM3) || defined(MUX)
@@ -1609,5 +1613,5 @@ HS_BOOL8 CHSInterface::ValidatePlayerPassword(HS_DBREF dbPlayer,
 void CHSInterface::SetEnvironmentVariable(HS_INT8 * pcValue)
 {
 
-    wenv[m_uiEnvVariableCount++] = pcValue;
+    //wenv[m_uiEnvVariableCount++] = pcValue;
 }
